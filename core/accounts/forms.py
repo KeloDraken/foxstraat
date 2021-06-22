@@ -9,6 +9,17 @@ from core.accounts.models import User
 
 
 class UserRegistrationForm(UserCreationForm):
+    username = forms.CharField(max_length=20, label=None)
+    password1 = forms.CharField(
+        max_length=60, 
+        label=None, 
+        widget=forms.PasswordInput
+    )
+    password2 = forms.CharField(
+        max_length=60, 
+        label=None, 
+        widget=forms.PasswordInput
+    )
 
     class Meta:
         model = User
