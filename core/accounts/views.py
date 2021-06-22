@@ -13,6 +13,6 @@ def user_registration(request):
 
     return render(
         request, 
-        'accounts/registration_form.html', 
+        'auth/registration_form.html', 
         {'registration_form': registration_form}
     )
