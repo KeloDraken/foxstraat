@@ -3,4 +3,9 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    object_id = models.CharField(max_length=20, null=True, blank=True)
+    date_joined = models.DateField(auto_now_add=True)
+    datetime_joined = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.username
