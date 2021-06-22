@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     # Foxstraat apps
     'core.accounts',
+    'core.bulletin',
 ]
 
 MIDDLEWARE = [
