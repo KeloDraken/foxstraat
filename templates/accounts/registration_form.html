@@ -1,0 +1,5 @@
+<form method="post" action="{% url 'accounts:user-register' %}">
+    {% csrf_token %}
+    {{ registration_form.as_p }}
+    <button type="submit">Join Foxstraat</button>
+</form>

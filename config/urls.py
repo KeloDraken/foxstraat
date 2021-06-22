@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from django.urls import path
+from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('accounts/', include('core.accounts.urls', namespace='accounts')),
 ]
 
 admin.site.site_header = 'Foxstraat Site Admin'
