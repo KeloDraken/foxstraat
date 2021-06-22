@@ -8,23 +8,27 @@ from core.accounts.forms import (
 
 
 def user_registration(request):
-    if request.method =='POST':        
-        registration_form = UserRegistrationForm(request.POST)
-        if registration_form.is_valid():
-            registration_form.save()
-            return redirect('/')
+    if request.user.is_authenticated:
+        return redirect('/')
     else:
-        registration_form = UserRegistrationForm()
+        if request.method =='POST':
+            registration_form = UserRegistrationForm(request.POST)
+            if registration_form.is_valid():
+                registration_form.save()
+                return redirect('/')
+        else:
+            registration_form = UserRegistrationForm()
 
-    return render(
-        request, 
-        'auth/registration_form.html', 
-        {'registration_form': registration_form}
-    )
+        return render(
+            request, 
+            'auth/registration_form.html', 
+            {'registration_form': registration_form}
+        )
 
 
 class UserLoginView(LoginView):
     template_name = 'auth/login_form.html'
     authentication_form = UserLoginForm
+    redirect_authenticated_user = True
 
 user_login = UserLoginView.as_view()
