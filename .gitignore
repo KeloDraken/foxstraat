@@ -1,0 +1,13 @@
+.vscode/
+__pycache__/
+*.pyc
+
+*.sqlite3
+!db.sqlite3
+static-local/
+media-root/
+
+migrations/
+production.py
+
+env/
