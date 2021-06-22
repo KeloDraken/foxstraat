@@ -26,6 +26,9 @@ INSTALLED_APPS = [
     #Third-party apps
     'corsheaders',
     'rest_framework',
+
+    # Foxstraat apps
+    'core.accounts',
 ]
 
 MIDDLEWARE = [
