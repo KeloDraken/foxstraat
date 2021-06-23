@@ -21,10 +21,20 @@ from django.conf.urls.static import static
 
 from django.urls import include, path
 
+from core.accounts.views import (
+    get_user_profile,
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # User main profile
+    path('<username>/', get_user_profile, name='get-user-profile'),
+
+    # Accounts urls
     path('accounts/', include('core.accounts.urls', namespace='accounts')),
+
+    # Bulletin urls
     path('bulletin/', include('core.bulletin.urls', namespace='bulletin')),
 ] + static(
     settings.STATIC_URL, 

@@ -8,6 +8,7 @@ from core.accounts.forms import (
     UserLoginForm,
     UserRegistrationForm
 )
+from core.accounts.models import User
 
 
 def user_registration(request):
@@ -49,3 +50,11 @@ def user_dashboard(request):
         'user': user
     }
     return render(request, 'views/accounts/dashboard.html', context)
+
+
+def get_user_profile(request, username):
+    user = User.objects.get(username=username)
+    context = {
+        'user': user
+    }
+    return render(request, 'views/accounts/user_profile.html', context)

@@ -14,10 +14,10 @@
                             </span>
                         </a>
                     </li>
-                    <li title="Forums">
-                        <a href="#">
+                    <li title="{{ user.username }}">
+                        <a href="{% url 'get-user-profile' username=user.username %}">
                             <span class="material-icons-outlined">
-                                forum
+                                account_circle
                             </span>
                         </a>
                     </li>
@@ -32,6 +32,13 @@
                         <a href="#">
                             <span class="material-icons-outlined">
                                 insert_chart_outlined
+                            </span>
+                        </a>
+                    </li>
+                    <li title="Forums">
+                        <a href="#">
+                            <span class="material-icons-outlined">
+                                forum
                             </span>
                         </a>
                     </li>
