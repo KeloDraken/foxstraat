@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+.n-logo {
+  font-size: 2em !important;
+  font-family: "Lobster", cursive;
+  color: rgb(24, 24, 24) !important;
+}
+.right{
+    margin-top: 7px;
+}
+.right a {
+    color: rgb(24, 24, 24) !important;
+}
+.right a:hover{
+    background-color: transparent !important;
+
+}

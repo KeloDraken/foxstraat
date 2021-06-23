@@ -1,18 +1,49 @@
-<div class="row">
-    <div class="col">
-        <a href="/">Home</a>
-    </div>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/components/navbar.css' %}">
 
-    {% if request.user.is_authenticated %}
-    <div class="col">
-        <a href="{% url 'accounts:user-dashboard' %}">Dashboard</a>
-    </div>
-    {% endif %}
-
-    {% if not request.user.is_authenticated %}
-    <div class="col">
-        <a href="{% url 'accounts:user-login' %}">Sign in</a>
-        <a href="{% url 'accounts:user-register' %}">Create account</a>
-    </div>
-    {% endif %}
+<div class="navbar-fixed">
+    <nav class="white">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/" class="brand-logo n-logo">Foxstraat.</a>
+                <ul class="right">
+                    <li title="{{ user.username }}'s dashboard">
+                        <a href="{% url 'accounts:user-dashboard' %}">
+                            <span class="material-icons-outlined">
+                                dashboard
+                            </span>
+                        </a>
+                    </li>
+                    <li title="Forums">
+                        <a href="#">
+                            <span class="material-icons-outlined">
+                                forum
+                            </span>
+                        </a>
+                    </li>
+                    <li title="Browse">
+                        <a href="#">
+                            <span class="material-icons-outlined">
+                                explore
+                            </span>
+                        </a>
+                    </li>
+                    <li title="Top charts">
+                        <a href="#">
+                            <span class="material-icons-outlined">
+                                insert_chart_outlined
+                            </span>
+                        </a>
+                    </li>
+                    <li title="Foxstraat Selekt">
+                        <a href="#">
+                            <span class="material-icons-outlined">
+                                storefront
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </div>
