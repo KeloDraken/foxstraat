@@ -1,4 +1,6 @@
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import redirect, render
 
 from core.accounts.forms import (
@@ -9,13 +11,13 @@ from core.accounts.forms import (
 
 def user_registration(request):
     if request.user.is_authenticated:
-        return redirect('/')
+        return redirect('accounts:user-dashboard')
     else:
         if request.method =='POST':
             registration_form = UserRegistrationForm(request.POST)
             if registration_form.is_valid():
                 registration_form.save()
-                return redirect('/')
+                return redirect('accounts:user-dashboard')
         else:
             registration_form = UserRegistrationForm()
 
@@ -32,3 +34,12 @@ class UserLoginView(LoginView):
     redirect_authenticated_user = True
 
 user_login = UserLoginView.as_view()
+
+
+@login_required
+def user_dashboard(request):
+    user = request.user
+    context = {
+        'user': user
+    }
+    return render(request, 'accounts/dashboard.html', context)

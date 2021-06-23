@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from django.shortcuts import redirect, render
 
@@ -10,6 +11,7 @@ from core.bulletin.forms import (
 from core.bulletin.models import Bulletin, BulletinImage
 
 
+@login_required
 def create_bulletin(request):
     if not request.user.is_authenticated:
         return redirect('accounts:user-login')
