@@ -1,7 +1,57 @@
 {% extends 'base.html' %}
-{% block title %}Foxstraat - Add bulletin{% endblock %}
+{% block title %}Foxstraat - Create post{% endblock %}
+
+{% block styles  %}
+<style>
+    .image-preview{
+        margin-right: 3px;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-<h3>add bulletin</h3>
-<input type="file" accept="image/png, image/jpeg" name="images" />
+<h3>Create post</h3>
+<form>
+    <input type="file" accept="image/png, image/jpeg" id="bulletin-images" name="images" multiple />
+    <textarea name="caption" cols="30" rows="10"></textarea>
+    <div id="preview"></div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    function previewImages() {
+
+        var preview = document.querySelector('#preview');
+
+        if (this.files) {
+            [].forEach.call(this.files, readAndPreview);
+        }
+
+        function readAndPreview(file) {
+
+            // Make sure `file.name` matches our extensions criteria
+            if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                return alert(file.name + " is not an image");
+            } // else...
+
+            var reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                var image = new Image();
+                image.height = 100;
+                image.className = "image-preview"
+                image.title = file.name;
+                image.src = this.result;
+                preview.appendChild(image);
+            });
+
+            reader.readAsDataURL(file);
+
+        }
+
+    }
+
+    document.querySelector('#bulletin-images').addEventListener("change", previewImages);
+</script>
 {% endblock %}
