@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
+html, body {margin: 0; height: 100%; overflow: hidden}
+
 .logo {
   font-size: 3em !important;
   font-family: "Lobster", cursive;
@@ -10,6 +12,10 @@
 }
 .register-form {
   margin-top: 3%;
+}
+.form-side {
+  height: 100vh !important;
+  background-color: #000;
 }
 .form-input {
   border: 2px solid #000 !important;
@@ -31,4 +37,5 @@
 }
 .submit-btn {
   width: 31rem !important;
+  margin-bottom: 1rem !important;
 }

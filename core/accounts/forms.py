@@ -63,6 +63,31 @@ class UserRegistrationForm(UserCreationForm):
         return user
 
 class UserLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        max_length=20, 
+        label='', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Username',
+                'autocomplete': 'off',
+                'autocapitalize': 'off'
+            }
+        )
+    )
+    password = forms.CharField(
+        max_length=60, 
+        label='', 
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Password',
+                'id': 'password',
+                'autocomplete': 'false',
+                'autocapitalize': 'off'
+            }
+        )
+    )
     def confirm_login_allowed(self, user):
         if not user.is_active:
             raise ValidationError(
