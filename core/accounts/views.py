@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 
@@ -34,6 +35,11 @@ class UserLoginView(LoginView):
     redirect_authenticated_user = True
 
 user_login = UserLoginView.as_view()
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')
 
 
 @login_required

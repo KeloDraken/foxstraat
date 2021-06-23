@@ -6,4 +6,7 @@
 {% include 'components/navbar.html' %}
 
 <h4>{{ user.username }}</h4>
+
+
+<a href="{% url 'accounts:user-logout' %}">Sign out</a>
 {% endblock %}
