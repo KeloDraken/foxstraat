@@ -2,5 +2,8 @@
 {% block title %}Foxstraat - {{ user.username }}'s dashboard{% endblock %}
 
 {% block body %}
+
+{% include 'components/navbar.html' %}
+
 <h4>{{ user.username }}</h4>
 {% endblock %}

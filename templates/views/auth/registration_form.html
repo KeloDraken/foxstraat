@@ -1,11 +1,33 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Foxstraat - Registration{% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/auth/auth.css' %}">
+{% endblock %}
+
 {% block body %}
-<form method="post" action="{% url 'accounts:user-register' %}">
-    {% csrf_token %}
-    {{ registration_form.as_p }}
-    <button type="submit">Join Foxstraat</button>
-</form>
+<div class="row">
+    <div class="col s6 register-form">
+        <div class="container ">
+            
+            <h3 class="center black-text">Create Account</h3>
+            <div class="row">
+                <form method="post" action="{% url 'accounts:user-register' %}" class="col s12">
+                    {% csrf_token %}
+                    {{registration_form.as_p}}
+                    <button class="btn btn-large black white-text submit-btn" type="submit">Join Foxstraat</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div style="height: 99vh;" class="col s6 black">
+        <div class="center branding">
+            <h3 class="white-text logo">Foxstraat.</h3>
+            <p class="white-text slogan">Prepare to be assimilated</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

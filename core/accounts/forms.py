@@ -9,16 +9,43 @@ from core.accounts.models import User
 
 
 class UserRegistrationForm(UserCreationForm):
-    username = forms.CharField(max_length=20, label=None)
+    username = forms.CharField(
+        max_length=20, 
+        label='', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Pick a unique username',
+                'autocomplete': 'off',
+                'autocapitalize': 'off'
+            }
+        )
+    )
     password1 = forms.CharField(
         max_length=60, 
-        label=None, 
-        widget=forms.PasswordInput
+        label='', 
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Create secure password',
+                'id': 'password',
+                'autocomplete': 'false',
+                'autocapitalize': 'off'
+            }
+        )
     )
     password2 = forms.CharField(
         max_length=60, 
-        label=None, 
-        widget=forms.PasswordInput
+        label='', 
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Please confirm your password',
+                'id': 'password',
+                'autocomplete': 'none',
+                'autocapitalize': 'off'
+            }
+        )
     )
 
     class Meta:
