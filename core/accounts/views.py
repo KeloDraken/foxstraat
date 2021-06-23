@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
@@ -58,3 +59,36 @@ def get_user_profile(request, username):
         'user': user
     }
     return render(request, 'views/accounts/user_profile.html', context)
+
+
+@login_required
+def edit_user_profile(request):
+    if request.method == 'POST':
+        custom_styles = request.POST['custom_styles']
+        
+        if '<script>' in custom_styles \
+        or '</script>' in custom_styles \
+        or '<SCRIPT>' in custom_styles \
+        or '</SCRIPT>' in custom_styles :
+            context = {
+                'user': request.user,
+            }
+            messages.error(
+                request, 
+                '''
+                Only css is allowed.
+                Your account has been placed on a watchlist. 
+                Continued use of non-css code will result in a 
+                permanent ban from Foxstraat.
+                '''
+            )
+            return render(request, 'views/accounts/edit_profile.html', context)
+        else:
+            user = request.user
+            user.custom_styles = custom_styles
+            user.save()
+        
+    context = {
+        'user': request.user,
+    }
+    return render(request, 'views/accounts/edit_profile.html', context)

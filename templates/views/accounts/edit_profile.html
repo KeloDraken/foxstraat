@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Foxstraat - Edit profile{% endblock %}
+
+{% block styles %}
+<style>
+    textarea {
+        max-width: 70% !important;
+        max-height: 60% !important;
+        width: 1000px !important;
+        height: 300px !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+<div class="container center">
+    <h1 class="center">Edit profile</h1>
+    <form action="{% url 'accounts:edit-user-profile' %}" method="post">
+        {% if messages %}
+        <div class="container center">
+            {% for message in messages %}
+            <div class="red white-text">{{ message }}</div>
+            {% endfor %}
+        </div>
+        <br>
+        {% endif %}
+
+
+        {% csrf_token %}
+        <textarea name="custom_styles" id="custom_styles">
+            {{user.custom_styles}}
+        </textarea>
+        <br>
+        <button type="submit">Save changes</button>
+    </form>
+</div>
+{% endblock %}
