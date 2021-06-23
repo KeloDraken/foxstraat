@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.models import Group
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 from django.urls import include, path
 
 urlpatterns = [
@@ -22,7 +26,10 @@ urlpatterns = [
 
     path('accounts/', include('core.accounts.urls', namespace='accounts')),
     path('bulletin/', include('core.bulletin.urls', namespace='bulletin')),
-]
+] + static(
+    settings.STATIC_URL, 
+    document_root=settings.STATIC_ROOT
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'Foxstraat Site Admin'
 admin.site.site_title = 'Foxstraat Site Admin'
