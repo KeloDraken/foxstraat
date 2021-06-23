@@ -23,13 +23,13 @@ def user_registration(request):
 
         return render(
             request, 
-            'auth/registration_form.html', 
+            'views/auth/registration_form.html', 
             {'registration_form': registration_form}
         )
 
 
 class UserLoginView(LoginView):
-    template_name = 'auth/login_form.html'
+    template_name = 'views/auth/login_form.html'
     authentication_form = UserLoginForm
     redirect_authenticated_user = True
 
@@ -42,4 +42,4 @@ def user_dashboard(request):
     context = {
         'user': user
     }
-    return render(request, 'accounts/dashboard.html', context)
+    return render(request, 'views/accounts/dashboard.html', context)

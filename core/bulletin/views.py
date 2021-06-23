@@ -56,5 +56,5 @@ def create_bulletin(request):
             'post_form': post_form, 
             'formset': formset
         }
-        return render(request, 'bulletin/create_bulletin.html', context)
+        return render(request, 'views/bulletin/create_bulletin.html', context)
 
