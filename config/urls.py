@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('accounts/', include('core.accounts.urls', namespace='accounts')),
+    path('bulletin/', include('core.bulletin.urls', namespace='bulletin')),
 ]
 
 admin.site.site_header = 'Foxstraat Site Admin'

@@ -1,5 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Foxstraat - Sign In{% endblock %}
+
+{% block body %}
 <form action="{% url 'accounts:user-login' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">login</button>
+    <button type="submit">Sign in</button>
 </form>
+{% endblock %}

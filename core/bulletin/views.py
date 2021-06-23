@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def create_bulletin(request):
+    return render(request, 'bulletin/create_bulletin.html')
