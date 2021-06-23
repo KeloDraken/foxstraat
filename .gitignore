@@ -4,7 +4,7 @@ __pycache__/
 
 *.sqlite3
 !db.sqlite3
-static-local/
+static-root/
 media-root/
 
 migrations/
