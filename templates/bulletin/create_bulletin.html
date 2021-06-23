@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Foxstraat - Create post{% endblock %}
 
-{% block styles  %}
+{% block styles %}
 <style>
-    .image-preview{
+    .image-preview {
         margin-right: 3px;
     }
 </style>
@@ -11,13 +11,33 @@
 
 {% block body %}
 <h3>Create post</h3>
-<form action="{% url 'bulletin:create-bulletin' %}" method="post">
+<!-- <form action="{% url 'bulletin:create-bulletin' %}" method="post">
     {% csrf_token %}
     <input type="file" accept="image/png, image/jpeg" id="bulletin-images" name="images" multiple />
     <textarea name="caption" cols="30" rows="10"></textarea>
     <div id="preview"></div>
     <button type="submit">create post</button>
+</form> -->
+
+<form id="post_form" method="post" action="{% url 'bulletin:create-bulletin' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for hidden in post_form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+
+    {% for field in post_form %}
+    {{ field }} <br />
+    {% endfor %}
+
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form }}
+    {% endfor %}
+
+
+    <input type="submit" name="submit" value="Submit" />
 </form>
+
 {% endblock %}
 
 {% block scripts %}

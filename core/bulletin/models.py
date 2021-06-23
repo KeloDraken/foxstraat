@@ -11,7 +11,7 @@ class Bulletin(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     
 class BulletinImage(models.Model):
-    property = models.ForeignKey(
+    bulletin = models.ForeignKey(
         Bulletin, 
         on_delete=models.CASCADE, 
         related_name='images'
