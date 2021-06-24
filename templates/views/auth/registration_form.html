@@ -17,7 +17,7 @@
                 <form method="post" action="{% url 'accounts:user-register' %}" class="col s12">
                     {% csrf_token %}
                     {{registration_form.as_p}}
-                    <button class="btn btn-large black white-text submit-btn" type="submit">Join Foxstraat</button>
+                    <button class="btn btn-large waves-effect waves-light black white-text submit-btn" type="submit">Join Foxstraat</button>
                 </form>
                 <a href="{% url 'accounts:user-login' %}" class="black-text">Sign in instead</a>
             </div>

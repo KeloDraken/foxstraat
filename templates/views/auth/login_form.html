@@ -17,7 +17,7 @@
                 <form action="{% url 'accounts:user-login' %}" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button class="btn btn-large black white-text submit-btn" type="submit">Sign in</button>
+                    <button class="btn btn-large waves-effect waves-light black white-text submit-btn" type="submit">Sign in</button>
                 </form>
                 <a href="{% url 'accounts:user-register' %}" class="black-text">Sign up instead</a>
 

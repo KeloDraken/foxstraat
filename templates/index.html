@@ -1,5 +1,101 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Foxstraat - Prepare to be assimilated{% endblock %}
+
+{% block styles %}
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+    .n-logo {
+        font-size: 2em !important;
+        font-family: "Lobster", cursive;
+        color: rgb(24, 24, 24) !important;
+    }
+
+    nav {
+        border-bottom: 2px solid #212121;
+    }
+
+    section {
+        height: 60vh;
+    }
+
+    .subheading {
+        font-size: 2em !important;
+        font-weight: 400;
+        margin-top: -1em;
+    }
+
+    .about {
+        border-top: 2px solid #212121;
+        padding-top: 2rem;
+    }
+
+    .join {
+        font-weight: 700 !important;
+        width: 20rem;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-<h1>Hello World</h1>
+<!-- Navbar starts -->
+<div class="navbar">
+    <nav class="white">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/" class="brand-logo n-logo">Foxstraat.</a>
+                <ul class="right">
+                    <li>
+                        <a class="black-text" href="#about">
+                            Press
+                        </a>
+                    </li>
+                    <li>
+                        <a class="black-text" href="#about">
+                            About
+                        </a>
+                    </li>
+                    <li>
+                        <a class="black-text" href="#about">
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a class="black-text" href="#about">
+                            Support us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- Navbar ends -->
+
+<!-- banner begins -->
+<section class="container center banner">
+    <h1 class="logo black-text heading">Foxstraat.</h1>
+    <p class="subheading black-text">Prepare to be assimilated.</p>
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'accounts:user-register' %}" class="btn btn-large waves-effect waves-light black join">Get
+        started</a>
+    {% else %}
+    <a href="{% url 'accounts:user-dashboard' %}" class="btn btn-large waves-effect waves-light black join">Continue to
+        Dashboard</a>
+    {% endif %}
+</section>
+<!-- banner ends -->
+
+<section class="about">
+    <div class="container">
+        <h3 id="about" class="black-text">About Foxstraat</h3>
+        <div class="row">
+            <div class="col s4 red"></div>
+            <div class="col s4 green"></div>
+            <div class="col s4 yellow"></div>
+        </div>
+    </div>
+</section>
 {% endblock %}
