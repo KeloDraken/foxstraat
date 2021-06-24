@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from django.http.response import Http404
 
 from django.shortcuts import redirect, render
 
@@ -54,12 +55,14 @@ def user_dashboard(request):
 
 
 def get_user_profile(request, username):
-    user = User.objects.get(username=username)
-    context = {
-        'user': user
-    }
-    return render(request, 'views/accounts/user_profile.html', context)
-
+    try:
+        user = User.objects.get(username=username)
+        context = {
+            'user': user
+        }
+        return render(request, 'views/accounts/user_profile.html', context)
+    except:
+        raise Http404()
 
 @login_required
 def edit_user_profile(request):
