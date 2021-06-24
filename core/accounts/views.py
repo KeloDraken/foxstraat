@@ -85,6 +85,9 @@ def edit_user_profile(request):
             return render(request, 'views/accounts/edit_profile.html', context)
         else:
             user = request.user
+            bio = request.POST['about_me']
+
+            user.bio = bio
             user.custom_styles = custom_styles
             user.save()
         

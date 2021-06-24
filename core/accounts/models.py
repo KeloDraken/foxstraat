@@ -5,6 +5,8 @@ from django.db import models
 class User(AbstractUser):
     object_id = models.CharField(max_length=20, null=True, blank=True)
 
+    bio = models.TextField(null=True, blank=True, max_length=3000)
+
     # User social media links
     instagram = models.CharField(max_length=60, null=True, blank=True)
     twitter = models.CharField(max_length=60, null=True, blank=True)

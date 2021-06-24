@@ -6,7 +6,121 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foxstraat - {{user.username}}</title>
-    {{ user.custom_styles|safe }}
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap-grid.min.css"
+        integrity="sha512-LLxZHu50SXdFJdAzHmDJAoLaozhTB4BYZPoN+xdTRjiPmPhI+1mEJXdoHHiDWmd/jj/9x10pkd8mYGG9sqfPPA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- {{ user.custom_styles|safe }} -->
+
+    <style>
+        /* 
+        This Google font is a part of our branding. 
+        YOU ARE NOT ALLOWED TO CHANGE THIS FONT */
+        @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+        /* 
+        The logo font size cannot be less than 2em.
+        You may change the logo's colours, however, there needs to be ENOUGH CONTRAST 
+        between the logo and the background so much that the logo still remains visible. 
+        */
+
+        /* Branding styles begin */
+        .logo {
+            font-size: 2em !important;
+            color: #fff;
+            padding: 10px 16px;
+            text-decoration: none;
+            float: left;
+            font-family: "Lobster", cursive;
+        }
+        /* Branding styles end */
+
+        /* Navbar styles */
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+
+            /* Set the navbar to f ixed position */
+            position: fixed;
+
+            /* Position the navbar at the top of the page */
+            top: 0;
+            left: 0;
+
+            /* Full width */
+            width: 100%;
+        }
+
+        /* Links inside the navbar */
+        .nav-links {
+            float: left;
+            margin-top: 10px;
+            display: block;
+            color: #f2f2f2;
+            font-size: 1em;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change nav link background colour on mouse-over */
+        .nav-links:hover {
+            background: #ddd;
+            color: black;
+        }
+        /* Navbar styles end */
+
+        .container {
+            /* Add a top margin to avoid content overlay */
+            margin: 7rem 5rem;
+        }
+
+        /* User basic info styles */
+        .user-details-basic-container {}
+        .profile-image-container {}
+        .profile-picture {
+            float: left;
+            display: block;
+            margin-right: 3rem;
+        }
+        .username-container {}
+        .username {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        .social-links-container {}
+        .social-link {
+            text-decoration: underline;
+            color: blue;
+            font-weight: 600;
+            margin-right: 5px;
+        }        
+        .instagram {}        
+        .facebook {}        
+        .twitter {}        
+        .youtube {}
+        .twitch {}
+        /* user basic info styles end */
+        
+        /* user advanced info styles start */
+        .section-heading{
+            color: #000;
+        }
+        .user-details-advanced-container {}
+        .user-stat-container {}
+        .stat {
+            float: left;
+            display: block;
+            font-size: 1em;
+            font-weight: 700;
+            margin-right: 1em !important;
+        }
+        .bio-container{}
+        .bio{
+            font-family: 'Times New Roman', Times, serif
+        }
+        /* user advanced info styles end */
+    </style>
 </head>
 
 <body>
@@ -19,54 +133,19 @@
         <a class="nav-links" href="#">Store</a>
     </div>
 
-    <div class="main">
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.username }}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="row">
+                    {% include 'components/accounts/user_basic_details.html' %}
+                    {% include 'components/accounts/user_advanced_details.html' %}
+                    
+                </div>
+            </div>
+            <div class="col-8">
+                <h1 style="background-color: rebeccapurple">Profile content</h1>
+            </div>
+        </div>
     </div>
 </body>
 

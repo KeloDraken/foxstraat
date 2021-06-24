@@ -10,6 +10,10 @@
         width: 1000px !important;
         height: 300px !important;
     }
+    .btn{
+        margin: 2rem !important;
+        width: 650px;
+    }
 </style>
 {% endblock %}
 
@@ -29,11 +33,26 @@
 
 
         {% csrf_token %}
+        <!-- About me -->
+        <h5 class="black-text">Edit bio</h5>
+        <textarea autofocus maxlength="2000" name="about_me" id="about_me">
+            {{user.bio}}
+        </textarea><br>
+        <label for="about_me">2000 character limit</label>
+        <!-- about me ends -->
+        <br>
+        <!-- custom css starts -->
+        <h5 class="black-text">Customise profile</h5>
         <textarea name="custom_styles" id="custom_styles">
             {{user.custom_styles}}
-        </textarea>
+        </textarea><br>
+        <label class="grey-text" for="custom_styles">
+            JavaScript is not allowed.
+            Do not use HTML/CSS to cover important parts of Foxstraat incl. logo, navigation links. 
+        </label>
+        <!-- custom css ends -->
         <br>
-        <button type="submit">Save changes</button>
+        <button class="btn btn-large black" type="submit">Save changes</button>
     </form>
 </div>
 {% endblock %}
