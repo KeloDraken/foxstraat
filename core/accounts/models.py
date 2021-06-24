@@ -4,8 +4,17 @@ from django.db import models
 
 class User(AbstractUser):
     object_id = models.CharField(max_length=20, null=True, blank=True)
-    date_joined = models.DateField(auto_now_add=True)
-    datetime_joined = models.DateTimeField(auto_now_add=True)
+
+    # User social media links
+    instagram = models.CharField(max_length=60, null=True, blank=True)
+    twitter = models.CharField(max_length=60, null=True, blank=True)
+    youtube = models.CharField(max_length=60, null=True, blank=True)
+    twitch = models.CharField(max_length=60, null=True, blank=True)
+    tiktok = models.CharField(max_length=60, null=True, blank=True)
+    github = models.CharField(max_length=60, null=True, blank=True)
+    vsco = models.CharField(max_length=60, null=True, blank=True)
+    dribbble = models.CharField(max_length=60, null=True, blank=True)
+    
     custom_styles = models.TextField(
         null=False, 
         blank=False, 
@@ -76,6 +85,9 @@ class User(AbstractUser):
             </style>
         """
     )
+
+    date_joined = models.DateField(auto_now_add=True)
+    datetime_joined = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.username
