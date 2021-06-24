@@ -40,7 +40,7 @@ urlpatterns = [
     path('accounts/', include('core.accounts.urls', namespace='accounts')),
 
     # Bulletin urls
-    path('bulletin/', include('core.bulletin.urls', namespace='bulletin')),
+    path('b/', include('core.bulletin.urls', namespace='bulletin')),
 ] + static(
     settings.STATIC_URL, 
     document_root=settings.STATIC_ROOT

@@ -44,7 +44,7 @@ def create_bulletin(request):
                         photo = BulletinImage(bulletin=post_form, image=image)
                         photo.save()
 
-                return redirect('/')
+                return redirect(f'/b/{object_id}')
 
             else:
                 print(post_form.errors, formset.errors)
