@@ -21,7 +21,8 @@ class BulletinImageForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput(
         attrs={
             'onchange': 'processImage()',
-            'id': 'selected-image'
+            'id': 'selected-image',
+            'required': 'false'
         }
     ))
     class Meta:
