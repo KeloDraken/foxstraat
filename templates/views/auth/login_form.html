@@ -13,11 +13,27 @@
         <div class="container ">
 
             <h3 class="center black-text">Welcome Back</h3>
+            {% if messages %}
+            <div class="container center">
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="red white-text">{{ message }}</div>
+                {% elif message.tags == 'success' %}
+                <div class="green white-text">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            {% endif %}
+
             <div class="center row">
                 <form action="{% url 'accounts:user-login' %}" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <button class="btn btn-large waves-effect waves-light black white-text submit-btn" type="submit">Sign in</button>
+                    <button class="btn btn-large waves-effect waves-light black white-text submit-btn"
+                        type="submit">Sign in</button>
                 </form>
                 <a href="{% url 'accounts:user-register' %}" class="black-text">Sign up instead</a>
 
@@ -33,4 +49,11 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    function forceLower(strInput) {
+        strInput.value = strInput.value.toLowerCase();
+    }
+</script>
 {% endblock %}

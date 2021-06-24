@@ -1,7 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}Foxstraat - Create post{% endblock %}
 
 {% block styles %}
+<style>
+    .form-input {
+        color: #000 !important;
+        width: 80% !important;
+        border: 1px solid #797979 !important;
+    }.form-input::placeholder {
+        color: #000 !important;
+        opacity: 1 !important;
+    }
+</style>
 <style>
     .image-preview {
         border: 2px solid #ccc;
@@ -31,16 +43,18 @@
                 {{ hidden }}
                 {% endfor %}
 
+                
+                {% for field in post_form %}
+                {{ field }} <br />
+                {% endfor %}
+                
                 {{ formset.management_form }}
                 {% for form in formset %}
                 {{ form }}
                 {% endfor %}
 
-                {% for field in post_form %}
-                {{ field }} <br />
-                {% endfor %}
-
-
+                <br>
+                <br>
                 <br>
                 <input type="submit" name="submit" value="Submit" />
                 <br>

@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.http.response import Http404
@@ -21,7 +21,20 @@ def user_registration(request):
             registration_form = UserRegistrationForm(request.POST)
             if registration_form.is_valid():
                 registration_form.save()
-                return redirect('accounts:user-dashboard')
+
+                username = request.POST['username']
+                password = request.POST['password2']
+
+                user = authenticate(username=username, password=password)
+
+                if user is not None:
+                    login(request, user)
+                    messages.success(
+                        request, 
+                        'Welcome to Foxstraat. Feel free to explore.')
+                    return redirect('accounts:user-dashboard')
+                else:
+                    pass
         else:
             registration_form = UserRegistrationForm()
 

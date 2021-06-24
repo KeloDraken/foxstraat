@@ -5,16 +5,32 @@ from core.bulletin.models import (
     BulletinImage,
 )
 
-class CreateBulletinForm(forms.ModelForm): 
+class CreateBulletinForm(forms.ModelForm):
+    title = forms.CharField(
+        max_length=20, 
+        label='', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Give your post a short title',
+                'autocomplete': 'off',
+                'autofocus': 'true',
+                'autocapitalize': 'off'
+            }
+        )
+    ) 
     caption = forms.CharField(widget=forms.Textarea(
         attrs={
             'cols': 100,
+            'class': 'form-input',
+            'placeholder': 'Write your caption/bulletin',
+            'required': 'false',
             'rows': 100,
         }
     ))
     class Meta:
         model = Bulletin
-        fields = ('caption',)
+        fields = ('title','caption',)
  
  
 class BulletinImageForm(forms.ModelForm):

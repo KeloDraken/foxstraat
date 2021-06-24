@@ -5,6 +5,21 @@
 
 {% include 'components/navbar.html' %}
 
+{% if messages %}
+<div class="container center">
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="red white-text">{{ message }}</div>
+    {% elif message.tags == 'success' %}
+    <div class="green white-text">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+{% endif %}
+
 <a href="{% url 'accounts:edit-user-profile' %}">Edit profile</a>
 <h4>{{ user.display_name }}</h4>
 
