@@ -6,7 +6,7 @@
 {% include 'components/navbar.html' %}
 
 <a href="{% url 'accounts:edit-user-profile' %}">Edit profile</a>
-<h4>{{ user.username }}</h4>
+<h4>{{ user.display_name }}</h4>
 
 
 <a href="{% url 'accounts:user-logout' %}">Sign out</a>
