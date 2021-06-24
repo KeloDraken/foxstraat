@@ -12,7 +12,7 @@
     }
     .btn{
         margin: 2rem !important;
-        width: 650px;
+        width: 65vw;
     }
     .view-changes{
         text-decoration: underline;
@@ -22,7 +22,7 @@
 
 {% block body %}
 {% include 'components/navbar.html' %}
-<div class="container center">
+<div class="container">
     <h1 class="center">Edit profile</h1>
     <form action="{% url 'accounts:edit-user-profile' %}" method="post">
         {% if messages %}
@@ -46,18 +46,16 @@
 
         {% csrf_token %}
         <!-- About me -->
+        <div class="center">
         <h5 class="black-text">Edit bio</h5>
-        <textarea autofocus maxlength="2000" name="about_me" id="about_me">
-            {{user.bio}}
-        </textarea><br>
+        <textarea autofocus maxlength="2000" name="about_me" id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
         <label for="about_me">2000 character limit</label>
+    </div>
         <!-- about me ends -->
         <br>
         <!-- custom css starts -->
-        <h5 class="black-text">Customise profile</h5>
-        <textarea name="custom_styles" id="custom_styles">
-            {{user.custom_styles}}
-        </textarea><br>
+        <h5 class="black-text center">Customise profile</h5>
+        {% include 'components/accounts/css_editor.html' %}
         <label class="grey-text" for="custom_styles">
             JavaScript is not allowed.
             Do not use HTML/CSS to cover important parts of Foxstraat incl. logo, navigation links. 
