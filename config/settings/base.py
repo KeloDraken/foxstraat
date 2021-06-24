@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Third-party apps
+    'imagekit',
     'corsheaders',
     'rest_framework',
 

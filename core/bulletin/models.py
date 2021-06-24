@@ -1,5 +1,8 @@
 from django.db import models
 
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFit
+
 from core.accounts.models import User
 
 
@@ -16,4 +19,9 @@ class BulletinImage(models.Model):
         on_delete=models.CASCADE, 
         related_name='images'
     )
-    image = models.ImageField(upload_to='bulletin/images/')
+    image = ProcessedImageField(
+        upload_to='bulletin/images/',
+        processors=[ResizeToFit(280, 400)],
+        format='JPEG',
+        options={'quality': 90}
+    )
