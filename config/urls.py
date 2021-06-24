@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.views.generic import TemplateView
 from django.contrib.auth.models import Group
 
 from django.conf import settings
@@ -25,9 +26,13 @@ from core.accounts.views import (
     get_user_profile,
 )
 
+from core.views import index
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('', index, name='index'),
+    
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
 
