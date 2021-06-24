@@ -19,7 +19,7 @@ def create_bulletin(request):
         ImageFormSet = modelformset_factory(
             BulletinImage, 
             form=BulletinImageForm, 
-            extra=5
+            extra=1
         )        
 
         if request.method == 'POST':

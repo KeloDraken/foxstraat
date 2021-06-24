@@ -4,76 +4,98 @@
 {% block styles %}
 <style>
     .image-preview {
-        margin-right: 3px;
+        border: 2px solid #ccc;
+        height: 300px;
+        width: 240px;
+    }
+
+    textarea {
+        max-width: 70% !important;
+        max-height: 60% !important;
+        width: 1000px !important;
+        height: 300px !important;
     }
 </style>
 {% endblock %}
 
 {% block body %}
-<h3>Create post</h3>
-<!-- <form action="{% url 'bulletin:create-bulletin' %}" method="post">
-    {% csrf_token %}
-    <input type="file" accept="image/png, image/jpeg" id="bulletin-images" name="images" multiple />
-    <textarea name="caption" cols="30" rows="10"></textarea>
-    <div id="preview"></div>
-    <button type="submit">create post</button>
-</form> -->
+{% include 'components/navbar.html' %}
 
-<form id="post_form" method="post" action="{% url 'bulletin:create-bulletin' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for hidden in post_form.hidden_fields %}
-    {{ hidden }}
-    {% endfor %}
+<div class="container center">
+    <h3>Create post</h3>
+    <form id="post_form" method="post" action="{% url 'bulletin:create-bulletin' %}" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col s7">
+                {% csrf_token %}
+                {% for hidden in post_form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
 
-    {% for field in post_form %}
-    {{ field }} <br />
-    {% endfor %}
+                {{ formset.management_form }}
+                {% for form in formset %}
+                {{ form }}
+                {% endfor %}
 
-    {{ formset.management_form }}
-    {% for form in formset %}
-        {{ form }}
-    {% endfor %}
+                {% for field in post_form %}
+                {{ field }} <br />
+                {% endfor %}
 
 
-    <input type="submit" name="submit" value="Submit" />
-</form>
-
+                <br>
+                <input type="submit" name="submit" value="Submit" />
+                <br>
+                <br>
+                <small class="left grey-text">
+                    Before you submit your post you need to make sure that you've
+                    read and understood the Rules. Failure to comply will result
+                    in permanent banishment from Foxstraat.
+                </small>
+            </div>
+            <div class="col s3">
+                <img style="display: none;" id="input" />
+                <img id="output" />
+                <small class="left grey-text">
+                    To save on storage costs, images are
+                    compressed which will result in loss of
+                    quality. This is an issue we're trying to solve.
+                    If you have some money to spare please consider supporting us on
+                    <a href="#">KO-FI</a>
+                </small>
+            </div>
+    </form>
+</div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script type="text/javascript">
-    function previewImages() {
+    function processImage() {
+        const selectedFile = document.querySelector('#selected-image').files[0];
+        if (!selectedFile) return;
 
-        var preview = document.querySelector('#preview');
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
 
-        if (this.files) {
-            [].forEach.call(this.files, readAndPreview);
+        reader.onload = function(event){
+            const imageElement = document.createElement('img');
+            imageElement.src = event.target.result;
+
+            imageElement.onload = function(e){
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 300;
+                const scaleSize = MAX_WIDTH / e.target.width;
+                
+                canvas.width = MAX_WIDTH;
+                canvas.height = e.target.height * scaleSize;
+                console.log(e.target);
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+
+                const sourceEncoded = ctx.canvas.toDataURL(e.target, 'image/jpeg');
+
+                document.querySelector('#output').src = sourceEncoded;
+            }
         }
-
-        function readAndPreview(file) {
-
-            // Make sure `file.name` matches our extensions criteria
-            if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
-                return alert(file.name + " is not an image");
-            } // else...
-
-            var reader = new FileReader();
-
-            reader.addEventListener("load", function () {
-                var image = new Image();
-                image.height = 100;
-                image.className = "image-preview"
-                image.title = file.name;
-                image.src = this.result;
-                preview.appendChild(image);
-            });
-
-            reader.readAsDataURL(file);
-
-        }
-
     }
-
-    document.querySelector('#bulletin-images').addEventListener("change", previewImages);
 </script>
 {% endblock %}
