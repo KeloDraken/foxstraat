@@ -52,7 +52,7 @@ class User(AbstractUser):
                 overflow: hidden;
                 background-color: #333;
 
-                /* Set the navbar to f ixed position */
+                /* Set the navbar to fixed position */
                 position: fixed;
 
                 /* Position the navbar at the top of the page */
@@ -134,7 +134,8 @@ class User(AbstractUser):
             }
             .bio-container{}
             .bio{
-                font-family: 'Times New Roman', Times, serif
+                font-family: 'Times New Roman', Times, serif;
+                white-space: pre-wrap;
             }
             /* user advanced info styles end */
         </style>

@@ -90,6 +90,8 @@ def edit_user_profile(request):
             user.bio = bio
             user.custom_styles = custom_styles
             user.save()
+
+            messages.success(request, 'Profile successfully updated')
         
     context = {
         'user': request.user,

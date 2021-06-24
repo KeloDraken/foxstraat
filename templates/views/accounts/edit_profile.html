@@ -14,6 +14,9 @@
         margin: 2rem !important;
         width: 650px;
     }
+    .view-changes{
+        text-decoration: underline;
+    }
 </style>
 {% endblock %}
 
@@ -25,7 +28,16 @@
         {% if messages %}
         <div class="container center">
             {% for message in messages %}
-            <div class="red white-text">{{ message }}</div>
+                {% if message.tags == 'error' %}
+                    <div class="red white-text">{{ message }}</div>
+                {% elif message.tags == 'success' %}
+                    <div class="green white-text">
+                        {{ message }}. 
+                        <a class="view-changes white-text" href="{% url 'get-user-profile' username=request.user.username %}">
+                            View changes
+                        </a>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
         <br>
