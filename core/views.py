@@ -1,11 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'index.html')
     else:
-        context = {
-            'user': request.user,
-        }
-        return render(request, 'index.html', context)
+        return redirect('accounts:user-dashboard')
