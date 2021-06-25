@@ -37,7 +37,7 @@ urlpatterns = [
     path('<username>/', get_user_profile, name='get-user-profile'),
 
     # Accounts urls
-    path('accounts/', include('core.accounts.urls', namespace='accounts')),
+    path('u/', include('core.accounts.urls', namespace='accounts')),
 
     # Bulletin urls
     path('b/', include('core.bulletin.urls', namespace='bulletin')),
