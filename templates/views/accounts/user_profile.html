@@ -27,7 +27,7 @@
             {{request.user.display_name}}
         </a>
         {% endif %}
-        <a class="nav-links" href="#">Forums</a>
+        <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a>
         <a class="nav-links" href="#">Bulletins</a>
         <a class="nav-links" href="#">Charts</a>
         <a class="nav-links" href="#">Store</a>

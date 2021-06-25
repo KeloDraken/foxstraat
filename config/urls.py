@@ -34,14 +34,19 @@ urlpatterns = [
     path('', index, name='index'),
     path('about/', about, name='about'),
     
-    # User main profile
-    path('<username>/', get_user_profile, name='get-user-profile'),
 
     # Accounts urls
     path('u/', include('core.accounts.urls', namespace='accounts')),
 
     # Bulletin urls
     path('b/', include('core.bulletin.urls', namespace='bulletin')),
+
+    # Forum urls
+    path('f/', include('core.forums.urls', namespace='forums')),
+    
+    # User main profile
+    path('<username>/', get_user_profile, name='get-user-profile'),
+
 ] + static(
     settings.STATIC_URL, 
     document_root=settings.STATIC_ROOT
