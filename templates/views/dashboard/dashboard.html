@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block title %}Foxstraat - {{ user.username }}'s dashboard{% endblock %}
 
 {% block styles %}
@@ -78,7 +79,7 @@
                 <div class="card-content">
                     <span class="card-title">{{ user.display_name }}</span>
                     <p>
-                        joined: 22 days ago <br>
+                        joined: {{user.datetime_joined|naturaltime}} <br>
                         posts: 20 <br>
                         followers: 20m <br>
                         following: 23
