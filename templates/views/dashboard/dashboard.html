@@ -81,7 +81,7 @@
                     <p>
                         joined: {{user.datetime_joined|naturaltime}} <br>
                         posts: 20 <br>
-                        followers: 20m <br>
+                        subscribers: 20m <br>
                         following: 23
                     </p>
                 </div>
@@ -138,8 +138,12 @@
             <div class="info">
                 <a class="sign-out" href="{% url 'accounts:user-logout' %}">Sign out</a>
             </div>
-
-
+        </div>
+        <div class="col s8 yellow">
+            <h4>From your subscriptions</h4>
+        </div>
+        <div class="col s8 red">
+            <h4>Activity from your forums</h4>
         </div>
     </div>
 </div>
