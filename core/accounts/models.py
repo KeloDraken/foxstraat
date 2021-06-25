@@ -1,10 +1,36 @@
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
+
+class LowercaseCharField(models.CharField):
+    """
+    Override CharField to convert to lowercase before saving.
+    """
+    def to_python(self, value):
+        """
+        Convert text to lowercase.
+        """
+        value = super(LowercaseCharField, self).to_python(value)
+        # Value can be None so check that it's a string before lowercasing.
+        if isinstance(value, str):
+            return value.lower()
+        return value
 
 class User(AbstractUser):
     object_id = models.CharField(max_length=20, null=True, blank=True)
-    
+    username = LowercaseCharField(
+        # Copying this from AbstractUser code
+        _('username'),
+        max_length=20,
+        unique=True,
+        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        validators=[UnicodeUsernameValidator(),],
+        error_messages={
+            'unique': _("A user with that username already exists."),
+        },
+    )
     display_name = models.CharField(max_length=20, null=True, blank=True)
     bio = models.TextField(null=True, blank=True, max_length=3000)
 
@@ -145,6 +171,8 @@ class User(AbstractUser):
 
     date_joined = models.DateField(auto_now_add=True)
     datetime_joined = models.DateTimeField(auto_now_add=True)
+
+    # objects = CustomUserManager()
 
     def __str__(self) -> str:
         return self.username

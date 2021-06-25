@@ -25,7 +25,7 @@ def user_registration(request):
                 username = request.POST['username']
                 password = request.POST['password2']
 
-                user = authenticate(username=username, password=password)
+                user = authenticate(username=username.lower(), password=password)
 
                 if user is not None:
                     login(request, user)

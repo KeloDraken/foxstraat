@@ -59,7 +59,6 @@ class UserRegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
         username = self.cleaned_data['username']
-        # user.username = username.lower()
         user.display_name = username
         if commit:
             user.save()
