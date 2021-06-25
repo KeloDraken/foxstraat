@@ -26,12 +26,13 @@ from core.accounts.views import (
     get_user_profile,
 )
 
-from core.views import index
+from core.views import about, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', index, name='index'),
+    path('about/', about, name='about'),
     
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
