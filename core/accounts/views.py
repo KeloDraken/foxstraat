@@ -64,7 +64,7 @@ def user_dashboard(request):
     context = {
         'user': user
     }
-    return render(request, 'views/accounts/dashboard/dashboard.html', context)
+    return render(request, 'views/dashboard/dashboard.html', context)
 
 
 def get_user_profile(request, username):

@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block title %}Foxstraat - {{ user.username }}'s dashboard{% endblock %}
+
+{% block styles %}
+<style>
+    .content-container {
+        margin-top: 3%;
+    }
+
+    .image {
+        margin-top: 3%;
+
+    }
+
+    .card {
+        border: 1px solid #727272;
+        border-radius: 3px;
+    }
+
+    .image_placeholder {
+        height: 200px;
+        width: 200px;
+        background-color: rgb(212, 212, 212);
+    }
+
+    .sign-out {
+        color: rgb(122, 122, 122);
+    }
+
+    .announcement-title {
+        margin-bottom: 1rem !important;
+        text-decoration: underline;
+    }
+
+    .announcement-body {
+        font-weight: 400 !important;
+    }
+
+    .support {
+        margin-bottom: 5%;
+        color: rgb(63, 63, 63);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+
+
+{% include 'components/navbar.html' %}
+
+{% if messages %}
+<div class="container center">
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="red white-text">{{ message }}</div>
+    {% elif message.tags == 'success' %}
+    <div class="green white-text">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+{% endif %}
+<div class="container content-container">
+    <div class="row">
+        <div class="col s4">
+            <!-- User details section -->
+            <div class="card z-depth-0">
+                <div class="card-image">
+                    {% if user.profile_pic %}
+                    <img src="{{ user.profile_pic.url }}">
+                    {% else %}
+                    <div class="image_placeholder">No profile picture</div>
+                    {% endif %}
+                </div>
+                <div class="card-content">
+                    <span class="card-title">{{ user.display_name }}</span>
+                    <p>
+                        joined: 22 days ago <br>
+                        posts: 20 <br>
+                        followers: 20m <br>
+                        following: 23
+                    </p>
+                </div>
+                <div class="black card-action">
+                    <a class="white-text" href="{% url 'accounts:edit-user-profile' %}">Edit profile</a>
+                </div>
+
+            </div>
+            <!-- user details section ends -->
+
+
+            <!-- Site info section -->
+            <div class="card z-depth-0">
+                <div class="yellow card-content">
+                    <p>
+                        <small class="left support">
+                            If you like using Foxstraat, please consider supporting its development. <br>
+                            <script type='text/javascript'
+                                src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+                            <script
+                                type='text/javascript'>kofiwidget2.init('Support Me', '#000000', 'Y8Y31URML'); kofiwidget2.draw();</script>
+                        </small>
+                    </p>
+                </div>
+            </div>
+            <!-- site info section ends -->
+            <!-- foxstraat announcements section -->
+            <div class="card z-depth-0">
+                <div class="blue card-content">
+                    <span class="card-title"><b>Announcements</b></span>
+                    <p class="announcement-body">
+                        <em class="announcement-title">COVID-19 Pandemic</em>
+                        <br>
+                        Stay safe, wash your hands, wear a mask, keep a distance to other people and stay home as often
+                        as you can. Additionally, please follow your local Coronavirus rules and safety guidelines.
+                    </p>
+                </div>
+            </div>
+            <!-- foxstraat announcements section ends -->
+            <div class="info">
+                <a class="sign-out" href="{% url 'accounts:user-logout' %}">Sign out</a>
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <a title="Add a post to bulletin" href="{% url 'bulletin:create-bulletin' %}">
+            <div class="blue col s8">
+                <h2 class="white-text">Create post</h2>
+            </div>
+        </a>
+
+        <a title="Add a post to bulletin" href="{% url 'bulletin:create-bulletin' %}">
+            <div class="red col s8">
+                <h2 class="white-text">Create post</h2>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}
