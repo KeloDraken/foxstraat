@@ -100,8 +100,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/accounts/dashboard'
+LOGIN_URL = '/u/login/'
+LOGIN_REDIRECT_URL = '/u/dashboard'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True

@@ -19,10 +19,11 @@
 </div>
 <br>
 {% endif %}
+<div class="container">
+    <a href="{% url 'accounts:edit-user-profile' %}">Edit profile</a>
+    <h4>{{ user.display_name }}</h4>
 
-<a href="{% url 'accounts:edit-user-profile' %}">Edit profile</a>
-<h4>{{ user.display_name }}</h4>
 
-
-<a href="{% url 'accounts:user-logout' %}">Sign out</a>
+    <a href="{% url 'accounts:user-logout' %}">Sign out</a>
+</div>
 {% endblock %}

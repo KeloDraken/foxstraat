@@ -1,6 +1,18 @@
+<style>
+    .image_placeholder{
+        height: 200px;
+        width: 200px;
+        background-color: rgb(212, 212, 212);
+    }
+</style>
+
 <div class="col-12 user-details-basic-container">
     <div class="profile-image-container">
-        <img class="profile-picture" src="https://picsum.photos/100/100" />
+        {% if user.profile_pic %}
+        <img class="profile-picture" src="{{ user.profile_pic.url }}" />
+        {% else %}
+        <div class="image_placeholder">No profile picture</div>
+        {% endif %}
     </div>
     <div class="username-container">
         <p class="username">{{ user.display_name }}</p>

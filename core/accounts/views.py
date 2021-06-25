@@ -70,12 +70,12 @@ def user_dashboard(request):
 def get_user_profile(request, username):
     try:
         user = User.objects.get(username=username)
-        context = {
-            'user': user
-        }
-        return render(request, 'views/accounts/user_profile.html', context)
     except:
         raise Http404()
+    context = {
+        'user': user
+    }
+    return render(request, 'views/accounts/user_profile.html', context)
 
 @login_required
 def edit_user_profile(request):
@@ -101,9 +101,11 @@ def edit_user_profile(request):
             return render(request, 'views/accounts/edit_profile.html', context)
         else:
             user = request.user
-            bio = request.POST['about_me']
 
-            user.bio = bio
+            if request.FILES.get('profile_pic'):
+                user.profile_pic = request.FILES.get('profile_pic')
+            
+            user.bio = request.POST['about_me']
             user.custom_styles = custom_styles
             user.save()
 

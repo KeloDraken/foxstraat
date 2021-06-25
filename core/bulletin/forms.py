@@ -7,7 +7,7 @@ from core.bulletin.models import (
 
 class CreateBulletinForm(forms.ModelForm):
     title = forms.CharField(
-        max_length=20, 
+        max_length=140, 
         label='', 
         widget=forms.TextInput(
             attrs={
@@ -22,22 +22,22 @@ class CreateBulletinForm(forms.ModelForm):
     yt_embed = forms.CharField(
         max_length=11, 
         label='', 
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-input',
                 'placeholder': 'You can embed a YouTube video by submitting the video id',
                 'autocomplete': 'off',
                 'autofocus': 'true',
-                'autocapitalize': 'off'
+                'autocapitalize': 'off',
             }
         )
     ) 
-    caption = forms.CharField(widget=forms.Textarea(
+    caption = forms.CharField(required=False, widget=forms.Textarea(
         attrs={
             'cols': 100,
             'class': 'form-input',
             'placeholder': 'Write your caption/bulletin',
-            'required': 'false',
             'rows': 100,
         }
     ))

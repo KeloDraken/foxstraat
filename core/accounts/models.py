@@ -3,6 +3,9 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFit
+
 
 class LowercaseCharField(models.CharField):
     """
@@ -32,6 +35,16 @@ class User(AbstractUser):
         },
     )
     display_name = models.CharField(max_length=20, null=True, blank=True)
+
+    profile_pic = ProcessedImageField(
+        upload_to='accounts/profile_pics/',
+        processors=[ResizeToFit(220, 340)],
+        format='JPEG',
+        options={'quality': 90},
+        null=True,
+        blank=True,
+    )
+
     bio = models.TextField(null=True, blank=True, max_length=3000)
 
     # User social media links
