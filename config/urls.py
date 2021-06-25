@@ -39,10 +39,10 @@ urlpatterns = [
     path('u/', include('core.accounts.urls', namespace='accounts')),
 
     # Bulletin urls
-    path('b/', include('core.bulletin.urls', namespace='bulletin')),
+    path('p/', include('core.bulletin.urls', namespace='bulletin')),
 
     # Forum urls
-    path('f/', include('core.forums.urls', namespace='forums')),
+    path('b/', include('core.forums.urls', namespace='forums')),
     
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
