@@ -68,7 +68,9 @@
                         </a>
                     </li>
                     <li>
-                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML');kofiwidget2.draw();</script> 
+                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+                        <script
+                            type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML'); kofiwidget2.draw();</script>
 
                     </li>
                 </ul>
@@ -80,7 +82,7 @@
 
 <!-- banner begins -->
 <section class="container center banner">
-    <h1 class="logo black-text heading">Foxstraat.</h1>
+    <h1 class="logo black-text heading">What is it?</h1>
     <p class="subheading black-text">Prepare to be assimilated.</p>
     {% if not request.user.is_authenticated %}
     <a href="{% url 'accounts:user-register' %}" class="btn btn-large waves-effect waves-light black join">Get
@@ -92,7 +94,7 @@
 </section>
 <!-- banner ends -->
 
-<section class="about">
+<section class="blue about">
     <div class="container">
         <h3 id="about" class="black-text">About Foxstraat</h3>
         <div class="row">
