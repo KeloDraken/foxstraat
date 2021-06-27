@@ -35,7 +35,7 @@ class User(AbstractUser):
         },
     )
     display_name = models.CharField(max_length=20, null=True, blank=True)
-    is_professional = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     profile_pic = ProcessedImageField(
         upload_to='accounts/profile_pics/',
         processors=[ResizeToFit(220, 340)],
@@ -49,13 +49,8 @@ class User(AbstractUser):
 
     # User social media links
     instagram = models.CharField(max_length=60, null=True, blank=True)
-    twitter = models.CharField(max_length=60, null=True, blank=True)
-    youtube = models.CharField(max_length=60, null=True, blank=True)
-    twitch = models.CharField(max_length=60, null=True, blank=True)
-    tiktok = models.CharField(max_length=60, null=True, blank=True)
-    github = models.CharField(max_length=60, null=True, blank=True)
     vsco = models.CharField(max_length=60, null=True, blank=True)
-    dribbble = models.CharField(max_length=60, null=True, blank=True)
+    website = models.CharField(max_length=300, null=True, blank=True)
     
     custom_styles = models.TextField(
         null=False, 
