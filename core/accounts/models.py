@@ -35,7 +35,7 @@ class User(AbstractUser):
         },
     )
     display_name = models.CharField(max_length=20, null=True, blank=True)
-
+    is_professional = models.BooleanField(default=False)
     profile_pic = ProcessedImageField(
         upload_to='accounts/profile_pics/',
         processors=[ResizeToFit(220, 340)],
