@@ -13,11 +13,29 @@
         <div class="container ">
 
             <h3 class="center black-text">Create Account</h3>
+
+            {% if messages %}
+            <div class="container center">
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="red white-text">{{ message }}</div>
+                {% elif message.tags == 'success' %}
+                <div class="green white-text">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            {% endif %}
+
             <div class="center row">
                 <form method="post" action="{% url 'accounts:user-register' %}" class="col s12">
                     {% csrf_token %}
                     {{registration_form.as_p}}
-                    <button class="btn btn-large waves-effect waves-light black white-text submit-btn" type="submit">Join Foxstraat</button>
+                    <div class="center">{{ captcha.as_p }}</div>
+                    <button class="btn btn-large waves-effect waves-light black white-text submit-btn"
+                        type="submit">Join Foxstraat</button>
                 </form>
                 <a href="{% url 'accounts:user-login' %}" class="black-text">Sign in instead</a>
             </div>

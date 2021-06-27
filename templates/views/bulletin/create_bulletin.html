@@ -9,7 +9,9 @@
         color: #000 !important;
         width: 83% !important;
         border: 1px solid #797979 !important;
-    }.form-input::placeholder {
+    }
+
+    .form-input::placeholder {
         color: rgb(112, 112, 112) !important;
         opacity: 1 !important;
     }
@@ -35,6 +37,20 @@
 
 <div class="container center">
     <h3>Create post</h3>
+    {% if messages %}
+    <div class="container center">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="red white-text">{{ message }}</div>
+        {% elif message.tags == 'success' %}
+        <div class="green white-text">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
     <form id="post_form" method="post" action="{% url 'bulletin:create-bulletin' %}" enctype="multipart/form-data">
         <div class="row">
             <div class="col s7">
@@ -43,11 +59,11 @@
                 {{ hidden }}
                 {% endfor %}
 
-                
+
                 {% for field in post_form %}
                 {{ field }} <br />
                 {% endfor %}
-                
+
                 {{ formset.management_form }}
                 {% for form in formset %}
                 {{ form }}
@@ -55,6 +71,7 @@
 
                 <br>
                 <br>
+                {{ captcha }}
                 <br>
                 <input type="submit" name="submit" value="Submit" />
                 <br>
@@ -73,7 +90,9 @@
                     compressed which will result in loss of
                     quality. This is an issue we're trying to resolve.
                     If you have some money to spare please consider supporting us.
-                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML');kofiwidget2.draw();</script> 
+                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+                    <script
+                        type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML'); kofiwidget2.draw();</script>
                 </small>
             </div>
     </form>
@@ -90,15 +109,15 @@
         const reader = new FileReader();
         reader.readAsDataURL(selectedFile);
 
-        reader.onload = function(event){
+        reader.onload = function (event) {
             const imageElement = document.createElement('img');
             imageElement.src = event.target.result;
 
-            imageElement.onload = function(e){
+            imageElement.onload = function (e) {
                 const canvas = document.createElement('canvas');
                 const MAX_WIDTH = 300;
                 const scaleSize = MAX_WIDTH / e.target.width;
-                
+
                 canvas.width = MAX_WIDTH;
                 canvas.height = e.target.height * scaleSize;
                 console.log(e.target);

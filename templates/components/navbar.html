@@ -20,6 +20,7 @@ nav {
                             </span>
                         </a>
                     </li>
+                    {% if request.user.is_authenticated %}
                     <li title="{{ user.username }}">
                         <a href="{% url 'get-user-profile' username=user.username %}">
                             <span class="material-icons-outlined">
@@ -27,6 +28,7 @@ nav {
                             </span>
                         </a>
                     </li>
+                    {% endif %}
                     <li title="Browse">
                         <a href="#">
                             <span class="material-icons-outlined">

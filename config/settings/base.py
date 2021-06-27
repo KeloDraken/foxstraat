@@ -25,8 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     #Third-party apps
-    'imagekit',
+    'captcha',
     'corsheaders',
+    'imagekit',
     'rest_framework',
 
     # Foxstraat apps
@@ -125,3 +126,7 @@ MEDIA_ROOT = BASE_DIR / 'media-root'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 HTML_MINIFY = True
+
+RECAPTCHA_PUBLIC_KEY = '6LfL3VwbAAAAAAjNlajN06IQU5kM0ZBdgS_nZHp-'
+RECAPTCHA_PRIVATE_KEY = '6LfL3VwbAAAAAG-5AcpAiGmitRwRkE2oabWlnZJB'
+RECAPTCHA_REQUIRED_SCORE = 0.85

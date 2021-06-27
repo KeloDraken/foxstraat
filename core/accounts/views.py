@@ -6,6 +6,8 @@ from django.http.response import Http404
 
 from django.shortcuts import redirect, render
 
+from core.forms import FormWithCaptcha
+
 from core.accounts.forms import (
     UserLoginForm,
     UserRegistrationForm
@@ -17,31 +19,43 @@ def user_registration(request):
     if request.user.is_authenticated:
         return redirect('accounts:user-dashboard')
     else:
+        captcha = FormWithCaptcha
+
         if request.method =='POST':
             registration_form = UserRegistrationForm(request.POST)
-            if registration_form.is_valid():
-                registration_form.save()
 
-                username = request.POST['username']
-                password = request.POST['password2']
+            captcha_data = request.POST['g-recaptcha-response']
+            
+            if not captcha_data == '':
+                if registration_form.is_valid():
+                    registration_form.save()
 
-                user = authenticate(username=username.lower(), password=password)
+                    username = request.POST['username']
+                    password = request.POST['password2']
 
-                if user is not None:
-                    login(request, user)
-                    messages.success(
-                        request, 
-                        'Welcome to Foxstraat. Feel free to explore.')
-                    return redirect('accounts:user-dashboard')
-                else:
-                    pass
+                    user = authenticate(username=username.lower(), password=password)
+
+                    if user is not None:
+                        login(request, user)
+                        messages.success(
+                            request, 
+                            'Welcome to Foxstraat. Feel free to explore.')
+                        return redirect('accounts:user-dashboard')
+                    else:
+                        pass
+            else:
+                messages.error(request, 'Please confirm that you\'re not a robot')
         else:
             registration_form = UserRegistrationForm()
 
+        context = {
+            'registration_form': registration_form,
+            'captcha': captcha,
+        }
         return render(
             request, 
             'views/auth/registration_form.html', 
-            {'registration_form': registration_form}
+            context
         )
 
 
