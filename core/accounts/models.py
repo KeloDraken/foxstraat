@@ -58,123 +58,143 @@ class User(AbstractUser):
         blank=False, 
         default=
         """
-        <style>
-            /* 
-            You may edit other HTML Tags' styles.
-            
-            This Google font is a part of our branding. 
-            YOU ARE NOT ALLOWED TO CHANGE THIS FONT */
-            @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+<style>
+    /* 
+    You may edit other HTML Tags' styles.
+    
+    This Google font is a part of our branding. 
+    YOU ARE NOT ALLOWED TO CHANGE THIS FONT */
+    @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+    /* Fonts used in this page. You can change these. */
+    @import url('https://use.fontawesome.com/releases/v5.0.7/css/all.css');
+    
+    /* Branding styles begin */
+    .logo {
+        /* 
+        The logo font size cannot be less than 2em.
+        You may change the logo's colours, however, 
+        there needs to be ENOUGH CONTRAST between the 
+        logo and the background so much that the logo 
+        still remains visible. 
+        */
+        font-size: 2em !important;
+        color: #212121;
+        padding: 10px 16px;
+        text-decoration: none;
+        float: left;
+        font-family: "Lobster", cursive;
+    }
+    /* Branding styles end */
 
-            /* 
-            The logo font size cannot be less than 2em.
-            You may change the logo's colours, however, there needs to be ENOUGH CONTRAST 
-            between the logo and the background so much that the logo still remains visible. 
-            */
+    .container {
+        /* Add a top margin to avoid content overlay */
+        margin: 7rem 7rem;
+    }
 
-            /* Branding styles begin */
-            .logo {
-                font-size: 2em !important;
-                color: #fff;
-                padding: 10px 16px;
-                text-decoration: none;
-                float: left;
-                font-family: "Lobster", cursive;
-            }
-            /* Branding styles end */
+    /* Navbar styles */
+    .navbar {
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+    .nav-links {
+        float: left;
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-top: 10px;
+        display: block;
+        color: #212121;
+        font-size: 1em;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    .nav-links:hover {
+        background: #ddd;
+        color: black;
+    }
+    /* Navbar styles end */
 
-            /* Navbar styles */
-            .navbar {
-                overflow: hidden;
-                background-color: #333;
+    .section-heading {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #212121;
+    }
 
-                /* Set the navbar to fixed position */
-                position: fixed;
+    /* User basic info styles */
+    .user-details-basic-container {
+        margin-top: 1rem;
+        width: 100%;
+    }
+    .profile-image-container {
+        margin-right: 3rem;
+        margin-top: 1rem;
+    }
+    .profile-picture {
+        object-fit: cover;
+        width: 240px;
+        height: 240px;
+    }
+    .username-container {
+        margin-top: 5px;
+    }
+    .username {
+        margin-bottom: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.8em;
+        font-weight: 600 !important;
+    }
+    .user-stat-container {
+        margin-top: 5px;
+    }
+    .stat {
+        float: left;
+        display: block;
+        font-size: 0.9em;
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(155, 155, 155);
+        font-weight: 700;
+        margin-right: 1em !important;
+    }
+    /* user basic info styles end */
 
-                /* Position the navbar at the top of the page */
-                top: 0;
-                left: 0;
+    /* user advanced info styles start */
+    .user-details-advanced-container{
+        width: 100%;
+    }
+    .social-links-container {
+        margin-top: 5px;
+    }
+    .social-link {
+        text-decoration: none;
+        color: rgb(118, 118, 134);
+        font-weight: 600;
+        font-size: 1.2em;
+        margin-right: 15px;
+    }
+    .bio-container {
+        margin-top: 2rem;
+    }
+    .bio {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333333;
+        font-weight: 500;
+        white-space: pre-wrap;
+    }
+    /* user advanced info styles end */
 
-                /* Full width */
-                width: 100%;
-            }
-
-            /* Links inside the navbar */
-            .nav-links {
-                float: left;
-                margin-top: 10px;
-                display: block;
-                color: #f2f2f2;
-                font-size: 1em;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-
-            /* Change nav link background colour on mouse-over */
-            .nav-links:hover {
-                background: #ddd;
-                color: black;
-            }
-            /* Navbar styles end */
-
-            .container {
-                /* Add a top margin to avoid content overlay */
-                margin: 7rem 5rem;
-            }
-
-            /* User basic info styles */
-            .user-details-basic-container {
-                border: 2px solid #000;
-            }
-            .profile-image-container {}
-            .profile-picture {
-                float: left;
-                display: block;
-                margin-right: 3rem;
-                margin-top: 1rem;
-            }
-            .username-container {}
-            .username {
-                font-size: 1.5em;
-                font-weight: 700;
-            }
-            .social-links-container {}
-            .social-link {
-                text-decoration: underline;
-                color: blue;
-                font-weight: 600;
-                margin-right: 5px;
-            }        
-            .instagram {}        
-            .facebook {}        
-            .twitter {}        
-            .youtube {}
-            .twitch {}
-            /* user basic info styles end */
-            
-            /* user advanced info styles start */
-            .section-heading{
-                color: #000;
-            }
-            .user-details-advanced-container {
-                border: 2px solid #000;
-            }
-            .user-stat-container {}
-            .stat {
-                float: left;
-                display: block;
-                font-size: 1em;
-                font-weight: 700;
-                margin-right: 1em !important;
-            }
-            .bio-container{}
-            .bio{
-                font-family: 'Times New Roman', Times, serif;
-                white-space: pre-wrap;
-            }
-            /* user advanced info styles end */
-        </style>
+    /* Post image styles */
+    .post-image {
+        width: 260px;
+        height: 260px;
+        margin-bottom: 1.5rem;
+        object-fit: cover;
+    }
+    /* post image styles end */
+</style>
         """
     )
 
