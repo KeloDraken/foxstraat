@@ -28,50 +28,6 @@
 {% block body %}
 {% include 'components/navbar.html' %}
 <div class="container">
-    <h1 class="center">Edit profile</h1>
-    <form action="{% url 'accounts:edit-user-profile' %}" enctype="multipart/form-data" method="post">
-        {% if messages %}
-        <div class="container center">
-            {% for message in messages %}
-            {% if message.tags == 'error' %}
-            <div class="red white-text">{{ message }}</div>
-            {% elif message.tags == 'success' %}
-            <div class="green white-text">
-                {{ message }}.
-                <a class="view-changes white-text" href="{% url 'get-user-profile' username=request.user.username %}">
-                    View changes
-                </a>
-            </div>
-            {% endif %}
-            {% endfor %}
-        </div>
-        <br>
-        {% endif %}
-
-
-        {% csrf_token %}
-        <!-- About me -->
-        <div class="center">
-            <h5 class="black-text">Upload new profile picture</h5>
-            <br>
-
-            <input type="file" placeholder="Upload new profile pic" name="profile_pic" id="profile_pic">
-            <br><br>
-            <h5 class="black-text">Edit bio</h5>
-            <textarea autofocus maxlength="2000" name="about_me"
-                id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
-            <label for="about_me">2000 character limit</label>
-        </div>
-        <!-- about me ends -->
-        <br>
-        <!-- custom css starts -->
-        <h5 class="black-text center">Customise profile</h5>
-        {% include 'components/accounts/css_editor.html' %}
-        <label class="grey-text" for="custom_styles">
-            To prevent server overloading, you are rate limited when submitting this form. If you want to make big changes to your profile, we recommend using a code editor e.g. <a target="_blank" title="Recommended code editor" href="https://code.visualstudio.com/download">VS Code</a> to write your CSS then paste the finished code here.</label>
-        <!-- custom css ends -->
-        <br>
-        <button class="btn btn-large black" type="submit">Save changes</button>
-    </form>
+    {% include 'components/edit_profile/edit_profile_form.html' %}
 </div>
 {% endblock %}
