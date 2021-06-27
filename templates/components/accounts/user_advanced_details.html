@@ -1,5 +1,5 @@
 <div class="col-6 user-details-advanced-container">
-    {% if user.bio %}
+    {% if user.instagram or user.twitter or user.website%}
     <div class="social-links-container">
         {% if user.instagram %}
         <a class="social-link instagram" target="_blank" href="https://instagram.com/{{ user.instagram }}">
@@ -15,6 +15,7 @@
         <a class="social-link instagram" target="_blank" href="{{user.website}}"><i class="fas fa-link"></i></a>
         {% endif %}
     </div>
+    {% endif %}
     <!-- User info section -->
     {% if user.bio %}
     <div class="bio-container">
@@ -22,7 +23,4 @@
     </div>
     {% endif %}
     <!-- End user info section -->
-    {% else %}
-    <p>There nothing on this user</p>
-    {% endif %}
 </div>

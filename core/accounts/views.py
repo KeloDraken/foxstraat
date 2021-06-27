@@ -129,11 +129,19 @@ def edit_user_profile(request):
             if request.FILES.get('profile_pic'):
                 user.profile_pic = request.FILES.get('profile_pic')
             
-            user.bio = request.POST['about_me']
+            bio = request.POST['about_me']
+
+            if len(bio) > 220:
+                messages.error(
+                    request, 
+                    'Your bio is too long. Please keep it at 220 characters of less'
+                )
+            else:
+                user.bio = bio
             user.instagram = request.POST['instagram']
             website = request.POST['website']
 
-            if not 'http://' in website or not 'https://' in website:
+            if 'http://' not in website and 'https://' not in website:
                 website = 'http://'+website
                 
             user.website = website
