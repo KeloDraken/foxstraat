@@ -2,11 +2,13 @@
 <link rel="stylesheet" href="{% static 'css/components/navbar.css' %}">
 
 <style>
-nav {
-    border-bottom: 2px solid #212121;
-}
+    nav {
+        border-bottom: 2px solid #212121;
+    }
 </style>
 
+
+{% if request.user.is_authenticated %}
 <div class="navbar-fixed">
     <nav class="white">
         <div class="nav-wrapper">
@@ -20,7 +22,6 @@ nav {
                             </span>
                         </a>
                     </li>
-                    {% if request.user.is_authenticated %}
                     <li title="{{ user.username }}">
                         <a href="{% url 'get-user-profile' username=user.username %}">
                             <span class="material-icons-outlined">
@@ -28,21 +29,20 @@ nav {
                             </span>
                         </a>
                     </li>
-                    {% endif %}
                     <li title="Browse">
-                        <a href="#">
+                        <a href="{% url 'bulletin:explore-bulletins' %}">
                             <span class="material-icons-outlined">
                                 explore
                             </span>
                         </a>
                     </li>
-                    <li title="Top charts">
+                    <!-- <li title="Top charts">
                         <a href="#">
                             <span class="material-icons-outlined">
                                 insert_chart_outlined
                             </span>
                         </a>
-                    </li>
+                    </li> -->
                     <li title="Forums">
                         <a href="{% url 'forums:get-forum' %}">
                             <span class="material-icons-outlined">
@@ -69,3 +69,32 @@ nav {
         </div>
     </nav>
 </div>
+{% else %}
+<div class="navbar">
+    <nav class="white">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/" class="brand-logo n-logo">Foxstraat.</a>
+                <ul class="right">
+                    <li>
+                        <a class="black-text" href="{% url 'bulletin:explore-bulletins' %}">
+                            Bulletins
+                        </a>
+                    </li>
+                    <li>
+                        <a class="black-text" href="#about">
+                            Press
+                        </a>
+                    </li>
+                    <li>
+                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+                        <script
+                            type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML'); kofiwidget2.draw();</script>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+{% endif %}

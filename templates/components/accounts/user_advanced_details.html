@@ -1,24 +1,21 @@
 <div class="col-12 user-details-advanced-container">
     {% if user.bio %}
-        <h3 class="section-heading">Socials</h3>
+    <div class="social-links-container">
+        <a class="social-link instagram" href="#">IG</a>
+        <a class="social-link facebook" href="#">FB</a>
+        <a class="social-link twitter" href="#">TWTTR</a>
+        <a class="social-link youtube" href="#">YT</a>
+        <a class="social-link twitch" href="#">TWTCH</a>
+    </div>
 
-        <div class="social-links-container">
-            <a class="social-link instagram" href="#">instagram</a>
-            <a class="social-link facebook" href="#">facebook</a>
-            <a class="social-link twitter" href="#">twitter</a>
-            <a class="social-link youtube" href="#">youtube</a>
-            <a class="social-link twitch" href="#">twitch</a>
-        </div>
-
-        <!-- User info section -->
-        {% if user.bio %}
-            <h3 class="section-heading">About</h3>
-            <div class="bio-container">
-                <pre class="bio">{{user.bio}}</pre>
-            </div>
-        {% endif %}
-        <!-- End user info section -->
+    <!-- User info section -->
+    {% if user.bio %}
+    <div class="bio-container">
+        <pre class="bio">{{user.bio}}</pre>
+    </div>
+    {% endif %}
+    <!-- End user info section -->
     {% else %}
-        <p>There nothing on this user</p>
+    <p>There nothing on this user</p>
     {% endif %}
 </div>

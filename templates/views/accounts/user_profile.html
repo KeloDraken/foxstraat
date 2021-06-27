@@ -10,10 +10,183 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap-grid.min.css"
         integrity="sha512-LLxZHu50SXdFJdAzHmDJAoLaozhTB4BYZPoN+xdTRjiPmPhI+1mEJXdoHHiDWmd/jj/9x10pkd8mYGG9sqfPPA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{ user.custom_styles|safe }}
+    <!-- {{ user.custom_styles|safe }} -->
     <style>
-        .user-link{
+        /* 
+        You may edit other HTML Tags' styles.
+        
+        This Google font is a part of our branding. 
+        YOU ARE NOT ALLOWED TO CHANGE THIS FONT */
+        @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+        /* 
+        The logo font size cannot be less than 2em.
+        You may change the logo's colours, however, there needs to be ENOUGH CONTRAST 
+        between the logo and the background so much that the logo still remains visible. 
+        */
+
+        /* Branding styles begin */
+        .logo {
+            font-size: 2em !important;
+            color: #212121;
+            padding: 10px 16px;
+            text-decoration: none;
+            float: left;
+            font-family: "Lobster", cursive;
+        }
+
+        /* Branding styles end */
+
+        /* Navbar styles */
+        .navbar {
+            overflow: hidden;
+            background-color: #fff;
+            /* border-bottom: 2px solid rgb(53, 53, 53); */
+            box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+
+            /* Set the navbar to fixed position */
+            position: fixed;
+
+            /* Position the navbar at the top of the page */
+            top: 0;
+            left: 0;
+
+            /* Full width */
+            width: 100%;
+        }
+
+        /* Links inside the navbar */
+        .nav-links {
+            float: left;
+            font-weight: 600;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top: 10px;
+            display: block;
+            color: #212121;
+            font-size: 1em;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change nav link background colour on mouse-over */
+        .nav-links:hover {
+            background: #ddd;
+            color: black;
+        }
+
+        /* Navbar styles end */
+
+        .container {
+            /* Add a top margin to avoid content overlay */
+            margin: 7rem 5rem;
+        }
+
+        /* User basic info styles */
+        .user-details-basic-container {
+            margin-top: 1rem;
+        }
+
+        .profile-image-container {}
+
+        .profile-picture {
+            object-fit: cover;
+            width: 240px;
+            height: 240px;
+            margin-right: 3rem;
+            margin-top: 1rem;
+        }
+
+        .username-container {
+        }
+
+        .username {
+            font-family: Arial, Helvetica, sans-serif;
+            margin-top: 1rem;
+            margin-bottom: 0;
+            font-size: 1.8em;
+            font-weight: 600 !important;
+        }
+
+        .social-links-container {}
+
+        .social-link {
+            text-decoration: underline;
+            color: blue;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .instagram {}
+
+        .facebook {}
+
+        .twitter {}
+
+        .youtube {}
+
+        .twitch {}
+
+        /* user basic info styles end */
+
+        /* user advanced info styles start */
+        .section-heading {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #212121;
+        }
+
+        .user-details-advanced-container {
+            /* border: 2px solid #000; */
+        }
+
+        .user-stat-container {
+            /* margin-top: ; */
+        }
+
+        .stat {
+            float: left;
+            display: block;
+            font-size: 1em;
+            color: #212121;
+            font-weight: 700;
+            margin-right: 1em !important;
+        }
+
+        .bio-container {}
+
+        .bio {
+            font-family: 'Times New Roman', Times, serif;
+            white-space: pre-wrap;
+        }
+
+        /* user advanced info styles end */
+    </style>
+
+    <style>
+        .user-link {
             text-transform: capitalize;
+        }
+
+        .content {
+            margin:2%;
+        }
+
+        .grid {
+            max-width: 60rem;
+            margin: 0 auto;
+            margin-top: 29px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .image {
+            /* border-radius: 5px; */
+            width: 260px;
+            /* width of container */
+            height: 260px;
+            /* height of container */
+            object-fit: cover;
         }
     </style>
 </head>
@@ -27,9 +200,9 @@
             {{request.user.display_name}}
         </a>
         {% endif %}
+        <a class="nav-links" href="{% url 'bulletin:explore-bulletins' %}">Explore</a>
         <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a>
-        <a class="nav-links" href="#">Bulletins</a>
-        <a class="nav-links" href="#">Charts</a>
+        <!-- <a class="nav-links" href="#">Charts</a> -->
         <a class="nav-links" href="{% url 'about' %}">About</a>
         <!-- <a class="nav-links" href="#">Store</a> -->
     </div>
@@ -40,13 +213,19 @@
                 <div class="row">
                     {% include 'components/accounts/user_basic_details.html' %}
                     {% include 'components/accounts/user_advanced_details.html' %}
-                    
+
                 </div>
             </div>
-            <div class="col-8">
-                <h1>Profile content</h1>
+            <div class="col-8 grid">
+                {% for post in posts %}
+                <div class="content red flow">
+                    <img class="image" src="{{ post.image.url }}" alt="">
+                </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
+    </div>
     </div>
 </body>
 

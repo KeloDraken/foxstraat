@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     # Foxstraat apps
     'core.accounts',
     'core.bulletin',
-    'core.charts',
     'core.forums',
 ]
 
@@ -125,7 +124,7 @@ MEDIA_ROOT = BASE_DIR / 'media-root'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-HTML_MINIFY = True
+# HTML_MINIFY = True
 
 RECAPTCHA_PUBLIC_KEY = '6LfL3VwbAAAAAAjNlajN06IQU5kM0ZBdgS_nZHp-'
 RECAPTCHA_PRIVATE_KEY = '6LfL3VwbAAAAAG-5AcpAiGmitRwRkE2oabWlnZJB'

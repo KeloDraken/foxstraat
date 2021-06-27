@@ -41,43 +41,7 @@
 
 {% block body %}
 <!-- Navbar starts -->
-<div class="navbar">
-    <nav class="white">
-        <div class="nav-wrapper">
-            <div class="container">
-                <a href="/" class="brand-logo n-logo">Foxstraat.</a>
-                <ul class="right">
-                    <li>
-                        <a class="black-text" href="#about">
-                            Bulletins
-                        </a>
-                    </li>
-                    <li>
-                        <a class="black-text" href="#about">
-                            Press
-                        </a>
-                    </li>
-                    <li>
-                        <a class="black-text" href="#about">
-                            About
-                        </a>
-                    </li>
-                    <li>
-                        <a class="black-text" href="#about">
-                            Contact
-                        </a>
-                    </li>
-                    <li>
-                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-                        <script
-                            type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML'); kofiwidget2.draw();</script>
-
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
+{% include 'components/navbar.html' %}
 <!-- Navbar ends -->
 
 <!-- banner begins -->

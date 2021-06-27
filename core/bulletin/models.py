@@ -23,7 +23,7 @@ class BulletinImage(models.Model):
     )
     image = ProcessedImageField(
         upload_to='bulletin/images/',
-        processors=[ResizeToFit(280, 400)],
+        processors=[ResizeToFit(480, 600)],
         format='JPEG',
         options={'quality': 90}
     )

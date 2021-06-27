@@ -13,6 +13,7 @@ from core.accounts.forms import (
     UserRegistrationForm
 )
 from core.accounts.models import User
+from core.bulletin.models import Bulletin, BulletinImage
 
 
 def user_registration(request):
@@ -82,11 +83,20 @@ def user_dashboard(request):
 
 
 def get_user_profile(request, username):
-    try:
-        user = User.objects.get(username=username)
-    except:
-        raise Http404()
+    # try:
+    user = User.objects.get(username=username)
+    bulletin = Bulletin.objects.filter(user=user).order_by('-datetime_created')
+
+    posts = []
+
+    for i  in bulletin:
+        post_image = BulletinImage.objects.get(bulletin=i)
+        posts.append(post_image)
+
+    # except:
+    #     raise Http404()
     context = {
+        'posts': posts,
         'user': user
     }
     return render(request, 'views/accounts/user_profile.html', context)

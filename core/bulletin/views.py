@@ -68,3 +68,9 @@ def create_bulletin(request):
         }
         return render(request, 'views/bulletin/create_bulletin.html', context)
 
+
+def explore_bulletins(request):
+    return render(
+        request, 
+        'views/bulletin/explore_bulletins.html',
+    )
