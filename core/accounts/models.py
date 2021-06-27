@@ -50,6 +50,7 @@ class User(AbstractUser):
     # User social media links
     instagram = models.CharField(max_length=60, null=True, blank=True)
     vsco = models.CharField(max_length=60, null=True, blank=True)
+    twitter = models.CharField(max_length=60, null=True, blank=True)
     website = models.CharField(max_length=300, null=True, blank=True)
     
     custom_styles = models.TextField(

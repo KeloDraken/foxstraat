@@ -1,11 +1,19 @@
 <div class="col-12 user-details-advanced-container">
     {% if user.bio %}
     <div class="social-links-container">
-        <a class="social-link instagram" href="#">IG</a>
-        <a class="social-link facebook" href="#">FB</a>
-        <a class="social-link twitter" href="#">TWTTR</a>
-        <a class="social-link youtube" href="#">YT</a>
-        <a class="social-link twitch" href="#">TWTCH</a>
+        {% if user.instagram %}
+        <a class="social-link instagram" target="_blank" href="https://instagram.com/{{ user.instgram }}">
+            <i class="fab fa-instagram"></i>
+        </a>
+        {% endif %}
+        {% if user.twitter %}
+        <a class="social-link instagram" target="_blank" href="https://twitter.com/{{ user.twitter }}">
+            <i class="fab fa-twitter"></i>
+        </a>
+        {% endif %}
+        {% if user.website %}
+        <a class="social-link instagram" target="_blank" href="{{user.website}}"><i class="fas fa-link"></i></a>
+        {% endif %}
     </div>
 
     <!-- User info section -->

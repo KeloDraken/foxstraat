@@ -130,6 +130,13 @@ def edit_user_profile(request):
                 user.profile_pic = request.FILES.get('profile_pic')
             
             user.bio = request.POST['about_me']
+            user.instagram = request.POST['instagram']
+            website = request.POST['website']
+
+            if not 'http://' in website or not 'https://' in website:
+                website = 'http://'+website
+                
+            user.website = website
             user.custom_styles = custom_styles
             user.save()
 
