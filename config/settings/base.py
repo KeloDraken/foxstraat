@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'captcha',
     'corsheaders',
     'imagekit',
-    'rest_framework',
+    # 'rest_framework',
 
     # Foxstraat apps
     'core.accounts',
