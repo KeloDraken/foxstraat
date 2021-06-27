@@ -18,15 +18,18 @@
         This Google font is a part of our branding. 
         YOU ARE NOT ALLOWED TO CHANGE THIS FONT */
         @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+        /* Fonts used in this page. You can change these. */
         @import url('https://use.fontawesome.com/releases/v5.0.7/css/all.css');
-        /* 
-        The logo font size cannot be less than 2em.
-        You may change the logo's colours, however, there needs to be ENOUGH CONTRAST 
-        between the logo and the background so much that the logo still remains visible. 
-        */
-
+        
         /* Branding styles begin */
         .logo {
+            /* 
+            The logo font size cannot be less than 2em.
+            You may change the logo's colours, however, 
+            there needs to be ENOUGH CONTRAST between the 
+            logo and the background so much that the logo 
+            still remains visible. 
+            */
             font-size: 2em !important;
             color: #212121;
             padding: 10px 16px;
@@ -34,29 +37,21 @@
             float: left;
             font-family: "Lobster", cursive;
         }
-
         /* Branding styles end */
-
+        .container {
+            /* Add a top margin to avoid content overlay */
+            margin: 7rem 7rem;
+        }
         /* Navbar styles */
         .navbar {
             overflow: hidden;
             background-color: #fff;
-            /* border-bottom: 2px solid rgb(53, 53, 53); */
             box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
-
-
-            /* Set the navbar to fixed position */
             position: fixed;
-
-            /* Position the navbar at the top of the page */
             top: 0;
             left: 0;
-
-            /* Full width */
             width: 100%;
         }
-
-        /* Links inside the navbar */
         .nav-links {
             float: left;
             font-weight: 600;
@@ -69,47 +64,61 @@
             padding: 14px 16px;
             text-decoration: none;
         }
-
-        /* Change nav link background colour on mouse-over */
         .nav-links:hover {
             background: #ddd;
             color: black;
         }
-
         /* Navbar styles end */
 
-        .container {
-            /* Add a top margin to avoid content overlay */
-            margin: 7rem 5rem;
+        .section-heading {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #212121;
         }
 
         /* User basic info styles */
         .user-details-basic-container {
             margin-top: 1rem;
+            width: 100%;
         }
-
-        .profile-image-container {}
-
+        .profile-image-container {
+            margin-right: 3rem;
+            margin-top: 1rem;
+        }
         .profile-picture {
             object-fit: cover;
             width: 240px;
             height: 240px;
-            margin-right: 3rem;
-            margin-top: 1rem;
         }
-
-        .username-container {}
-
+        .username-container {
+            margin-top: 5px;
+        }
         .username {
-            font-family: Arial, Helvetica, sans-serif;
-            margin-top: 1rem;
             margin-bottom: 0;
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 1.8em;
             font-weight: 600 !important;
         }
+        .user-stat-container {
+            margin-top: 5px;
+        }
+        .stat {
+            float: left;
+            display: block;
+            font-size: 0.9em;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(155, 155, 155);
+            font-weight: 700;
+            margin-right: 1em !important;
+        }
+        /* user basic info styles end */
 
-        .social-links-container {}
-
+        /* user advanced info styles start */
+        .user-details-advanced-container{
+            width: 100%;
+        }
+        .social-links-container {
+            margin-top: 5px;
+        }
         .social-link {
             text-decoration: none;
             color: rgb(118, 118, 134);
@@ -117,66 +126,37 @@
             font-size: 1.2em;
             margin-right: 15px;
         }
-
-        /* user basic info styles end */
-
-        /* user advanced info styles start */
-        .section-heading {
-            font-family: Arial, Helvetica, sans-serif;
-            color: #212121;
+        .bio-container {
+            margin-top: 2rem;
         }
-
-        .user-details-advanced-container {
-            /* border: 2px solid #000; */
-        }
-
-        .user-stat-container {
-            /* margin-top: ; */
-        }
-
-        .stat {
-            float: left;
-            display: block;
-            font-size: 1em;
-            color: #212121;
-            font-weight: 700;
-            margin-right: 1em !important;
-        }
-
-        .bio-container {}
-
         .bio {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333333;
+            font-weight: 500;
             white-space: pre-wrap;
         }
-
         /* user advanced info styles end */
+
+        /* Post image styles */
+        .post-image {
+            width: 260px;
+            height: 260px;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+        }
+        /* post image styles end */
     </style>
 
     <style>
         .user-link {
             text-transform: capitalize;
         }
-
-        .content {
-            margin: 2%;
-        }
-
         .grid {
             max-width: 60rem;
             margin: 0 auto;
             margin-top: 29px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-        }
-
-        .image {
-            /* border-radius: 5px; */
-            width: 260px;
-            /* width of container */
-            height: 260px;
-            /* height of container */
-            object-fit: cover;
         }
     </style>
 </head>
@@ -199,17 +179,16 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-3">
                 <div class="row">
                     {% include 'components/accounts/user_basic_details.html' %}
                     {% include 'components/accounts/user_advanced_details.html' %}
-
                 </div>
             </div>
-            <div class="col-8 grid">
+            <div class="col-9 grid">
                 {% for post in posts %}
-                <div class="content red flow">
-                    <img class="image" src="{{ post.image.url }}" alt="">
+                <div class="post-container">
+                    <img class="post-image" src="{{ post.image.url }}" alt="post image">
                 </div>
                 {% endfor %}
             </div>

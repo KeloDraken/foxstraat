@@ -1,8 +1,8 @@
-<div class="col-12 user-details-advanced-container">
+<div class="col-6 user-details-advanced-container">
     {% if user.bio %}
     <div class="social-links-container">
         {% if user.instagram %}
-        <a class="social-link instagram" target="_blank" href="https://instagram.com/{{ user.instgram }}">
+        <a class="social-link instagram" target="_blank" href="https://instagram.com/{{ user.instagram }}">
             <i class="fab fa-instagram"></i>
         </a>
         {% endif %}
@@ -15,11 +15,10 @@
         <a class="social-link instagram" target="_blank" href="{{user.website}}"><i class="fas fa-link"></i></a>
         {% endif %}
     </div>
-
     <!-- User info section -->
     {% if user.bio %}
     <div class="bio-container">
-        <pre class="bio">{{user.bio}}</pre>
+        <pre class="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos consequuntur at deleniti a debitis voluptate eaque reprehenderit ullam voluptatibus, adipisci eligendi vitae nemo quibusdam perferendis non odio ut saepe omnis.</pre>
     </div>
     {% endif %}
     <!-- End user info section -->
