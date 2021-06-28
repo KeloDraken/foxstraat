@@ -69,6 +69,14 @@ def create_bulletin(request):
         return render(request, 'views/bulletin/create_bulletin.html', context)
 
 
+def get_bulletin(request, bulletin_id):
+    bulletin = Bulletin.objects.get(object_id=bulletin_id)
+    post = BulletinImage.objects.get(bulletin=bulletin)
+    context = {
+        'post': post,
+    }
+    return render(request, 'views/bulletin/view_bulletin.html', context)
+
 def explore_bulletins(request):
     return render(
         request, 

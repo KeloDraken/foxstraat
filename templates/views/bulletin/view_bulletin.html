@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}{{post.bulletin.user.display_name}} - {{ post.bulletin.title }}{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+<div class="container">
+    <h1>View bulletin</h1>
+</div>
+{% endblock %}

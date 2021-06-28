@@ -41,8 +41,8 @@ urlpatterns = [
     # Bulletin urls
     path('p/', include('core.bulletin.urls', namespace='bulletin')),
 
-    # Forum urls
-    path('b/', include('core.forums.urls', namespace='forums')),
+    # Topics urls
+    path('t/', include('core.forums.urls', namespace='forums')),
     
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
