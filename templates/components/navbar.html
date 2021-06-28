@@ -1,9 +1,22 @@
 {% load static %}
+{% if request.user.is_authenticated %}
 <link rel="stylesheet" href="{% static 'css/components/navbar.css' %}">
-
+{% endif %}
 <style>
+    @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+    .n-logo {
+        font-size: 2em !important;
+        font-family: "Lobster", cursive;
+        color: rgb(24, 24, 24) !important;
+    }
+
     nav {
         border-bottom: 2px solid #212121;
+    }
+
+    .black-text:hover {
+        background-color: transparent;
     }
 </style>
 
@@ -70,7 +83,7 @@
     </nav>
 </div>
 {% else %}
-<div class="navbar">
+<div class="navbar-fixed">
     <nav class="white">
         <div class="nav-wrapper">
             <div class="container">
@@ -78,7 +91,7 @@
                 <ul class="right">
                     <li>
                         <a class="black-text" href="{% url 'bulletin:explore-bulletins' %}">
-                            Bulletins
+                            Explore
                         </a>
                     </li>
                     <li>
