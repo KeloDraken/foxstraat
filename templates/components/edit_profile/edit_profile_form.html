@@ -28,12 +28,12 @@
         <input type="file" placeholder="Upload new profile pic" name="profile_pic" id="profile_pic">
         <br><br>
         <h5 class="black-text">Social handles</h5>
-        <input type="text" value="{{ user.instagram }}" class="form-input" name="instagram" id="instagram" placeholder="Instagram" maxlength="60" />
+        <input type="text" value="{% if user.instagram %}{{ user.instagram }}{% endif %}" class="form-input" name="instagram" id="instagram" placeholder="Instagram" maxlength="60" />
         <!-- <label class="grey-text" for="instgram">Instagram handle</label> -->
         <br>
-        <input type="text" value="{{ user.twitter }}" class="form-input" name="twitter" id="twitter" placeholder="Twitter" maxlength="60" />
+        <input type="text" value="{% if user.twitter %}{{ user.twitter }}{% endif %}" class="form-input" name="twitter" id="twitter" placeholder="Twitter" maxlength="60" />
         <br>
-        <input type="text" class="form-input" value="{{ user.website }}" name="website" id="website" placeholder="Website" maxlength="60" />
+        <input type="text" class="form-input" value="{% if user.website %}{{ user.website }}{% endif %}" name="website" id="website" placeholder="Website" maxlength="60" />
         <br><br>
         <h5 class="black-text">Edit bio</h5>
         <textarea autofocus maxlength="220" name="about_me"

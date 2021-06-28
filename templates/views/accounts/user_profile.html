@@ -55,15 +55,22 @@
                     {% include 'components/accounts/user_advanced_details.html' %}
                 </div>
             </div>
+            {% if posts %}
             <div class="col-9 center grid">
                 {% for post in posts %}
-                <a title="{{ post.bulletin.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=post.bulletin.object_id %}">
+                <a title="{{ post.bulletin.title }}"
+                    href="{% url 'bulletin:get-bulletin' bulletin_id=post.bulletin.object_id %}">
                     <div class="post-container">
                         <img class="post-image" src="{{ post.image.url }}" alt="post image">
                     </div>
                 </a>
                 {% endfor %}
             </div>
+            {% else %}
+            <div class="col-9 center">
+                <h1 class="section-heading">This user has submitted any post yet</h1>
+            </div>
+            {% endif %}
         </div>
     </div>
     </div>

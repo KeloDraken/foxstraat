@@ -11,7 +11,7 @@
             <i class="fab fa-twitter"></i>
         </a>
         {% endif %}
-        {% if user.website %}
+        {% if not user.website == 'http://' and not user.website == 'https://' %}
         <a class="social-link instagram" target="_blank" href="{{user.website}}"><i class="fas fa-link"></i></a>
         {% endif %}
     </div>
