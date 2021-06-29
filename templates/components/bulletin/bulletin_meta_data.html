@@ -1,3 +1,5 @@
+{% load url_target_blank %}
+
 <div class="col s5">
     <!-- <p class="blue-text trending">lsdfbvjk</p> -->
     <h4 class="post-title">{{ post.bulletin.title }}</h4>
@@ -20,5 +22,5 @@
         href="{% url 'get-user-profile' username=post.bulletin.user.username %}">
         {{ post.bulletin.user.display_name }}
     </a>
-    <pre class="post-caption">{{ post.bulletin.caption }}</pre>
+    <pre class="post-caption">{{ post.bulletin.caption|urlize|urlize_target_blank }}</pre>
 </div>

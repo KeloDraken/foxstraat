@@ -34,6 +34,9 @@ INSTALLED_APPS = [
     'core.accounts',
     'core.bulletin',
     'core.forums',
+
+    # template tags
+    'core.bulletin.templatetags',
 ]
 
 MIDDLEWARE = [
