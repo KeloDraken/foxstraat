@@ -6,25 +6,42 @@
 <style>
     .post-image {
         width: 100%;
-        border-radius: 3px;
-        margin-bottom: 0.8em;
+        border-radius: 2px;
+        margin-bottom: 1em;
     }
 
     .content {
+        width: fit-content;
         position: absolute;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
         background-color: rgba(0, 0, 0, 0.4);
-        color: rgba(241, 241, 241, 0.8);
         margin-top: 1em;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s linear;
     }
 
     .post-author {
         margin: 0.2em 0.5em;
+        margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
         font-size: 1em;
         font-weight: 600;
     }
 
+    .post-author:hover {
+        text-decoration: underline;
+    }
+
     .grid {
         display: flex;
+    }
+
+    .grid-item:hover > .content {
+        visibility: visible;
+        opacity: 1;
     }
 
     .grid-col {
@@ -50,12 +67,18 @@
         {% for post in posts %}
         <div class="grid-item">
             <div class="content">
-                <h4 class="post-author">{{ post.bulletin.user.display_name }}</h4>
+                <a class="white-text" title="{{ post.bulletin.title }}"
+                    href="{% url 'bulletin:get-bulletin' bulletin_id=post.bulletin.object_id %}">
+                    <h4 class="post-author">view post</h4>
+                </a>
+
+                <a class="white-text" title="{{ post.bulletin.user.display_name }}"
+                    href="{% url 'get-user-profile' username=post.bulletin.user.username %}">
+                    <h4 class="post-author">go to creator's page</h4>
+                </a>
+                <h4 class="post-author">visit topic</h4>
             </div>
-            <a title="{{ post.bulletin.title }}"
-                href="{% url 'bulletin:get-bulletin' bulletin_id=post.bulletin.object_id %}">
-                <img class="post-image" src="{{ post.image.url }}">
-            </a>
+            <img class="post-image" src="{{ post.image.url }}" />
         </div>
         {% endfor %}
     </div>
