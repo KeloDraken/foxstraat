@@ -3,6 +3,8 @@ from django.db import models
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
+from vote.models import VoteModel
+
 from core.accounts.models import User
 
 
@@ -15,7 +17,7 @@ class Bulletin(models.Model):
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     
-class BulletinImage(models.Model):
+class BulletinImage(VoteModel, models.Model):
     bulletin = models.ForeignKey(
         Bulletin, 
         on_delete=models.CASCADE, 
