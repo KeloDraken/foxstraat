@@ -1,5 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+from django.db.models import Count
 from django.forms import modelformset_factory
 from django.shortcuts import redirect, render
 
@@ -87,7 +89,14 @@ def get_bulletin(request, bulletin_id):
     return render(request, 'views/bulletin/view_bulletin.html', context)
 
 def explore_bulletins(request):
+    posts = BulletinImage.objects.all()
+
+    context = {
+        'posts': posts
+    }
+    
     return render(
         request, 
         'views/bulletin/explore_bulletins.html',
+        context
     )
