@@ -33,7 +33,7 @@
         <br>
         <input type="text" value="{% if user.twitter %}{{ user.twitter }}{% endif %}" class="form-input" name="twitter" id="twitter" placeholder="Twitter" maxlength="60" />
         <br>
-        <input type="text" class="form-input" value="{% if user.website %}{{ user.website }}{% endif %}" name="website" id="website" placeholder="Website" maxlength="60" />
+        <input type="url" class="form-input" value="{% if user.website %}{{ user.website }}{% endif %}" name="website" id="website" placeholder="Website" maxlength="60" />
         <br><br>
         <h5 class="black-text">Edit bio</h5>
         <textarea autofocus maxlength="220" name="about_me"
