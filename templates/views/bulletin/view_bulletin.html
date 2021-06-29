@@ -28,7 +28,7 @@
         /* width: 100%; */
         object-fit: cover;
         width: 250px;
-        height: 120px;
+        height: 140px;
     }
 
     .post-title {
@@ -40,6 +40,9 @@
         font-weight: 600;
         font-size: 1.5em;
     }
+    .votes {
+        margin-bottom: -1rem;
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -48,10 +51,10 @@
     <div class="row">
         <div class="col s7">
             <img class="post-image" src="{{ post.image.url }}" alt="post">
-            <h4 class="section-heading">
+            <h5 class="section-heading">
                 More from
                 {{ post.bulletin.user.display_name }}
-            </h4>
+            </h5>
             <div class="row">
                 {% for i in more_from_user %}
                 {% for bulletin in i %}
