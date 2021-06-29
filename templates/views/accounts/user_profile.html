@@ -10,7 +10,11 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap-grid.min.css"
         integrity="sha512-LLxZHu50SXdFJdAzHmDJAoLaozhTB4BYZPoN+xdTRjiPmPhI+1mEJXdoHHiDWmd/jj/9x10pkd8mYGG9sqfPPA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{ user.custom_styles|safe }}
+        {% if user.custom_styles|length == 0 %}
+        {{ user.default_styles|safe }}
+        {% else %}
+        {{ user.custom_styles|safe }}
+        {% endif %}
     <style>
         .user-link {
             text-transform: capitalize;
