@@ -38,7 +38,7 @@ class User(AbstractUser):
     is_verified = models.BooleanField(default=False)
     profile_pic = ProcessedImageField(
         upload_to='accounts/profile_pics/',
-        processors=[ResizeToFit(220, 340)],
+        processors=[ResizeToFit(320, 440)],
         format='JPEG',
         options={'quality': 90},
         null=True,

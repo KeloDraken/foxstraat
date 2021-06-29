@@ -72,8 +72,17 @@ def create_bulletin(request):
 def get_bulletin(request, bulletin_id):
     bulletin = Bulletin.objects.get(object_id=bulletin_id)
     post = BulletinImage.objects.get(bulletin=bulletin)
+
+    user_bulletins = Bulletin.objects.filter(user=bulletin.user).order_by('?')[:2]
+    
+    more_from_user = []
+    for i in user_bulletins:
+        obj =  BulletinImage.objects.filter(bulletin=i)
+        more_from_user.append(obj)
+        
     context = {
         'post': post,
+        'more_from_user': more_from_user,
     }
     return render(request, 'views/bulletin/view_bulletin.html', context)
 

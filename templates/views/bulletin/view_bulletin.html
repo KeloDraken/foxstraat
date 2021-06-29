@@ -1,9 +1,103 @@
 {% extends 'base.html' %}
 {% block title %}{{post.bulletin.user.display_name}} - {{ post.bulletin.title }}{% endblock %}
 
+{% block styles %}
+<style>
+    .content {
+        margin-top: 2rem;
+    }
+
+    .post-caption {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333333;
+        margin-left: 5px;
+        font-weight: 600;
+        white-space: pre-wrap;
+    }
+
+    .post-image {
+        width: 100%;
+    }
+
+    .post-author {
+        font-size: 1.3em;
+        color: #353535;
+    }
+
+    .section-images {
+        /* width: 100%; */
+        object-fit: cover;
+        width: 250px;
+        height: 120px;
+    }
+
+    .post-title {
+        font-weight: 600 !important;
+    }
+
+    .section-heading {
+        color: #3f3f3f;
+        font-weight: 600;
+        font-size: 1.5em;
+    }
+</style>
+{% endblock %}
 {% block body %}
 {% include 'components/navbar.html' %}
-<div class="container">
-    <h1>View bulletin</h1>
+<div class="container content">
+    <div class="row">
+        <div class="col s7">
+            <img class="post-image" src="{{ post.image.url }}" alt="post">
+            <h4 class="section-heading">
+                More from
+                {{ post.bulletin.user.display_name }}
+            </h4>
+            <div class="row">
+                {% for i in more_from_user %}
+                {% for bulletin in i %}
+                {% if not bulletin.bulletin.object_id == post.bulletin.object_id %}
+                <a title="{{ post.bulletin.title }}"
+                    href="{% url 'bulletin:get-bulletin' bulletin_id=bulletin.bulletin.object_id %}">
+                    <div class="col s6">
+                        <img class="section-images" src="{{ bulletin.image.url }}" alt="">
+                    </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+        <div class="col s5">
+            <!-- <p class="blue-text trending">lsdfbvjk</p> -->
+            <h4 class="post-title">{{ post.bulletin.title }}</h4>
+            <div class="row">
+                <div class="col s6">
+                    3 506 votes
+                </div>
+                <div class="col s3">
+                    <span class="material-icons-outlined">
+                        thumb_up
+                    </span>
+                    3000
+                </div>
+                <div class="col s3">
+                    <span class="material-icons-outlined">
+                        thumb_down
+                    </span>
+                    506
+                </div>
+            </div>
+            <a 
+            title="{{ post.bulletin.user.display_name }}" 
+            class="post-author"
+            href="{% url 'get-user-profile' username=post.bulletin.user.username %}">
+                {{ post.bulletin.user.display_name }}
+            </a>
+            <pre class="post-caption">{{ post.bulletin.caption }}</pre>
+        </div>
+    </div>
 </div>
 {% endblock %}
