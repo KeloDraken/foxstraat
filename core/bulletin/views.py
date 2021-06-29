@@ -89,7 +89,7 @@ def get_bulletin(request, bulletin_id):
     return render(request, 'views/bulletin/view_bulletin.html', context)
 
 def explore_bulletins(request):
-    posts = BulletinImage.objects.all()
+    posts = BulletinImage.objects.all().order_by('?')
 
     context = {
         'posts': posts

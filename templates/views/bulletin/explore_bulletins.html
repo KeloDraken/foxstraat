@@ -2,10 +2,75 @@
 
 {% block title %}Foxstraat - Explore{% endblock %}
 
+{% block styles %}
+<style>
+    .post-image {
+        width: 100%;
+        border-radius: 3px;
+        margin-bottom: 0.8em;
+    }
+
+    .content {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: rgba(241, 241, 241, 0.8);
+        margin-top: 1em;
+    }
+
+    .post-author {
+        margin: 0.2em 0.5em;
+        font-size: 1em;
+        font-weight: 600;
+    }
+
+    .grid {
+        display: flex;
+    }
+
+    .grid-col {
+        flex: 1;
+        padding: 0 0.5em;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 {% include 'components/navbar.html' %}
 
 <div class="container">
     <h1>Explore bulletins</h1>
+
+    <div class="grid">
+        <!-- columns -->
+        <div class="grid-col grid-col--1"></div>
+        <div class="grid-col grid-col--2"></div>
+        <div class="grid-col grid-col--3"></div>
+        <div class="grid-col grid-col--4"></div>
+        <!-- items -->
+        {% for post in posts %}
+        <div class="grid-item">
+            <div class="content">
+                <h4 class="post-author">{{ post.bulletin.user.display_name }}</h4>
+            </div>
+            <a title="{{ post.bulletin.title }}"
+                href="{% url 'bulletin:get-bulletin' bulletin_id=post.bulletin.object_id %}">
+                <img class="post-image" src="{{ post.image.url }}">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/colcade@0/colcade.js"></script>
+<script>
+    // selector string as first argument
+    var colc = new Colcade('.grid', {
+        columns: '.grid-col',
+        items: '.grid-item'
+    });
+</script>
 {% endblock %}
