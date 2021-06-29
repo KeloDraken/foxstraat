@@ -138,10 +138,20 @@ def edit_user_profile(request):
                 )
             else:
                 user.bio = bio
-            user.instagram = request.POST['instagram']
-            user.twitter = request.POST['twitter']
-            website = request.POST['website']
+            
+            instagram = request.POST['instagram']
+            if not len(instagram) <= 0 and not instagram == None:
+                user.instagram = instagram
+            else:
+                user.instagram = None
 
+            twitter = request.POST['twitter']
+            if not len(twitter) <= 0 and not twitter == None:
+                user.twitter = twitter
+            else:
+                user.twitter = None
+
+            website = request.POST['website']
             if not len(website) <= 0 and not website == None:
                 if 'http://' not in website and 'https://' not in website:
                     website = 'http://'+website
