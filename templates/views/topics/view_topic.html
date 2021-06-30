@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
+{% block title %}Foxstraat - {{ topic_name }}{% endblock %}
+
 {% block body %}
 {% include 'components/navbar.html' %}
 
     <div class="container">
-        <h1>Topics</h1>
+        <h1>{{ topic_name }}</h1>
+
+        {% for object in objects %}
+            <span>{{ object.post.bulletin.title }}</span>
+        {% endfor %}
     </div>
 
 {% endblock %}

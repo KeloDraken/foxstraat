@@ -40,7 +40,7 @@ class Tag(models.Model):
 
 
 class PostTag(models.Model):
-    post = models.ForeignKey(Bulletin, on_delete=models.CASCADE)
+    post = models.ForeignKey(BulletinImage, on_delete=models.CASCADE)
     tag = models.ForeignKey(
             Tag,
             on_delete=models.CASCADE,

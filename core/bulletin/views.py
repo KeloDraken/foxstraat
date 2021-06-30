@@ -61,14 +61,14 @@ def create_bulletin(request):
 
                     post_form.save()
 
-                    link_tags_to_post(post_id=object_id, tags=hashtags)
-
                     for form in formset.cleaned_data:
                         if form:
                             image = form['image']
                             photo = BulletinImage(bulletin=post_form, image=image)
                             photo.save()
 
+                    link_tags_to_post(post_id=object_id, tags=hashtags)
+                    
                     return redirect(f'/p/{object_id}')
 
                 else:

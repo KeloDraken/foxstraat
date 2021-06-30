@@ -8,10 +8,11 @@ def forum(request):
 
 def get_topic(request, topic_id):
     category = Tag.objects.get(name=topic_id)
-    posts = PostTag.objects.filter(tag=category)
+    objects = PostTag.objects.filter(tag=category)
 
     context = {
-        'posts': posts
+        'objects': objects,
+        'topic_name': topic_id,
     } 
 
     return render(request, 'views/topics/view_topic.html', context)

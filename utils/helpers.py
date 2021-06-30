@@ -2,7 +2,8 @@ import random
 import string
 
 from core.bulletin.models import (
-    Bulletin, 
+    Bulletin,
+    BulletinImage, 
     PostTag, 
     Tag
 )
@@ -70,11 +71,8 @@ def extract_hashtags(text, object_id) -> list:
 
 def link_tags_to_post(post_id: str, tags: list):
     post  = Bulletin.objects.get(object_id=post_id)
-
-    post_tags = PostTag.objects.filter(post=post)
-
-    print(post_tags)
+    post_image = BulletinImage.objects.get(bulletin=post)
 
     for tag in tags:
         _tag = Tag.objects.get(name=tag.lower())
-        PostTag.objects.create(post=post, tag=_tag)
+        PostTag.objects.create(post=post_image, tag=_tag)
