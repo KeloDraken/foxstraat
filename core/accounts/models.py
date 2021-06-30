@@ -36,6 +36,7 @@ class User(AbstractUser):
     )
     display_name = models.CharField(max_length=20, null=True, blank=True)
     is_verified = models.BooleanField(default=False)
+    is_fake_profile = models.BooleanField(default=False)
     profile_pic = ProcessedImageField(
         upload_to='accounts/profile_pics/',
         processors=[ResizeToFit(320, 440)],
