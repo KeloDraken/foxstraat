@@ -3,6 +3,7 @@ from django.contrib import admin
 from core.bulletin.models import (
     Bulletin,
     BulletinImage,
+    Tag,
 )
 
 class BulletinImageInline(admin.TabularInline):
@@ -13,3 +14,4 @@ class BulletinAdmin(admin.ModelAdmin):
     inlines = [ BulletinImageInline, ]
 
 admin.site.register(Bulletin, BulletinAdmin)
+admin.site.register(Tag)

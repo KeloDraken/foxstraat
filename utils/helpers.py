@@ -1,6 +1,12 @@
 import random
 import string
 
+from core.bulletin.models import (
+    Bulletin, 
+    PostTag, 
+    Tag
+)
+
 
 def object_id_generator(size, model, chars=string.ascii_letters + string.digits):
     '''
@@ -32,3 +38,46 @@ def check_object_id_exists(object_id, model):
         # that there's no Submission object with object_id == object_id
         return object_id
 
+
+def extract_hashtags(text, object_id) -> list:
+    """
+    function to extract all the hashtags in a product description. 
+    It generates new `Tag` instance, if it does not exist, for each of 
+    of the tags
+    """
+      
+    # initializing hashtag_list variable
+    hashtag_list = []
+      
+    # splitting the text into words
+    for word in text.split():
+          
+        # checking the first charcter of every word
+        if word[0] == '#':
+              
+            # adding the word to the hashtag_list
+            hashtag_list.append(word[1:])
+      
+    # printing the hashtag_list
+    for hashtag in hashtag_list:
+        try:
+            Tag.objects.get(name=hashtag)
+            pass
+
+        except:
+            object_id = object_id_generator(size=11, model=Tag)
+            Tag.objects.create(name=hashtag, object_id=object_id)
+
+    return hashtag_list
+
+
+def link_tags_to_post(post_id: str, tags: list):
+    post  = Bulletin.objects.get(object_id=post_id)
+
+    post_tags = PostTag.objects.filter(post=post)
+
+    print(post_tags)
+
+    for tag in tags:
+        _tag = Tag.objects.get(name=tag)
+        PostTag.objects.create(post=post, tag=_tag)

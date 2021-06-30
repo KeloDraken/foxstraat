@@ -5,17 +5,23 @@ from django.db.models import Count
 from django.forms import modelformset_factory
 from django.shortcuts import redirect, render
 
-from utils.helpers import object_id_generator
+from utils.helpers import (
+    extract_hashtags,
+    link_tags_to_post, 
+    object_id_generator
+)
 
 from core.forms import FormWithCaptcha
-
-from core.forums.models import Category
 
 from core.bulletin.forms import (
     CreateBulletinForm,
     BulletinImageForm,
 )
-from core.bulletin.models import Bulletin, BulletinImage
+from core.bulletin.models import (
+    Bulletin, 
+    BulletinImage, 
+    PostTag
+)
 
 
 @login_required
@@ -47,7 +53,15 @@ def create_bulletin(request):
 
                     object_id = object_id_generator(11, Bulletin)
                     post_form.object_id = object_id
+                    
+                    caption = request.POST['caption']
+                    
+                    # Extract tags
+                    hashtags = extract_hashtags(text=caption, object_id=object_id)
+
                     post_form.save()
+
+                    link_tags_to_post(post_id=object_id, tags=hashtags)
 
                     for form in formset.cleaned_data:
                         if form:
