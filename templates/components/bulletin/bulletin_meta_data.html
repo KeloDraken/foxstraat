@@ -4,18 +4,8 @@
     <!-- <p class="blue-text trending">lsdfbvjk</p> -->
     <h4 class="post-title">{{ post.bulletin.title }}</h4>
     <div class="row votes">
-        <div class="col s6">
+        <div class="col s12">
             {{post.displayed_upvotes|shrink_num}} score
-        </div>
-        <div class="col s2">
-            <span class="material-icons-outlined">
-                thumb_up
-            </span>
-        </div>
-        <div class="col s2">
-            <span class="material-icons-outlined">
-                thumb_down
-            </span>
         </div>
     </div>
     <a title="{{ post.bulletin.user.display_name }}" class="post-author"
