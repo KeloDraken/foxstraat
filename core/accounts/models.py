@@ -23,6 +23,8 @@ class LowercaseCharField(models.CharField):
 
 class User(AbstractUser):
     object_id = models.CharField(max_length=20, null=True, blank=True)
+    is_fake_profile = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     username = LowercaseCharField(
         # Copying this from AbstractUser code
         _('username'),
@@ -35,8 +37,6 @@ class User(AbstractUser):
         },
     )
     display_name = models.CharField(max_length=20, null=True, blank=True)
-    is_verified = models.BooleanField(default=False)
-    is_fake_profile = models.BooleanField(default=False)
     profile_pic = ProcessedImageField(
         upload_to='accounts/profile_pics/',
         processors=[ResizeToFit(320, 440)],
@@ -45,9 +45,9 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
-
     bio = models.TextField(null=True, blank=True, max_length=3000)
-
+    subscribers = models.PositiveBigIntegerField(default=1)
+    upvotes = models.PositiveBigIntegerField(default=0)
     # User social media links
     instagram = models.CharField(max_length=60, null=True, blank=True)
     vsco = models.CharField(max_length=60, null=True, blank=True)
