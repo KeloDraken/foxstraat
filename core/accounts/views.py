@@ -153,9 +153,7 @@ def edit_user_profile(request):
 
             website = request.POST['website']
             if not len(website) <= 0 and not website == None:
-                if 'http://' not in website and 'https://' not in website:
-                    website = 'http://'+website
-                    user.website = website
+                user.website = website
             else:
                 user.website = None
 

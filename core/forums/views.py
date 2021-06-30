@@ -5,7 +5,7 @@ from core.forums.models import Category, Topic
 
 
 def forum(request):
-    return render(request, 'views/topics/topic_list.html')
+    return render(request, 'views/page_coming_soon.html')
 
 def get_topic(request, topic_id):
     category = Category.objects.get(object_id=topic_id)
