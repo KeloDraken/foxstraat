@@ -91,8 +91,8 @@ def get_bulletin(request, bulletin_id):
     bulletin = Bulletin.objects.get(object_id=bulletin_id)
     post = BulletinImage.objects.get(bulletin=bulletin)
 
-    bulletin.upvotes += 1
-    bulletin.save()
+    post.upvotes += 1
+    post.save()
 
     user_bulletins = Bulletin.objects.filter(user=bulletin.user).order_by('?')[:2]
     
@@ -108,7 +108,7 @@ def get_bulletin(request, bulletin_id):
     return render(request, 'views/bulletin/view_bulletin.html', context)
 
 def explore_bulletins(request):
-    posts = BulletinImage.objects.all().order_by('-bulletin.upvotes')
+    posts = BulletinImage.objects.all().order_by('-upvotes')
 
     topics = Tag.objects.all()
     context = {
