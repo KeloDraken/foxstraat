@@ -19,20 +19,6 @@ class CreateBulletinForm(forms.ModelForm):
             }
         )
     ) 
-    yt_embed = forms.CharField(
-        max_length=11, 
-        label='', 
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-input',
-                'placeholder': 'You can embed a YouTube video by submitting the video id',
-                'autocomplete': 'off',
-                'autofocus': 'true',
-                'autocapitalize': 'off',
-            }
-        )
-    ) 
     caption = forms.CharField(required=False, widget=forms.Textarea(
         attrs={
             'cols': 100,
@@ -43,7 +29,7 @@ class CreateBulletinForm(forms.ModelForm):
     ))
     class Meta:
         model = Bulletin
-        fields = ('title','yt_embed','caption',)
+        fields = ('title','caption',)
  
  
 class BulletinImageForm(forms.ModelForm):
