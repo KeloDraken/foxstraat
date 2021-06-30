@@ -4,6 +4,25 @@
 
 {% block styles %}
 <style>
+    .topic-scroll::-webkit-scrollbar {
+        border-radius: 0;
+        height: 7px;
+        width: 3px;
+        border: 1px solid #000000;
+    }
+
+    .topic-scroll::-webkit-scrollbar-track {
+        width: 3px;
+        height: 3px;
+        border-radius: 0;
+        background: #ffffff;
+    }
+
+    .topic-scroll::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background: #5f5f5f;
+    }
+
     .post-image {
         width: 100%;
         border-radius: 2px;
@@ -39,7 +58,7 @@
         display: flex;
     }
 
-    .grid-item:hover > .content {
+    .grid-item:hover>.content {
         visibility: visible;
         opacity: 1;
     }
@@ -48,17 +67,49 @@
         flex: 1;
         padding: 0 0.5em;
     }
+
+    .topic-scroll {
+        margin: 4px 4px;
+        margin-bottom: 2rem;
+        padding: 4px;
+        width: 100%;
+        border-radius: 5px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .topic-scroll.active {
+        background: rgba(255, 255, 255, 0.3);
+        cursor: grabbing;
+        cursor: -webkit-grabbing;
+        transform: scale(1);
+    }
+
+    .topic-pill {
+        font-size: 1.5em;
+        color: #212121;
+        border: 2px solid #3d3d3d;
+        border-radius: 3px;
+        margin: 0 .8rem .6rem 0;
+        padding: 5px 8px;
+    }
+    .explore {
+        margin-top: 2rem;
+    }
 </style>
 {% endblock %}
 
 {% block body %}
 {% include 'components/navbar.html' %}
 
-<div class="container">
-    {% for topic in topics %}
-    <span class="topic">{{ topic.name }}</span>
-    {% endfor %}
-
+<div class="container explore">
+    <div class="topic-scroll">
+        {% for topic in topics %}
+        <a href="{% url 'forums:get-topic' topic_id=topic.object_id %}" class="topic-pill">{{ topic.name }}</a>
+        {% endfor %}
+    </div>
     <div class="grid">
         <!-- columns -->
         <div class="grid-col grid-col--1"></div>
@@ -96,6 +147,35 @@
     var colc = new Colcade('.grid', {
         columns: '.grid-col',
         items: '.grid-item'
+    });
+</script>
+<script>
+    const slider = document.querySelector('.topic-scroll');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 3; //scroll-fast
+        slider.scrollLeft = scrollLeft - walk;
+        console.log(walk);
     });
 </script>
 {% endblock %}
