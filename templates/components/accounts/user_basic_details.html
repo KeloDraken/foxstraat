@@ -1,3 +1,5 @@
+{% load url_target_blank %}
+
 <style>
     .image_placeholder{
         height: 200px;
@@ -19,7 +21,7 @@
     </div>
 
     <div class="user-stat-container">
-        <p class="stat">{{user.upvotes}} upvote{{user.upvotes|pluralize}}</p>
-        <p class="stat">{{user.subscribers}} subscriber{{user.subscribers|pluralize}}</p>
+        <p class="stat">{{user.upvotes|shrink_num}} upvote{{user.upvotes|pluralize}}</p>
+        <p class="stat">{{user.subscribers|shrink_num}} subscriber{{user.subscribers|pluralize}}</p>
     </div>
 </div>
