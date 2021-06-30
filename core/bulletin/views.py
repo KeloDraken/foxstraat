@@ -9,6 +9,8 @@ from utils.helpers import object_id_generator
 
 from core.forms import FormWithCaptcha
 
+from core.forums.models import Category
+
 from core.bulletin.forms import (
     CreateBulletinForm,
     BulletinImageForm,
@@ -91,7 +93,9 @@ def get_bulletin(request, bulletin_id):
 def explore_bulletins(request):
     posts = BulletinImage.objects.all().order_by('?')
 
+    topics = Category.objects.all()
     context = {
+        'topics': topics,
         'posts': posts
     }
     
