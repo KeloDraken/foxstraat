@@ -12,8 +12,6 @@ class Bulletin(models.Model):
     title = models.CharField(max_length=140, null=False, blank=False)
     yt_embed = models.CharField(max_length=20, null=True, blank=True)
     caption = models.TextField(null=True, blank=True)
-    upvotes = models.PositiveIntegerField(default=0)
-    displayed_upvotes = models.PositiveIntegerField(default=0)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     
@@ -23,6 +21,8 @@ class BulletinImage(models.Model):
         on_delete=models.CASCADE, 
         related_name='images'
     )
+    upvotes = models.PositiveIntegerField(default=0)
+    displayed_upvotes = models.PositiveIntegerField(default=0)
     image = ProcessedImageField(
         upload_to='bulletin/images/',
         processors=[ResizeToFit(480, 600)],
