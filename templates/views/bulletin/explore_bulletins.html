@@ -109,7 +109,7 @@
 <div class="container explore">
     <div class="topic-scroll">
         {% for topic in topics %}
-        <a href="{% url 'forums:get-topic' topic_id=topic.object_id %}" class="topic-pill">{{ topic.name }}</a>
+        <a href="{% url 'forums:get-topic' topic_id=topic.name %}" class="topic-pill">{{ topic.name }}</a>
         {% endfor %}
     </div>
     <div class="grid">

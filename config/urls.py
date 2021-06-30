@@ -42,7 +42,7 @@ urlpatterns = [
     path('p/', include('core.bulletin.urls', namespace='bulletin')),
 
     # Topics urls
-    path('b/', include('core.forums.urls', namespace='forums')),
+    path('t/', include('core.forums.urls', namespace='forums')),
     
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
