@@ -19,8 +19,8 @@ from core.bulletin.forms import (
 )
 from core.bulletin.models import (
     Bulletin, 
-    BulletinImage, 
-    PostTag
+    BulletinImage,
+    Tag
 )
 
 
@@ -107,7 +107,7 @@ def get_bulletin(request, bulletin_id):
 def explore_bulletins(request):
     posts = BulletinImage.objects.all().order_by('?')
 
-    topics = Category.objects.all()
+    topics = Tag.objects.all()
     context = {
         'topics': topics,
         'posts': posts

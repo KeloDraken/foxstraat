@@ -30,7 +30,7 @@ class BulletinImage(models.Model):
 
 
 class Tag(models.Model):
-    object_id = models.CharField(max_length=11, null=False, blank=False)
+    object_id = models.CharField(max_length=11, null=True, blank=True)
     name = models.CharField(max_length=300, null=False, blank=False)
 
     def __str__(self):

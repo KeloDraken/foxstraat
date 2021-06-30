@@ -60,13 +60,10 @@ def extract_hashtags(text, object_id) -> list:
       
     # printing the hashtag_list
     for hashtag in hashtag_list:
-        try:
-            Tag.objects.get(name=hashtag)
-            pass
-
-        except:
             object_id = object_id_generator(size=11, model=Tag)
-            Tag.objects.create(name=hashtag, object_id=object_id)
+            obj, created = Tag.objects.get_or_create(
+                name=hashtag.lower(),
+            )
 
     return hashtag_list
 
@@ -79,5 +76,5 @@ def link_tags_to_post(post_id: str, tags: list):
     print(post_tags)
 
     for tag in tags:
-        _tag = Tag.objects.get(name=tag)
+        _tag = Tag.objects.get(name=tag.lower())
         PostTag.objects.create(post=post, tag=_tag)
