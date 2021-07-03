@@ -10,17 +10,17 @@ from core.bulletin.models import (
 
 
 def object_id_generator(size, model, chars=string.ascii_letters + string.digits):
-    '''
+    """
     Generates and returns base64 call id
-    '''
+    """
     object_id = ''.join(random.choice(chars) for _ in range(size))
 
     return check_object_id_exists(object_id=object_id, model=model)
 
 def check_object_id_exists(object_id, model):
-    '''
+    """
     Checks if call id exists. Generates and returns new call id if exists
-    '''
+    """
     # Try/Catch checks to see if a Submission with object_id == object_id
     # already exists. This will not throw an error if True. And if
     # that's the case, the function becomes recursive until a unique
@@ -40,7 +40,7 @@ def check_object_id_exists(object_id, model):
         return object_id
 
 
-def extract_hashtags(text, object_id) -> list:
+def extract_hashtags(text) -> list:
     """
     function to extract all the hashtags in a product description. 
     It generates new `Tag` instance, if it does not exist, for each of 
@@ -61,7 +61,6 @@ def extract_hashtags(text, object_id) -> list:
       
     # printing the hashtag_list
     for hashtag in hashtag_list:
-            object_id = object_id_generator(size=11, model=Tag)
             obj, created = Tag.objects.get_or_create(
                 name=hashtag.lower(),
             )

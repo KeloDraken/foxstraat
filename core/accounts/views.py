@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from django.http.response import Http404
 
 from django.shortcuts import redirect, render
 
@@ -93,8 +92,6 @@ def get_user_profile(request, username):
         post_image = BulletinImage.objects.get(bulletin=i)
         posts.append(post_image)
 
-    # except:
-    #     raise Http404()
     context = {
         'posts': posts,
         'user': user

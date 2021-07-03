@@ -341,11 +341,8 @@ class User(AbstractUser):
 </style>
         """
     )
-
     date_joined = models.DateField(auto_now_add=True)
     datetime_joined = models.DateTimeField(auto_now_add=True)
-
-    # objects = CustomUserManager()
 
     def __str__(self) -> str:
         return self.username

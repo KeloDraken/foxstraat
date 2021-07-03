@@ -34,7 +34,6 @@ urlpatterns = [
     path('', index, name='index'),
     path('about/', about, name='about'),
     
-
     # Accounts urls
     path('u/', include('core.accounts.urls', namespace='accounts')),
 

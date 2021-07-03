@@ -23,7 +23,7 @@ class CreateBulletinForm(forms.ModelForm):
         attrs={
             'cols': 100,
             'class': 'form-input',
-            'placeholder': 'Write your caption/bulletin',
+            'placeholder': 'Write your caption...',
             'rows': 100,
         }
     ))

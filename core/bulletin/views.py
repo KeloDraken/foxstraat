@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from django.db.models import Count
 from django.forms import modelformset_factory
 from django.shortcuts import redirect, render
 
@@ -56,8 +55,7 @@ def create_bulletin(request):
                     
                     caption = request.POST['caption']
                     
-                    # Extract tags
-                    hashtags = extract_hashtags(text=caption, object_id=object_id)
+                    hashtags = extract_hashtags(text=caption)
 
                     post_form.save()
 
@@ -74,7 +72,10 @@ def create_bulletin(request):
                 else:
                     print(post_form.errors, formset.errors)
             else:
-                messages.error(request, 'Please confirm that you\'re not a robot')
+                messages.error(
+                    request, 
+                    'Please confirm that you\'re not a robot'
+                )
         else:
             post_form = CreateBulletinForm()
             formset = ImageFormSet(queryset=BulletinImage.objects.none())
@@ -84,7 +85,11 @@ def create_bulletin(request):
             'formset': formset,
             'captcha': captcha,
         }
-        return render(request, 'views/bulletin/create_bulletin.html', context)
+        return render(
+            request, 
+            'views/bulletin/create_bulletin.html', 
+            context
+        )
 
 
 def get_bulletin(request, bulletin_id):
@@ -94,7 +99,9 @@ def get_bulletin(request, bulletin_id):
     post.upvotes += 1
     post.save()
 
-    user_bulletins = Bulletin.objects.filter(user=bulletin.user).order_by('?')[:2]
+    user_bulletins = Bulletin.objects.filter(
+        user=bulletin.user
+    ).order_by('?')[:2]
     
     more_from_user = []
     for i in user_bulletins:
@@ -105,7 +112,11 @@ def get_bulletin(request, bulletin_id):
         'post': post,
         'more_from_user': more_from_user,
     }
-    return render(request, 'views/bulletin/view_bulletin.html', context)
+    return render(
+        request, 
+        'views/bulletin/view_bulletin.html', 
+        context
+    )
 
 def explore_bulletins(request):
     posts = BulletinImage.objects.all().order_by('-upvotes')
