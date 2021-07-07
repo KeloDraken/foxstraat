@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Foxstraat - {{ topic_name }}{% endblock %}
 
@@ -143,7 +144,8 @@
 
 
 {% block scripts %}
-<script src="https://unpkg.com/colcade@0/colcade.js"></script>
+<script src="{% static 'js/colcade.js' %}"></script>
+<!-- <script src="https://unpkg.com/colcade@0/colcade.js"></script> -->
 <script>
     // selector string as first argument
     var colc = new Colcade('.grid', {
