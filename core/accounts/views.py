@@ -24,6 +24,7 @@ def user_registration(request):
         if request.method =='POST':
             registration_form = UserRegistrationForm(request.POST)
 
+            # TODO: remove this try/catch in production
             try:
                 captcha_data = request.POST['g-recaptcha-response']
             except:
