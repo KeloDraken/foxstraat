@@ -45,6 +45,9 @@ urlpatterns = [
 
     # Announcements urls
     path('n/', include('core.announcements.urls', namespace='announcements')),
+
+    # Search urls
+    path('search/', include('core.search.urls', namespace='search')),
     
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
