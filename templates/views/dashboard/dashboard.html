@@ -141,7 +141,7 @@
             </div>
             <!-- Create announcement section ends -->
             {% endif %}
-            
+
             <!-- Site info section -->
             <div class="card z-depth-0">
                 <div class="yellow  darken-1  card-content">
@@ -164,7 +164,7 @@
                     <p class="announcement-body">
                         <em class="announcement-title">{{ n.title }}</em>
                         <br>
-                       {{ n.body }}
+                        {{ n.body }}
                     </p><br>
                     {% endfor %}
                     <p>
@@ -182,9 +182,9 @@
             </div>
         </div>
         <div class="col s8">
-            <form method="get">
+            <form method="get" action="{% url 'search:search' %}">
+                <input class="form-input" autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users, forums, and bulletins" />
                 {% csrf_token %}
-                <input type="text" class="form-input" placeholder="Search users, forums, and bulletins" />
             </form>
         </div>
         <div class="col s8 red">

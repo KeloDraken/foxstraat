@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Foxstraat - Prepare to be assimilated{% endblock %}
+
+{% block styles %}
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+    nav {
+        border-bottom: 2px solid #212121;
+    }
+
+    .n-logo {
+        font-size: 2em !important;
+        font-family: "Lobster", cursive;
+        color: rgb(24, 24, 24) !important;
+    }
+    
+    .heading {
+        margin-top: 2em !important;
+    }
+
+    .banner {
+        height: 68vh;
+    }
+    .about {
+        border-top: 2px solid #212121;
+        padding-top: 2rem;
+        height: 10vh !important;
+    }
+    .form-input {
+        border: 2px solid #212121 !important;
+        background-color: #212121 !important;
+        padding: 5px 6px !important;
+        font-size: 2em !important;
+        font-weight: 500 !important;
+        color: #fff !important;
+        border-radius: 5px !important;
+        width: 80% !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<!-- Navbar starts -->
+{% include 'components/navbar.html' %}
+<!-- Navbar ends -->
+
+<!-- banner begins -->
+<section class="container center banner">
+    <h1 class="logo black-text heading">Foxstraat search</h1>
+    <form method="get" action="{% url 'search:search' %}">
+        <input class="form-input" autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users, forums, and bulletins" />
+        {% csrf_token %}
+    </form>
+</section>
+<!-- banner ends -->
+
+<section class="blue about">
+</section>
+{% endblock %}
