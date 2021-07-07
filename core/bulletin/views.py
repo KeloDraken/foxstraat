@@ -73,8 +73,8 @@ def create_bulletin(request):
                     
                     return redirect(f'/p/{object_id}')
 
-                else:
-                    print(post_form.errors, formset.errors)
+                else:    
+                    messages.error(request, 'Post creation failed')
             else:
                 messages.error(
                     request, 
