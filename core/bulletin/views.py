@@ -44,7 +44,11 @@ def create_bulletin(request):
                 queryset=BulletinImage.objects.none()
             )
             
-            captcha_data = request.POST['g-recaptcha-response']
+            try:
+                captcha_data = request.POST['g-recaptcha-response']
+            except:
+                captcha_data = '...'
+                
             if not captcha_data == '':
                 if post_form.is_valid() and formset.is_valid():
                     post_form = post_form.save(commit=False)
