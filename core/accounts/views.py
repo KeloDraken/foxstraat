@@ -24,7 +24,10 @@ def user_registration(request):
         if request.method =='POST':
             registration_form = UserRegistrationForm(request.POST)
 
-            captcha_data = request.POST['g-recaptcha-response']
+            try:
+                captcha_data = request.POST['g-recaptcha-response']
+            except:
+                captcha_data = '...'
             
             if not captcha_data == '':
                 if registration_form.is_valid():
