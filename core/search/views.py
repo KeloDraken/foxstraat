@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 @login_required
 def search(request):
-    query = request.GET.get('query')
+    query = request.GET.get('q')
     if query:
         context = {
             'query': query
