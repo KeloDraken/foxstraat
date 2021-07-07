@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load url_target_blank %}
+
 {% block title %}Foxstraat - {{ user.username }}'s dashboard{% endblock %}
 
 {% block styles %}
@@ -106,7 +108,7 @@
                     <p>
                         joined: {{user.datetime_joined|naturaltime}} <br>
                         posts: 20 <br>
-                        subscribers: 20m <br>
+                        subscribers: {{user.subscribers|shrink_num}} <br>
                         following: 23
                     </p>
                 </div>
