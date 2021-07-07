@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Foxstraat - Create post{% endblock %}
+
+{% block styles %}
+<style>
+    .form-input {
+        color: #000 !important;
+        width: 83% !important;
+        border: 1px solid #797979 !important;
+    }
+
+    .form-input::placeholder {
+        color: rgb(112, 112, 112) !important;
+        opacity: 1 !important;
+    }
+</style>
+<style>
+    .image-preview {
+        border: 2px solid #ccc;
+        height: 300px;
+        width: 240px;
+    }
+
+    textarea {
+        max-width: 100% !important;
+        max-height: 60% !important;
+        width: 1000px !important;
+        height: 200px !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+
+<div class="container center">
+    <h3>Create announcement</h3>
+    {% if messages %}
+    <div class="container center">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="red white-text">{{ message }}</div>
+        {% elif message.tags == 'success' %}
+        <div class="green white-text">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
+    <form id="post_form" method="post" action="{% url 'announcements:create-announcement' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        {{ field }} <br />
+        {% endfor %}
+
+        <br>
+        <br>
+        {{ captcha }}
+        <br>
+        <input type="submit" name="submit" value="Create announcement" />
+    </form>
+</div>
+</div>
+{% endblock %}
