@@ -51,7 +51,7 @@
 <section class="container center banner">
     <h1 class="logo black-text heading">Foxstraat search</h1>
     <form method="get" action="{% url 'search:search' %}">
-        <input class="form-input" autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users, forums, and bulletins" />
+        <input class="form-input" autofocus autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users, forums, and bulletins" />
         {% csrf_token %}
     </form>
 </section>
