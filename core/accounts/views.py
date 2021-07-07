@@ -12,6 +12,7 @@ from core.accounts.forms import (
     UserRegistrationForm
 )
 from core.accounts.models import User
+from core.announcements.models import Announcement
 from core.bulletin.models import Bulletin, BulletinImage
 
 
@@ -78,9 +79,10 @@ def user_logout(request):
 
 @login_required
 def user_dashboard(request):
-    user = request.user
+    announcements = Announcement.objects.all().order_by('-datetime_created')
+
     context = {
-        'user': user
+        'announcements': announcements,
     }
     return render(request, 'views/dashboard/dashboard.html', context)
 
