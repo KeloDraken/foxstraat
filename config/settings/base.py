@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'core.announcements',
     'core.bulletin',
     'core.forums',
+    'core.search',
 
     # template tags
     'core.bulletin.templatetags',
