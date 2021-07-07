@@ -95,87 +95,21 @@
     <div class="row">
         <div class="col s4">
             <!-- User details section -->
-            <div class="card z-depth-0">
-                <div class="card-image">
-                    {% if user.profile_pic %}
-                    <img class="profile-image" src="{{ user.profile_pic.url }}">
-                    {% else %}
-                    <div class="image_placeholder">No profile picture</div>
-                    {% endif %}
-                </div>
-                <div class="card-content">
-                    <span class="card-title">{{ user.display_name }}</span>
-                    <p>
-                        joined: {{user.datetime_joined|naturaltime}} <br>
-                        posts: 20 <br>
-                        subscribers: {{user.subscribers|shrink_num}} <br>
-                        following: 23
-                    </p>
-                </div>
-                <div class="red card-action">
-                    <a class="black-text" style="text-decoration: underline;"
-                        href="{% url 'accounts:edit-user-profile' %}">Edit profile</a>
-                </div>
-
-            </div>
+            {% include 'components/dashboard/user_details.html' %}
             <!-- user details section ends -->
 
             <!-- Create post section -->
-            <div title="Add a post to gallery" class="card z-depth-0">
-                <div class="blue card-action">
-                    <a class="black-text" style="text-decoration: underline;"
-                        href="{% url 'bulletin:create-bulletin' %}">Add a post to gallery</a>
-                    </a>
-                </div>
-            </div>
+            {% include 'components/dashboard/create_post.html' %}
             <!-- Create post section ends -->
-
-            {% if request.user.is_superuser %}
-            <!-- Create announcement section -->
-            <div title="Add a post to gallery" class="card z-depth-0">
-                <div class="purple lighten-1 card-action">
-                    <a class="black-text" style="text-decoration: underline;"
-                        href="{% url 'announcements:create-announcement' %}">Add new announcement</a>
-                    </a>
-                </div>
-            </div>
-            <!-- Create announcement section ends -->
-            {% endif %}
+            
+            {% include 'components/dashboard/create_announcement.html' %}
 
             <!-- Site info section -->
-            <div class="card z-depth-0">
-                <div class="yellow  darken-1  card-content">
-                    <p>
-                        If you like using Foxstraat, please consider supporting its development.
-                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-                        <script
-                            type='text/javascript'>kofiwidget2.init('Support Me', '#000000', 'Y8Y31URML'); kofiwidget2.draw();</script>
-
-                    </p>
-                </div>
-            </div>
+            {% include 'components/dashboard/site_info.html' %}
             <!-- site info section ends -->
 
             <!-- foxstraat announcements section -->
-            <div class="card z-depth-0">
-                <div class="green lighten-1 card-content">
-                    <span class="card-title"><b>Announcements</b></span>
-                    {% for n in announcements %}
-                    <p class="announcement-body">
-                        <em class="announcement-title">{{ n.title }}</em>
-                        <br>
-                        {{ n.body }}
-                    </p><br>
-                    {% endfor %}
-                    <p>
-                        For more updates, follow
-                        <a class="btn btn-small blue darken-2" target="_blank"
-                            href="https://twitter.com/intent/follow?screen_name=KeloDraken&tw_p=followbutton">
-                            Follow @KeloDraken
-                        </a>
-                    </p>
-                </div>
-            </div>
+            {% include 'components/dashboard/announcements.html' %}
             <!-- foxstraat announcements section ends -->
             <div class="info">
                 <a class="sign-out" href="{% url 'accounts:user-logout' %}">Sign out</a>
