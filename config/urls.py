@@ -42,6 +42,9 @@ urlpatterns = [
 
     # Topics urls
     path('t/', include('core.forums.urls', namespace='forums')),
+
+    # Announcements urls
+    path('n/', include('core.announcements.urls', namespace='announcements')),
     
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
