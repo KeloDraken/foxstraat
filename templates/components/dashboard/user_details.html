@@ -13,9 +13,9 @@
         <span class="card-title">{{ user.display_name }}</span>
         <p>
             joined: {{user.datetime_joined|naturaltime}} <br>
+            gelt: {{user.gelt|shrink_num}} <br>
             posts: 20 <br>
             subscribers: {{user.subscribers|shrink_num}} <br>
-            following: 23
         </p>
     </div>
     <div class="red card-action">
