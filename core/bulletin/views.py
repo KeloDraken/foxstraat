@@ -103,8 +103,9 @@ def get_bulletin(request, bulletin_id):
     bulletin = Bulletin.objects.get(object_id=bulletin_id)
     post = BulletinImage.objects.get(bulletin=bulletin)
 
-    post.upvotes += 1
-    post.save()
+    if request.user.is_authenticated:
+        post.upvotes += 1
+        post.save()
 
     user_bulletins = Bulletin.objects.filter(
         user=bulletin.user
