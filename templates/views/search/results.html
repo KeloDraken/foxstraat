@@ -2,10 +2,72 @@
 
 {% block title %}Foxstraat Search - {{ query }}{% endblock %}
 
+{% block styles %}
+<style>
+    li {
+        font-weight: 500;
+    }
+
+    p {
+        font-weight: 500;
+    }
+
+    .user-name {
+        color: rgb(75, 75, 255);
+        font-weight: 500;
+    }
+
+    .user-link {
+        font-weight: 500;
+    }
+
+    .user-bio {
+        font-weight: 500;
+        color: rgb(37, 37, 37);
+    }
+
+    .user-joined {
+        color: rgb(136, 136, 136);
+        /* margin-right: 5px; */
+    }
+
+    .result {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .query {
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 {% include 'components/navbar.html' %}
 
-{% for result in results %}
-<h1>{{result}}</h1>
-{% endfor %}
+<div class="container">
+
+
+
+    <div class="result">
+        {% if not results|length == 0 %}
+        {% for result in results %}
+        <a class="green-text user-link"
+            href="{% url 'get-user-profile' username=result.username %}">https://foxstraat.com >
+            {{result.username}}</a><br>
+        <a href="{% url 'get-user-profile' username=result.username %}" class="user-name"><span
+                class="user-joined">{{result.date_joined}} -</span> {{ result.display_name }}</a><br>
+        <span class="user-bio">{{ result.bio }}</span> <br><br>
+        {% endfor %}
+        {% else %}
+        <p>Your search - <span class="query">{{ query }}</span> - did not match any users</p>
+
+        <p>Suggestions:</p>
+        <ul>
+            <li>Make sure that all words are spelt correctly.</li>
+            <li>Try different keywords.</li>
+            <li>Try more generic keywords.</li>
+        </ul>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
