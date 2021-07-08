@@ -67,7 +67,7 @@ class User(AbstractUser):
     @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
     /* Fonts used in this page. You can change these. */
     @import url('https://use.fontawesome.com/releases/v5.0.7/css/all.css');
-    
+
     /* Branding styles begin */
     .logo {
         /* 
@@ -84,6 +84,7 @@ class User(AbstractUser):
         float: left;
         font-family: "Lobster", cursive;
     }
+
     /* Branding styles end */
 
     .container {
@@ -101,6 +102,7 @@ class User(AbstractUser):
         left: 0;
         width: 100%;
     }
+
     .nav-links {
         float: left;
         font-weight: 600;
@@ -113,10 +115,12 @@ class User(AbstractUser):
         padding: 14px 16px;
         text-decoration: none;
     }
+
     .nav-links:hover {
         background: #ddd;
         color: black;
     }
+
     /* Navbar styles end */
 
     .section-heading {
@@ -129,27 +133,33 @@ class User(AbstractUser):
         margin-top: 1rem;
         width: 100%;
     }
+
     .profile-image-container {
         margin-right: 3rem;
         margin-top: 1rem;
     }
+
     .profile-picture {
         object-fit: cover;
         width: 240px;
         height: 240px;
     }
+
     .username-container {
         margin-top: 5px;
     }
+
     .username {
         margin-bottom: 0;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 1.8em;
         font-weight: 600 !important;
     }
+
     .user-stat-container {
         margin-top: 5px;
     }
+
     .stat {
         float: left;
         display: block;
@@ -159,15 +169,32 @@ class User(AbstractUser):
         font-weight: 700;
         margin-right: 1em !important;
     }
+    .join-btn-container{
+        width: 88%;
+    }
+    .join-btn{
+        cursor: pointer;
+        border: 0;
+        width: 100%;
+        border-radius: 2px;
+        font-weight: 600;
+        font-size: 1.2em;
+        color: #fff;
+        box-shadow: #4e4e4e 2px 2px 4px;
+        padding: 7px;
+        background-color: #181818;
+    }
     /* user basic info styles end */
 
     /* user advanced info styles start */
-    .user-details-advanced-container{
+    .user-details-advanced-container {
         width: 100%;
     }
+
     .social-links-container {
         margin-top: 5px;
     }
+
     .social-link {
         text-decoration: none;
         color: rgb(118, 118, 134);
@@ -175,15 +202,18 @@ class User(AbstractUser):
         font-size: 1.2em;
         margin-right: 15px;
     }
+
     .bio-container {
         margin-top: 2rem;
     }
+
     .bio {
         font-family: Arial, Helvetica, sans-serif;
         color: #333333;
         font-weight: 500;
         white-space: pre-wrap;
     }
+
     /* user advanced info styles end */
 
     /* Post image styles */
