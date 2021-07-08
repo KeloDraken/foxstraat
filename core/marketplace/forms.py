@@ -43,15 +43,19 @@ class AddTemplateListingForm(forms.ModelForm):
             }
         )
     ) 
-    template = forms.CharField(required=True, widget=forms.Textarea(
-        attrs={
-            'cols': 100,
-            'class': 'form-input css-editor',
-            'id': 'custom_styles',
-            'placeholder': 'Write your caption...',
-            'rows': 100,
-        }
-    ))
+    template = forms.CharField(
+        label='Paste your css here',
+        required=True, 
+        widget=forms.Textarea(
+            attrs={
+                'cols': 100,
+                'class': 'form-input css-editor',
+                'id': 'custom_styles',
+                'placeholder': 'Write your caption...',
+                'rows': 100,
+            }
+        )
+    )
     class Meta:
         model = Template
         fields = (
