@@ -13,16 +13,19 @@
     }
 
     .user-name {
+        font-size: 1.3em;
         color: rgb(34, 34, 232);
         font-weight: 500;
     }
 
     .user-link {
+        font-size: 1.3em;
         font-weight: 500;
         color: rgb(18, 131, 35);
     }
 
     .user-bio {
+        font-size: 1.3em;
         font-weight: 500;
         color: rgb(37, 37, 37);
     }
@@ -66,7 +69,7 @@
 <div class="container results-container">
 
     <form action="{% url 'search:search' %}" method="get">
-        <input class="form-input" autofocus autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users" />
+        <input class="form-input" autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users" />
         {% csrf_token %}
     </form>
 
