@@ -16,7 +16,7 @@
         font-family: "Lobster", cursive;
         color: rgb(24, 24, 24) !important;
     }
-    
+
     .heading {
         margin-top: 2em !important;
     }
@@ -24,11 +24,13 @@
     .banner {
         height: 68vh;
     }
+
     .about {
         border-top: 2px solid #212121;
         padding-top: 2rem;
         height: 10vh !important;
     }
+
     .form-input {
         border: 2px solid #212121 !important;
         background-color: #212121 !important;
@@ -38,6 +40,12 @@
         color: #fff !important;
         border-radius: 5px !important;
         width: 80% !important;
+    }
+
+    .form-input::placeholder {
+        color: #fff;
+        font-weight: 500;
+        opacity: 1;
     }
 </style>
 {% endblock %}
@@ -51,7 +59,8 @@
 <section class="container center banner">
     <h1 class="logo black-text heading">Foxstraat search</h1>
     <form method="get" action="{% url 'search:search' %}">
-        <input class="form-input" autofocus autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users" />
+        <input class="form-input" autofocus autocapitalize="off" autocomplete="off" type="text" name="q"
+            placeholder="Search users" />
         {% csrf_token %}
     </form>
 </section>

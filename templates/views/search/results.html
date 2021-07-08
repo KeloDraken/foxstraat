@@ -13,12 +13,13 @@
     }
 
     .user-name {
-        color: rgb(75, 75, 255);
+        color: rgb(34, 34, 232);
         font-weight: 500;
     }
 
     .user-link {
         font-weight: 500;
+        color: rgb(18, 131, 35);
     }
 
     .user-bio {
@@ -27,7 +28,7 @@
     }
 
     .user-joined {
-        color: rgb(136, 136, 136);
+        color: rgb(110, 110, 110);
         /* margin-right: 5px; */
     }
 
@@ -38,20 +39,41 @@
     .query {
         font-weight: 600;
     }
+    .results-container {
+        padding-top: 20px;
+    }
+    .form-input {
+        border: 2px solid #212121 !important;
+        background-color: #212121 !important;
+        padding: 5px 6px !important;
+        font-size: 2em !important;
+        font-weight: 500 !important;
+        color: #fff !important;
+        border-radius: 5px !important;
+        width: 80% !important;
+    }
+    .form-input::placeholder {
+        color: #fff;
+        font-weight: 500;
+        opacity: 1;
+    }
 </style>
 {% endblock %}
 
 {% block body %}
 {% include 'components/navbar.html' %}
 
-<div class="container">
+<div class="container results-container">
 
-
+    <form action="{% url 'search:search' %}" method="get">
+        <input class="form-input" autofocus autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users" />
+        {% csrf_token %}
+    </form>
 
     <div class="result">
         {% if not results|length == 0 %}
         {% for result in results %}
-        <a class="green-text user-link"
+        <a class="user-link"
             href="{% url 'get-user-profile' username=result.username %}">https://foxstraat.com >
             {{result.username}}</a><br>
         <a href="{% url 'get-user-profile' username=result.username %}" class="user-name"><span
