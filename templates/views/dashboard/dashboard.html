@@ -115,7 +115,7 @@
         </div>
         <div class="col s8">
             <form method="get" action="{% url 'search:search' %}">
-                <input class="form-input" autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users, forums, and bulletins" />
+                <input class="form-input" autocapitalize="off" autocomplete="off" type="text" name="q" placeholder="Search users" />
                 {% csrf_token %}
             </form>
         </div>
