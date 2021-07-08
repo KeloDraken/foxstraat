@@ -4,13 +4,19 @@
 {% block title %}Foxstraat - Create post{% endblock %}
 
 {% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css-editor/monokai.css' %}">
+<link rel="stylesheet" href="{% static 'css-editor/codemirror.css' %}">
 <style>
     .form-input {
         color: #000 !important;
         width: 83% !important;
+        padding: 3px !important;
         border: 1px solid #797979 !important;
     }
-
+    form{
+        margin-left: 10vw;
+    }
     .form-input::placeholder {
         color: rgb(112, 112, 112) !important;
         opacity: 1 !important;
@@ -21,10 +27,14 @@
 {% block body %}
 {% include 'components/navbar.html' %}
 
-<div class="container center">
-    <h3>Create post</h3>
+<div class="container">
+    <h3 class="center">Add new listing</h3>
+    <p class="center">
+        Download the user profile html/css to begin editing the template
+        <a class="blue-text" href="{% static 'downloads/Foxstraat.zip' %}">here</a>
+    </p>
     {% if messages %}
-    <div class="container center">
+    <div class="container">
         {% for message in messages %}
         {% if message.tags == 'error' %}
         <div class="red white-text">{{ message }}</div>
@@ -38,39 +48,37 @@
     <br>
     {% endif %}
     <form id="post_form" method="post" action="{% url 'marketplace:add-listing' %}" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col s7">
-                {% csrf_token %}
+        {% csrf_token %}
 
-                {% for field in form %}
-                {{ field }} <br />
-                {% endfor %}
+        {% for field in form %}
+        {{ field }}
+        {% endfor %}
 
-                <br>
-                <br>
-                <input type="submit" name="submit" value="Submit" />
-                <br>
-                <br>
-                <small class="left grey-text">
-                    Before you submit your post you need to make sure that you've
-                    read and understood the Rules. Failure to comply will result
-                    in permanent banishment from Foxstraat.
-                </small>
-            </div>
-            <div class="col s3">
-                <img style="display: none;" id="input" />
-                <img id="output" />
-                <small class="left grey-text">
-                    To save on storage costs, images are
-                    compressed which will result in loss of
-                    quality. This is an issue we're trying to resolve.
-                    If you have some money to spare please consider supporting us.
-                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-                    <script
-                        type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML'); kofiwidget2.draw();</script>
-                </small>
-            </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <input type="submit" class="center" name="submit" value="Submit" />
+        <br>
+        <br>
+        <small class=" grey-text">
+            Before you submit your listing you need to make sure that you've
+            read and understood the Rules. Failure to comply will result
+            in permanent banishment from Foxstraat.
+        </small>
     </form>
 </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'css-editor/codemirror.js' %}"></script>
+<script src="{% static 'css-editor/css.js' %}"></script>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("custom_styles"), {
+        lineNumbers: true,
+        mode: 'css',
+        theme: 'monokai',
+        smartIndent: true
+    });
+</script>
 {% endblock %}
