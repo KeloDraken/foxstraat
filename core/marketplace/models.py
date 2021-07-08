@@ -1,9 +1,13 @@
 from django.db import models
+
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
+from core.accounts.models import User
+
 class Template(models.Model):
     object_id = models.CharField(max_length=11, null=False, blank=False)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     name = models.CharField(max_length=140, null=False, blank=False)
     description = models.CharField(max_length=280, null=False, blank=False)
     screenshot_1 = ProcessedImageField(
