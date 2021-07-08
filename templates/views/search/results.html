@@ -4,4 +4,8 @@
 
 {% block body %}
 {% include 'components/navbar.html' %}
+
+{% for result in results %}
+<h1>{{result}}</h1>
+{% endfor %}
 {% endblock %}
