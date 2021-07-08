@@ -114,9 +114,10 @@ class User(AbstractUser):
         display: block;
         color: #212121;
         font-size: 1em;
+      	text-transform: capitalize;
         text-align: center;
-        padding: 14px 16px;
         text-decoration: none;
+        padding: 14px 16px;
     }
 
     .nav-links:hover {
