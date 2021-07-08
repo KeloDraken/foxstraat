@@ -41,7 +41,7 @@ urlpatterns = [
     path('p/', include('core.bulletin.urls', namespace='bulletin')),
 
     # Topics urls
-    path('t/', include('core.forums.urls', namespace='forums')),
+    path('b/', include('core.forums.urls', namespace='forums')),
 
     # Announcements urls
     path('n/', include('core.announcements.urls', namespace='announcements')),
