@@ -1,7 +1,7 @@
 {% load url_target_blank %}
 
 <style>
-    .image_placeholder{
+    .image_placeholder {
         height: 200px;
         width: 200px;
         background-color: rgb(212, 212, 212);
@@ -24,4 +24,15 @@
         <p class="stat">{{user.upvotes|shrink_num}} upvote{{user.upvotes|pluralize}}</p>
         <p class="stat">{{user.subscribers|shrink_num}} subscriber{{user.subscribers|pluralize}}</p>
     </div>
+
+    <div class="join-btn-container">
+        <button id="join-server-btn" data-server-id="{{ user.object_id }}" onclick="joinServer()" class="join-btn">Join server</button>
+    </div>
 </div>
+<script>
+    function joinServer(){
+        const joinBtn = document.getElementById('join-server-btn');
+        const serverID = joinBtn.dataset.serverId
+        window.location.href = `/s/${serverID}`
+    }
+</script>
