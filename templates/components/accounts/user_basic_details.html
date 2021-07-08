@@ -25,9 +25,11 @@
         <p class="stat">{{user.subscribers|shrink_num}} subscriber{{user.subscribers|pluralize}}</p>
     </div>
 
+    {% if user.has_server %}
     <div class="join-btn-container">
         <button id="join-server-btn" data-server-id="{{ user.object_id }}" onclick="joinServer()" class="join-btn">Join server</button>
     </div>
+    {% endif %}
 </div>
 <script>
     function joinServer(){
