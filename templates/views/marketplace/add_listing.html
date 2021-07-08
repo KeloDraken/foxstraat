@@ -37,27 +37,16 @@
     </div>
     <br>
     {% endif %}
-    <form id="post_form" method="post" action="{% url 'bulletin:create-bulletin' %}" enctype="multipart/form-data">
+    <form id="post_form" method="post" action="{% url 'marketplace:add-listing' %}" enctype="multipart/form-data">
         <div class="row">
             <div class="col s7">
                 {% csrf_token %}
-                {% for hidden in post_form.hidden_fields %}
-                {{ hidden }}
-                {% endfor %}
 
-
-                {% for field in post_form %}
+                {% for field in form %}
                 {{ field }} <br />
                 {% endfor %}
 
-                {{ formset.management_form }}
-                {% for form in formset %}
-                {{ form }}
-                {% endfor %}
-
                 <br>
-                <br>
-                {{ captcha }}
                 <br>
                 <input type="submit" name="submit" value="Submit" />
                 <br>

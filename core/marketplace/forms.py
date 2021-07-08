@@ -9,7 +9,7 @@ class AddTemplateListingForm(forms.ModelForm):
         fields = (
             'name',
             'description',
-            'screenshot_1'
+            'screenshot_1',
             'screenshot_2',
             'price',
             'template'
