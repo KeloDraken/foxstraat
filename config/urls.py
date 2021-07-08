@@ -49,6 +49,9 @@ urlpatterns = [
     # Search urls
     path('search/', include('core.search.urls', namespace='search')),
     
+    # Marketplace urls
+    path('s/', include('core.marketplace.urls', namespace='marketplace')),
+    
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
 
