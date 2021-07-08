@@ -62,6 +62,8 @@ def create_bulletin(request):
                     
                     hashtags = extract_hashtags(text=caption)
 
+                    request.user.num_posts =+ 1
+                    request.user.save()
                     post_form.save()
 
                     for form in formset.cleaned_data:
