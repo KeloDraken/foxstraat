@@ -27,6 +27,7 @@ class User(AbstractUser):
     is_verified = models.BooleanField(default=False)
     has_server = models.BooleanField(default=False)
     gelt = models.PositiveIntegerField(default=1000)
+    num_posts = models.PositiveIntegerField(default=0)
     username = LowercaseCharField(
         # Copying this from AbstractUser code
         _('username'),
