@@ -37,7 +37,6 @@ def advanced_search(request):
         return render(request, 'views/search/search.html')
 
 
-@login_required
 def search(request):
     search_query = request.GET.get('q')
     if search_query:
