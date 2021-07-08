@@ -9,7 +9,7 @@
         </div>
     </div>
     <a title="{{ post.bulletin.user.display_name }}" class="post-author"
-        href="{% url 'get-user-profile' username=post.bulletin.user.username %}">
+        href="{% url 'get-user-profile' username=post.bulletin.user.username %}?ref=post">
         {{ post.bulletin.user.display_name }}
     </a>
     <pre class="post-caption">{{ post.bulletin.caption|urlize|urlize_target_blank }}</pre>
