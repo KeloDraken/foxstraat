@@ -56,13 +56,15 @@
                             </span>
                         </a>
                     </li>
+                    {% if request.user.is_authenticated %}
                     <li title="Foxstraat Selekt">
-                        <a href="#">
+                        <a href="{% url 'marketplace:storefront' %}">
                             <span class="material-icons-outlined">
                                 storefront
                             </span>
                         </a>
                     </li>
+                    {% endif %}
                     <li title="About Foxstraat">
                         <a href="{% url 'about' %}">
                             <span class="material-icons-outlined">
