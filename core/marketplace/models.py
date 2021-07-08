@@ -23,8 +23,8 @@ class Template(models.Model):
         processors=[ResizeToFit(480, 600)],
         format='JPEG',
         options={'quality': 90},
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
     )
     price = models.PositiveIntegerField(default=0)
     template = models.TextField(null=False, blank=False)
