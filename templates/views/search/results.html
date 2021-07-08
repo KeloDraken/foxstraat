@@ -77,9 +77,9 @@
         {% if not results|length == 0 %}
         {% for result in results %}
         <a class="user-link"
-            href="{% url 'get-user-profile' username=result.username %}">https://foxstraat.com >
+            href="{% url 'get-user-profile' username=result.username %}?ref=search">https://foxstraat.com >
             {{result.username}}</a><br>
-        <a href="{% url 'get-user-profile' username=result.username %}" class="user-name"><span
+        <a href="{% url 'get-user-profile' username=result.username %}?ref=search" class="user-name"><span
                 class="user-joined">{{result.date_joined}} -</span> {{ result.display_name }}</a><br>
         <span class="user-bio">{{ result.bio }}</span> <br><br>
         {% endfor %}
