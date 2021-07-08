@@ -26,6 +26,7 @@ class User(AbstractUser):
     is_fake_profile = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     has_server = models.BooleanField(default=False)
+    gelt = models.PositiveIntegerField(default=1000)
     username = LowercaseCharField(
         # Copying this from AbstractUser code
         _('username'),
