@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Foxstraat - Create post{% endblock %}
+
+{% block styles %}
+<style>
+    .form-input {
+        color: #000 !important;
+        width: 83% !important;
+        border: 1px solid #797979 !important;
+    }
+
+    .form-input::placeholder {
+        color: rgb(112, 112, 112) !important;
+        opacity: 1 !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+
+<div class="container center">
+    <h3>Create post</h3>
+    {% if messages %}
+    <div class="container center">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="red white-text">{{ message }}</div>
+        {% elif message.tags == 'success' %}
+        <div class="green white-text">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
+    <form id="post_form" method="post" action="{% url 'bulletin:create-bulletin' %}" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col s7">
+                {% csrf_token %}
+                {% for hidden in post_form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+
+
+                {% for field in post_form %}
+                {{ field }} <br />
+                {% endfor %}
+
+                {{ formset.management_form }}
+                {% for form in formset %}
+                {{ form }}
+                {% endfor %}
+
+                <br>
+                <br>
+                {{ captcha }}
+                <br>
+                <input type="submit" name="submit" value="Submit" />
+                <br>
+                <br>
+                <small class="left grey-text">
+                    Before you submit your post you need to make sure that you've
+                    read and understood the Rules. Failure to comply will result
+                    in permanent banishment from Foxstraat.
+                </small>
+            </div>
+            <div class="col s3">
+                <img style="display: none;" id="input" />
+                <img id="output" />
+                <small class="left grey-text">
+                    To save on storage costs, images are
+                    compressed which will result in loss of
+                    quality. This is an issue we're trying to resolve.
+                    If you have some money to spare please consider supporting us.
+                    <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+                    <script
+                        type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML'); kofiwidget2.draw();</script>
+                </small>
+            </div>
+    </form>
+</div>
+</div>
+{% endblock %}
