@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic.base import TemplateView
 from django.contrib.auth.models import Group
 
 from django.conf import settings
@@ -33,6 +33,10 @@ urlpatterns = [
 
     path('', index, name='index'),
     path('about/', about, name='about'),
+    path('robots.txt', TemplateView.as_view(
+        template_name='robots.txt',
+        content_type='text/plain'
+    )),
     
     # Accounts urls
     path('u/', include('core.accounts.urls', namespace='accounts')),
