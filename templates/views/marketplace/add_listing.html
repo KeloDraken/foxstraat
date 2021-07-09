@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}Foxstraat - Create post{% endblock %}
+{% block title %}Foxstraat - Add listing{% endblock %}
 
 {% block styles %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'css-editor/monokai.css' %}">
-<link rel="stylesheet" href="{% static 'css-editor/codemirror.css' %}">
 <style>
     .form-input {
         color: #000 !important;
@@ -14,10 +10,24 @@
         padding: 3px !important;
         border: 1px solid #797979 !important;
     }
-    form{
+
+    form {
         margin-left: 10vw;
     }
+
     .form-input::placeholder {
+        color: rgb(112, 112, 112) !important;
+        opacity: 1 !important;
+    }
+
+    .custom_styles {
+        width: 84% !important;
+        height: 20vh !important;
+        padding: 3px !important;
+        border: 1px solid #797979 !important;
+    }
+
+    .custom_styles::placeholder {
         color: rgb(112, 112, 112) !important;
         opacity: 1 !important;
     }
@@ -37,7 +47,9 @@
     <div class="container">
         {% for message in messages %}
         {% if message.tags == 'error' %}
-        <div class="red white-text">{{ message }}</div>
+        <div class="red white-text">
+            {{ message }}
+        </div>
         {% elif message.tags == 'success' %}
         <div class="green white-text">
             {{ message }}
@@ -49,36 +61,19 @@
     {% endif %}
     <form id="post_form" method="post" action="{% url 'marketplace:add-listing' %}" enctype="multipart/form-data">
         {% csrf_token %}
-
-        {% for field in form %}
-        {{ field }}
-        {% endfor %}
-
+        <input required type="text" class="form-input" placeholder="Give your template a name" autocomplete="off"
+            name='name' id="name" />
+        <input required type="text" class="form-input" placeholder="Write a short description of the template"
+            autocomplete="off" name='description' id="description" />
+        <input required type="number" class="form-input price" placeholder="How much gelt do you want for it?"
+            autocomplete="off" name='price' id="price" />
+        <textarea cols="100" rows="100" placeholder="Paste your custom css here" required name="template"
+            class="custom_styles"></textarea>
+        <br>
+        <input required type="file" name="screenshot" id="screenshot" accept="image/jpeg, image/png" />
         <br>
         <br>
-        <br>
-        <br>
-        <input type="submit" class="center" name="submit" value="Submit" />
-        <br>
-        <br>
-        <small class=" grey-text">
-            Before you submit your listing you need to make sure that you've
-            read and understood the Rules. Failure to comply will result
-            in permanent banishment from Foxstraat.
-        </small>
+        <button type="submit">Submit</button>
     </form>
 </div>
-</div>
-{% endblock %}
-{% block scripts %}
-<script src="{% static 'css-editor/codemirror.js' %}"></script>
-<script src="{% static 'css-editor/css.js' %}"></script>
-<script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("custom_styles"), {
-        lineNumbers: true,
-        mode: 'css',
-        theme: 'monokai',
-        smartIndent: true
-    });
-</script>
 {% endblock %}

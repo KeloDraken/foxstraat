@@ -49,9 +49,8 @@ class AddTemplateListingForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs={
                 'cols': 100,
-                'class': 'form-input css-editor',
-                'id': 'custom_styles',
-                'placeholder': 'Write your caption...',
+                'class': 'custom_styles',
+                'placeholder': 'Paste your custom css here...',
                 'rows': 100,
             }
         )
@@ -64,5 +63,4 @@ class AddTemplateListingForm(forms.ModelForm):
             'price',
             'template',
             'screenshot_1',
-            'screenshot_2',
         )

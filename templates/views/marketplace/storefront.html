@@ -6,5 +6,11 @@
 {% include 'components/navbar.html' %}
 <div class="container">
     <h1>Foxstraat Selekt</h1>
+
+    {% for listing in listings %}
+        <p>{{ listing.name }}</p>
+        <p>{{ listing.description }}</p>
+        <p>{{ listing.price }}</p>
+    {% endfor %}
 </div>
 {% endblock %}
