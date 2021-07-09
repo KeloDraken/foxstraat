@@ -12,7 +12,7 @@ class Template(models.Model):
     description = models.CharField(max_length=280, null=False, blank=False)
     screenshot_1 = ProcessedImageField(
         upload_to='marketplace/templates/',
-        processors=[ResizeToFit(480, 600)],
+        processors=[ResizeToFit(580, 700)],
         format='JPEG',
         options={'quality': 90},
         null=False,

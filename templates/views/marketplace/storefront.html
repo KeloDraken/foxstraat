@@ -1,16 +1,97 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Foxstraat - Selekt{% endblock %}
+
+{% block styles %}
+<style>
+    .post-image {
+        width: 100%;
+        border-radius: 2px;
+        margin-bottom: 1em;
+    }
+
+    .content {
+        width: fit-content;
+        position: absolute;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        margin-top: 1em;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s linear;
+    }
+
+    .post-author {
+        margin: 0.2em 0.5em;
+        margin-bottom: 1rem !important;
+        margin-top: 1rem !important;
+        font-size: 1em;
+        font-weight: 600;
+    }
+
+    .post-author:hover {
+        text-decoration: underline;
+    }
+
+    .grid {
+        display: flex;
+    }
+
+    .grid-item:hover>.content {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .grid-col {
+        flex: 1;
+        padding: 0 0.5em;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
 {% include 'components/navbar.html' %}
 <div class="container">
     <h1>Foxstraat Selekt</h1>
 
-    {% for listing in listings %}
-        <p>{{ listing.name }}</p>
-        <p>{{ listing.description }}</p>
-        <p>{{ listing.price }}</p>
-    {% endfor %}
+    <div class="grid">
+        <!-- columns -->
+        <div class="grid-col grid-col--1"></div>
+        <div class="grid-col grid-col--2"></div>
+        <div class="grid-col grid-col--3"></div>
+        <!-- items -->
+        {% for listing in listings %}
+        <div class="grid-item" title="{{ listing.description }}">
+            <div class="content">
+                <a class="white-text" title="{{ listing.name }}" href="#">
+                    <h4 class="post-author">view listing</h4>
+                </a>
+
+                <a class="white-text" title="{{listing.user.display_name }}"
+                    href="{% url 'get-user-profile' username=listing.user.username %}?ref=selekt">
+                    <h4 class="post-author">go to creator's page</h4>
+                </a>
+            </div>
+            <img class="post-image" src="{{ listing.screenshot_1.url }}" />
+        </div>
+        {% endfor %}
+    </div>
+
 </div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'js/colcade.js' %}"></script>
+<!-- <script src="https://unpkg.com/colcade@0/colcade.js"></script> -->
+<script>
+    // selector string as first argument
+    var colc = new Colcade('.grid', {
+        columns: '.grid-col',
+        items: '.grid-item'
+    });
+</script>
 {% endblock %}

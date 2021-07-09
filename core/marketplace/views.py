@@ -41,9 +41,10 @@ def add_listing(request):
             messages.error(request,    
                 'Couldn\'t add listing because of a CSS error')
             return redirect('marketplace:add-listing')
-        try:
+
+        if request.FILES.get('screenshot'):
             screenshot = request.FILES.get('screenshot')
-        except:
+        else:
             messages.error(request, 
                 'Couldn\'t add listing because of a screeshot error')
             return redirect('marketplace:add-listing')

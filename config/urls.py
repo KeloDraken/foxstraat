@@ -29,7 +29,7 @@ from core.accounts.views import (
 from core.views import about, index
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
 
     path('', index, name='index'),
     path('about/', about, name='about'),
