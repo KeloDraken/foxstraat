@@ -6,3 +6,4 @@ Disallow: /u/
 Disallow: /s/
 Disallow: /n/
 Allow: /
+Crawl-delay: 1
