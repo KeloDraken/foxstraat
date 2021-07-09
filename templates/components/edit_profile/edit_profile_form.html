@@ -36,7 +36,7 @@
         <input type="url" class="form-input" value="{% if user.website %}{{ user.website }}{% endif %}" name="website" id="website" placeholder="Website" maxlength="60" />
         <br><br>
         <h5 class="black-text">Edit bio</h5>
-        <textarea autofocus maxlength="220" name="about_me"
+        <textarea maxlength="220" name="about_me"
             id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
         <label for="about_me">220 character limit</label>
     </div>
