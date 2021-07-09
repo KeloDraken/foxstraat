@@ -1,16 +1,1 @@
-{% load static %}
-<script src="{% static 'css-editor/codemirror.js' %}"></script>
-<script src="{% static 'css-editor/css.js' %}"></script>
-<link rel="stylesheet" href="{% static 'css-editor/monokai.css' %}">
-<link rel="stylesheet" href="{% static 'css-editor/codemirror.css' %}">
-
-<textarea name="custom_styles" id="custom_styles">{{user.custom_styles}}</textarea><br>
-
-<script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("custom_styles"), {
-        lineNumbers: true,
-        mode: 'css',
-        theme: 'monokai',
-        smartIndent: true
-    });
-</script>
+<textarea name="custom_styles" id="custom_styles" placeholder="Paste your custom css here"></textarea><br>

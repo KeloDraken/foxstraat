@@ -1,3 +1,4 @@
+{% load static %}
 <h1 class="center">Edit profile</h1>
 <form action="{% url 'accounts:edit-user-profile' %}" enctype="multipart/form-data" method="post">
     {% if messages %}
@@ -25,32 +26,34 @@
         <h5 class="black-text">Upload new profile picture</h5>
         <br>
 
-        <input type="file" accept="image/jpeg, image/png" placeholder="Upload new profile pic" name="profile_pic" id="profile_pic">
+        <input type="file" accept="image/jpeg, image/png" placeholder="Upload new profile pic" name="profile_pic"
+            id="profile_pic">
         <br><br>
         <h5 class="black-text">Social handles</h5>
-        <input type="text" value="{% if user.instagram %}{{ user.instagram }}{% endif %}" class="form-input" name="instagram" id="instagram" placeholder="Instagram" maxlength="60" />
+        <input type="text" value="{% if user.instagram %}{{ user.instagram }}{% endif %}" class="form-input"
+            name="instagram" id="instagram" placeholder="Instagram" maxlength="60" />
         <!-- <label class="grey-text" for="instgram">Instagram handle</label> -->
         <br>
-        <input type="text" value="{% if user.twitter %}{{ user.twitter }}{% endif %}" class="form-input" name="twitter" id="twitter" placeholder="Twitter" maxlength="60" />
+        <input type="text" value="{% if user.twitter %}{{ user.twitter }}{% endif %}" class="form-input" name="twitter"
+            id="twitter" placeholder="Twitter" maxlength="60" />
         <br>
-        <input type="url" class="form-input" value="{% if user.website %}{{ user.website }}{% endif %}" name="website" id="website" placeholder="Website" maxlength="60" />
+        <input type="url" class="form-input" value="{% if user.website %}{{ user.website }}{% endif %}" name="website"
+            id="website" placeholder="Website" maxlength="60" />
         <br><br>
         <h5 class="black-text">Edit bio</h5>
-        <textarea maxlength="220" name="about_me"
-            id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
+        <textarea maxlength="220" name="about_me" id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
         <label for="about_me">220 character limit</label>
+        <br>
+        <!-- custom css starts -->
+        <h5 class="black-text center">Customise profile</h5>
+        {% include 'components/edit_profile/css_editor.html' %}
+        <label class="grey-text" for="custom_styles">
+            Download the user profile html/css to begin editing the template
+            <a class="blue-text" href="{% static 'downloads/Foxstraat.zip' %}">here</a>
+        </label>
+        <!-- custom css ends -->
     </div>
     <!-- about me ends -->
-    <br>
-    <!-- custom css starts -->
-    <h5 class="black-text center">Customise profile</h5>
-    {% include 'components/edit_profile/css_editor.html' %}
-    <label class="grey-text" for="custom_styles">
-        To prevent server overloading, you are rate limited when submitting this form. If you want to make big changes
-        to your profile, we recommend using a code editor e.g. <a target="_blank" title="Recommended code editor"
-            href="https://code.visualstudio.com/download">VS Code</a> to write your CSS then paste the finished code
-        here.</label>
-    <!-- custom css ends -->
     <br>
     <button class="btn btn-large black" type="submit">Save changes</button>
 </form>
