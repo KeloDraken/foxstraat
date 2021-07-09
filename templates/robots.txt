@@ -1,1 +1,8 @@
 User-Agent: *
+Disallow: /media/
+Disallow: /admin/
+Disallow: /static/
+Disallow: /u/
+Disallow: /s/
+Disallow: /n/
+Allow: /
