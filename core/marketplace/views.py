@@ -19,24 +19,64 @@ def add_listing(request):
     if request.method == 'POST':
         try:
             name = request.POST.get('name')
+            if not len(name) <= 0 and not name == None:
+                pass
+            else:
+                messages.error(
+                request, 'Couldn\'t add listing because of a name error')
+                return redirect('marketplace:add-listing')
         except:
             messages.error(
                 request, 'Couldn\'t add listing because of a name error')
             return redirect('marketplace:add-listing')
+          
         try:
             description = request.POST.get('description')
+            if not len(description) <= 0 and not description == None:
+                pass
+            else:
+                messages.error(request, 
+                'Couldn\'t add listing because of a description error')
+                return redirect('marketplace:add-listing')
         except:
             messages.error(request, 
                 'Couldn\'t add listing because of a description error')
             return redirect('marketplace:add-listing')
+            
         try:
             price = request.POST.get('price')
+            if not len(price) <= 0 and not price == None:
+                pass
+            else:
+                messages.error(request, 
+                'Couldn\'t add listing because of a price error')
+                return redirect('marketplace:add-listing')
         except:
             messages.error(request, 
                 'Couldn\'t add listing because of a price error')
             return redirect('marketplace:add-listing')
+        
         try:
-            template = request.POST.get('template')
+            template = request.POST.get('template')            
+            if not len(price) <= 0 and not price == None:
+                if '<script>' in template \
+                or '</script>' in template \
+                or '<SCRIPT>' in template \
+                or '</SCRIPT>' in template :
+                    messages.error(
+                        request, 
+                        '''
+                        Only css is allowed.
+                        Your account has been placed on a watchlist. 
+                        Continued use of non-css code will result in a 
+                        permanent ban from Foxstraat.
+                        '''
+                    )
+                    return redirect('marketplace:add-listing')
+            else:
+                messages.error(request,    
+                'Couldn\'t add listing because of a CSS error')
+                return redirect('marketplace:add-listing')
         except:
             messages.error(request,    
                 'Couldn\'t add listing because of a CSS error')
