@@ -49,6 +49,10 @@
         flex: 1;
         padding: 0 0.5em;
     }
+    .listing-name{
+        margin-top: -1rem;
+        font-size: 1.3em !important;
+    }
 </style>
 {% endblock %}
 
@@ -76,6 +80,7 @@
                 </a>
             </div>
             <img class="post-image" src="{{ listing.screenshot_1.url }}" />
+            <p  class="listing-name">{{listing.name}}</p>
         </div>
         {% endfor %}
     </div>
