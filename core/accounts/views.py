@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from django.http.response import Http404
 
 from django.shortcuts import redirect, render
 
@@ -71,10 +72,10 @@ class UserLoginView(LoginView):
 
 user_login = UserLoginView.as_view()
 
-
+@login_required
 def user_logout(request):
     logout(request)
-    return redirect('/')
+    return redirect('accounts:user-login')
 
 
 @login_required
@@ -90,19 +91,22 @@ def user_dashboard(request):
 def get_user_profile(request, username):
     # try:
     user = User.objects.get(username=username)
-    bulletin = Bulletin.objects.filter(user=user).order_by('-datetime_created')
+    if user.is_active:
+        bulletin = Bulletin.objects.filter(user=user).order_by('-datetime_created')
 
-    posts = []
+        posts = []
 
-    for i  in bulletin:
-        post_image = BulletinImage.objects.get(bulletin=i)
-        posts.append(post_image)
+        for i  in bulletin:
+            post_image = BulletinImage.objects.get(bulletin=i)
+            posts.append(post_image)
 
-    context = {
-        'posts': posts,
-        'user': user
-    }
-    return render(request, 'views/accounts/user_profile.html', context)
+        context = {
+            'posts': posts,
+            'user': user
+        }
+        return render(request, 'views/accounts/user_profile.html', context)
+    else:
+        raise Http404
 
 @login_required
 def edit_user_profile(request):
@@ -169,3 +173,10 @@ def edit_user_profile(request):
         'user': request.user,
     }
     return render(request, 'views/accounts/edit_profile.html', context)
+
+@login_required
+def delete_account(request):
+    messages.success(request, 'You account has been deleted')
+    request.user.is_active = False
+    request.user.save()
+    return user_logout(request)
