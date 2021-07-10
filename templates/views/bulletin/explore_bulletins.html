@@ -127,11 +127,16 @@
                     href="{% url 'bulletin:get-bulletin' bulletin_id=post.bulletin.object_id %}">
                     <h4 class="post-author">view post</h4>
                 </a>
-
+                {% if post.bulletin.user.is_active %}
                 <a class="white-text" title="{{ post.bulletin.user.display_name }}"
                     href="{% url 'get-user-profile' username=post.bulletin.user.username %}?ref=explore">
                     <h4 class="post-author">go to creator's page</h4>
                 </a>
+                {% else %}
+                <a class="white-text" title="[deleted]">
+                    <h4 class="post-author">go to creator's page</h4>
+                </a>
+                {% endif %}
             </div>
             <img class="post-image" src="{{ post.image.url }}" />
         </div>

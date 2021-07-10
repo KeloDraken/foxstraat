@@ -8,9 +8,15 @@
             {{post.displayed_upvotes|shrink_num}} score
         </div>
     </div>
+    {% if post.bulletin.user.is_active %}
     <a title="{{ post.bulletin.user.display_name }}" class="post-author"
         href="{% url 'get-user-profile' username=post.bulletin.user.username %}?ref=post">
         {{ post.bulletin.user.display_name }}
     </a>
+    {% else %}
+    <a class="post-author">
+        [deleted]
+    </a>
+    {% endif %}
     <pre class="post-caption">{{ post.bulletin.caption|urlize|urlize_target_blank }}</pre>
 </div>

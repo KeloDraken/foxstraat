@@ -53,20 +53,24 @@
             <img class="post-image" src="{{ post.image.url }}" alt="post">
             <h5 class="section-heading">
                 More from
-                {{ post.bulletin.user.display_name }}
+                {% if post.bulletin.user.is_active %}
+                    {{ post.bulletin.user.display_name }}
+                {% else %}
+                    [deleted]
+                {% endif %}
             </h5>
             <div class="row">
                 {% for i in more_from_user %}
-                {% for bulletin in i %}
-                {% if not bulletin.bulletin.object_id == post.bulletin.object_id %}
-                <a title="{{ post.bulletin.title }}"
-                    href="{% url 'bulletin:get-bulletin' bulletin_id=bulletin.bulletin.object_id %}">
-                    <div class="col s6">
-                        <img class="section-images" src="{{ bulletin.image.url }}" alt="">
-                    </div>
-                </a>
-                {% endif %}
-                {% endfor %}
+                    {% for bulletin in i %}
+                        {% if not bulletin.bulletin.object_id == post.bulletin.object_id %}
+                        <a title="{{ bulletin.bulletin.title }}"
+                            href="{% url 'bulletin:get-bulletin' bulletin_id=bulletin.bulletin.object_id %}">
+                            <div class="col s6">
+                                <img class="section-images" src="{{ bulletin.image.url }}" alt="">
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
             </div>
             <small>Comments coming soon</small>
