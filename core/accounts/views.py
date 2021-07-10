@@ -176,7 +176,11 @@ def edit_user_profile(request):
 
 @login_required
 def delete_account(request):
-    messages.success(request, 'You account has been deleted')
-    request.user.is_active = False
-    request.user.save()
-    return user_logout(request)
+    if request.user.is_superuser:
+        messages.error(request, 'Admins need to use the admin site to delete their accounts')
+        return redirect('accounts:user-dashboard')
+    else:
+        messages.success(request, 'You account has been deleted')
+        request.user.is_active = False
+        request.user.save()
+        return user_logout(request)
