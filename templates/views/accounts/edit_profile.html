@@ -12,7 +12,7 @@
         height: 300px !important;
     }
 
-    .btn {
+    .submit-btn {
         margin: 2rem !important;
         width: 65vw;
     }
@@ -52,9 +52,28 @@
 <div class="container">
     {% include 'components/edit_profile/edit_profile_form.html' %}
 
-    <a id="delete-account" class="btn waves-effect waves-light btn-small red lighten-3 black-text"
-        href="{% url 'accounts:delete-user' %}">
-        delete account
-    </a>
+    <div class="container red">
+        <h5 class="white-text center">Dangerzone</h5>
+        <ul class="white-text left">
+            deleting your account will
+            <li>i. permanently remove your access to the site.</li>
+            <li>
+                ii. put your username in `reserved` status. meaning that you or anyone else wishing to use it will need to
+                contact
+                support.
+            </li>
+            <li>iii. not delete any of your posts. you need to manually delete them yourself
+                before
+                deleting your account</li>
+        </ul>
+        <div class="center">
+            <a id="delete-account" class="btn  waves-effect waves-light btn-small red lighten-3 black-text"
+                href="{% url 'accounts:delete-user' %}">
+                delete account
+            </a>
+        </div>
+        <br>
+    </div>
+    <br><br>
 </div>
 {% endblock %}

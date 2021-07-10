@@ -22,7 +22,7 @@
     }
 
     .banner {
-        height: 68vh;
+        height: 82vh;
     }
 
     .about {
@@ -35,6 +35,7 @@
         border: 2px solid #212121 !important;
         background-color: #212121 !important;
         padding: 5px 6px !important;
+        margin-top: 30vh !important;
         font-size: 2em !important;
         font-weight: 500 !important;
         color: #fff !important;
@@ -57,7 +58,6 @@
 
 <!-- banner begins -->
 <section class="container center banner">
-    <h1 class="logo black-text heading">Foxstraat search</h1>
     <form method="get" action="{% url 'search:search' %}">
         <input class="form-input" autofocus autocapitalize="off" autocomplete="off" type="text" name="q"
             placeholder="Search users" />
