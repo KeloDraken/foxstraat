@@ -51,5 +51,9 @@
 {% include 'components/navbar.html' %}
 <div class="container">
     {% include 'components/edit_profile/edit_profile_form.html' %}
+    
+    <a id="delete-account" class="btn waves-effect waves-light btn-small red lighten-3 black-text" href="{% url 'accounts:delete-user' %}">
+        delete account
+    </a>
 </div>
 {% endblock %}
