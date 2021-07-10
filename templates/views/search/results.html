@@ -84,7 +84,7 @@
             href="{% url 'get-user-profile' username=result.username %}?ref=search">https://foxstraat.com >
             {{result.username}}</a><br>
         <a href="{% url 'get-user-profile' username=result.username %}?ref=search" class="user-name"><span
-                class="user-joined">{{result.last_login|naturalday }} -</span> {{ result.display_name }}</a><br>
+                class="user-joined">{{result.last_login|date:"d M Y" }} -</span> {{ result.display_name }}</a><br>
         <span class="user-bio">{{ result.bio }}</span> <br><br>
         {% endfor %}
         {% else %}
