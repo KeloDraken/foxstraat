@@ -44,7 +44,7 @@ def search(request):
             Q(username__icontains=search_query)|
             Q(display_name__icontains=search_query)|
             Q(bio__icontains=search_query)
-        ).order_by('-last_login')
+        ).order_by('-last_login').exclude(is_active=False)
         context = {
             'query': search_query,
             'results': results
