@@ -6,5 +6,6 @@ Disallow: /u/
 Disallow: /s/
 Disallow: /search/
 Disallow: /n/
-Allow: /
+Allow: /u/login/
+Allow: /u/register/
 Crawl-delay: 1
