@@ -1,13 +1,14 @@
 from django.contrib import messages
-from utils.helpers import object_id_generator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from core.marketplace.forms import AddTemplateListingForm
+from utils.helpers import object_id_generator, ref_from_url
+
 from core.marketplace.models import Template
 
 @login_required
 def storefront(request):
+    ref_from_url(request)
     listings = Template.objects.all()
     context = {
         'listings': listings
@@ -16,6 +17,7 @@ def storefront(request):
 
 @login_required
 def add_listing(request):
+    ref_from_url(request)
     if request.method == 'POST':
         try:
             name = request.POST.get('name')

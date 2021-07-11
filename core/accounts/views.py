@@ -19,6 +19,7 @@ from core.bulletin.models import Bulletin, BulletinImage
 
 
 def user_registration(request):
+    ref_from_url(request)
     if request.user.is_authenticated:
         return redirect('accounts:user-dashboard')
     else:
@@ -81,6 +82,7 @@ def user_logout(request):
 
 @login_required
 def user_dashboard(request):
+    ref_from_url(request)
     announcements = Announcement.objects.all().order_by('-datetime_created')
 
     context = {
@@ -111,6 +113,7 @@ def get_user_profile(request, username):
 
 @login_required
 def edit_user_profile(request):
+    ref_from_url(request)
     if request.method == 'POST':
         custom_styles = request.POST['custom_styles']
         
@@ -177,6 +180,7 @@ def edit_user_profile(request):
 
 @login_required
 def delete_account(request):
+    ref_from_url(request)
     if request.user.is_superuser:
         messages.error(request, 'Admins need to use the admin site to delete their accounts')
         return redirect('accounts:user-dashboard')

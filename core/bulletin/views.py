@@ -7,7 +7,8 @@ from django.shortcuts import redirect, render
 from utils.helpers import (
     extract_hashtags,
     link_tags_to_post, 
-    object_id_generator
+    object_id_generator,
+    ref_from_url
 )
 
 from core.forms import FormWithCaptcha
@@ -25,6 +26,7 @@ from core.bulletin.models import (
 
 @login_required
 def create_bulletin(request):
+    ref_from_url(request)
     captcha = FormWithCaptcha
 
     ImageFormSet = modelformset_factory(
@@ -97,6 +99,7 @@ def create_bulletin(request):
 
 
 def get_bulletin(request, bulletin_id):
+    ref_from_url(request)
     bulletin = Bulletin.objects.get(object_id=bulletin_id)
     post = BulletinImage.objects.get(bulletin=bulletin)
 
@@ -124,6 +127,7 @@ def get_bulletin(request, bulletin_id):
     )
 
 def explore_bulletins(request):
+    ref_from_url(request)
     posts = BulletinImage.objects.all().order_by('-upvotes')
 
     topics = Tag.objects.all()

@@ -3,6 +3,8 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from utils.helpers import ref_from_url
+
 from core.accounts.models import User
 from core.bulletin.models import Bulletin
 
@@ -38,6 +40,7 @@ def advanced_search(request):
 
 
 def search(request):
+    ref_from_url(request)
     search_query = request.GET.get('q')
     if search_query:
         results = User.objects.filter(
