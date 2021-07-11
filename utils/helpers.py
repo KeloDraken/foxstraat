@@ -1,6 +1,8 @@
 import random
 import string
 
+from core.models import Ref
+
 from core.bulletin.models import (
     Bulletin,
     BulletinImage, 
@@ -13,7 +15,14 @@ def ref_from_url(request):
         try:
             ref = request.GET['ref']
         except:
-            print('Direct ref')
+            pass
+        
+        obj, created = Ref.objects.get_or_create(
+            name=ref.lower(),
+        )
+        return ref
+        
+
 
 def object_id_generator(size, model, chars=string.ascii_letters + string.digits):
     """
