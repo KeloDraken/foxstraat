@@ -11,15 +11,20 @@ from core.bulletin.models import (
 )
 
 def ref_from_url(request):
+    """
+    Extracts ?ref from get request and stores access count in `Ref` model
+    """
     if request.method == 'GET':
         try:
             ref = request.GET['ref']
         except:
-            pass
+            return
         
         obj, created = Ref.objects.get_or_create(
-            name=ref.lower(),
+            source=ref.lower(),
         )
+        obj.hits += 1
+        obj.save()
         return ref
         
 
