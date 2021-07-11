@@ -1,3 +1,4 @@
+from utils.helpers import ref_from_url
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
@@ -89,7 +90,7 @@ def user_dashboard(request):
 
 
 def get_user_profile(request, username):
-    # try:
+    ref_from_url(request)
     user = User.objects.get(username=username)
     if user.is_active:
         bulletin = Bulletin.objects.filter(user=user).order_by('-datetime_created')

@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'imagekit',
 
     # Foxstraat apps
+    'core',
     'core.accounts',
     'core.announcements',
     'core.bulletin',

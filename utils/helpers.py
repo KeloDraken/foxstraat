@@ -8,6 +8,12 @@ from core.bulletin.models import (
     Tag
 )
 
+def ref_from_url(request):
+    if request.method == 'GET':
+        try:
+            ref = request.GET['ref']
+        except:
+            print('Direct ref')
 
 def object_id_generator(size, model, chars=string.ascii_letters + string.digits):
     """
