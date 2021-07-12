@@ -10,7 +10,7 @@
 <span class="card-title"><b>Recommended</b></span>
 {% for post in posts %}
 <div class="card z-depth-2">
-    <a href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}" title="{{ post.title }}">
+    <a href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}?ref=acc_dash" title="{{ post.title }}">
         <div class="card-image">
             {% if post.image %}
             <img class="post-image" src="{{ post.image.url }}">
@@ -22,4 +22,4 @@
     </a>
 </div>
 {% endfor %}
-<a href="{% url 'bulletin:explore-bulletins' %}?ref=dashboard" class="btn btn-flat white black-text">Explore More...</a>
+<a href="{% url 'bulletin:explore-bulletins' %}?ref=exp_dash" class="btn btn-flat white black-text">Explore More...</a>

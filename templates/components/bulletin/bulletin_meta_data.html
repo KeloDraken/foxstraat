@@ -9,7 +9,7 @@
     </div>
     {% if post.user.is_active %}
     <a title="{{ post.user.display_name }}" class="post-author"
-        href="{% url 'get-user-profile' username=post.user.username %}?ref=post">
+        href="{% url 'get-user-profile' username=post.user.username %}?ref=bul_rec">
         {{ post.user.display_name }}
     </a>
     {% else %}

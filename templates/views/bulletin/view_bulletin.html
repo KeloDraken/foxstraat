@@ -65,7 +65,7 @@
                 {% for i in more_from_user %}
                     {% if not i.object_id == post.object_id %}
                     <a title="{{ bulletin.bulletin.title }}"
-                        href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}">
+                        href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}?ref=bul_bul">
                         <div class="col s6">
                             <img class="section-images" src="{{ i.image.url }}" alt="">
                         </div>
