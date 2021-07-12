@@ -18,8 +18,6 @@
             <div class="image_placeholder">No profile picture</div>
             {% endif %}
         </div>
-        <p class="black-text">{{post.user.display_name}}</p>
-    </a>
 </div>
 {% endfor %}
 <a href="{% url 'bulletin:explore-bulletins' %}?ref=exp_dash" class="btn btn-flat white black-text">Explore More...</a>
