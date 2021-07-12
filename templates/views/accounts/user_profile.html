@@ -41,11 +41,11 @@
         <a class="logo" href="/">Foxstraat.</a>
         <a class="nav-links" href="{% url 'accounts:user-dashboard' %}">Dashboard</a>
         {% if request.user.is_authenticated %}
-        <a class="nav-links user-link" href="{% url 'get-user-profile' username=request.user.username %}?ref=nav_profile">
+        <a class="nav-links user-link" href="{% url 'get-user-profile' username=request.user.username %}?ref=acc_prof_nav">
             {{request.user.display_name}}
         </a>
         {% endif %}
-        <a class="nav-links" href="{% url 'bulletin:explore-bulletins' %}">Explore</a>
+        <a class="nav-links" href="{% url 'bulletin:explore-bulletins' %}?ref=exp_prof_nav">Explore</a>
         <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a>
         <!-- <a class="nav-links" href="#">Charts</a> -->
         <a class="nav-links" href="{% url 'about' %}">About</a>
@@ -70,7 +70,7 @@
                     {% for post in posts %}
                     <div class="grid-item">
                         <a title="{{ post.title }}"
-                            href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
+                            href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}?ref=bul_prof">
                             <img class="post-image" src="{{ post.image.url }}">
                         </a>
                     </div>
