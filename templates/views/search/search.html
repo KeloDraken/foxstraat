@@ -60,7 +60,8 @@
 <section class="container center banner">
     <form method="get" action="{% url 'search:search' %}">
         <input class="form-input" autofocus autocapitalize="off" autocomplete="off" type="text" name="q"
-            placeholder="Search users" />
+        placeholder="Search users" />
+        <input type="hidden" name="ref" value="search">
         {% csrf_token %}
     </form>
 </section>

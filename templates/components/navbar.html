@@ -36,14 +36,14 @@
                         </a>
                     </li>
                     <li title="{{ user.username }}">
-                        <a href="{% url 'get-user-profile' username=user.username %}?ref=nav">
+                        <a href="{% url 'get-user-profile' username=user.username %}?ref=navbar">
                             <span class="material-icons-outlined">
                                 account_circle
                             </span>
                         </a>
                     </li>
                     <li title="Browse">
-                        <a href="{% url 'bulletin:explore-bulletins' %}">
+                        <a href="{% url 'bulletin:explore-bulletins' %}?ref=navbar">
                             <span class="material-icons-outlined">
                                 explore
                             </span>
