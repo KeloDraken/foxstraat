@@ -123,13 +123,13 @@
         {% for object in objects %}
         <div class="grid-item">
             <div class="content">
-                <a class="white-text" title="{{ post.bulletin.title }}"
-                    href="{% url 'bulletin:get-bulletin' bulletin_id=object.post.bulletin.object_id %}">
+                <a class="white-text" title="{{ object.post.title }}"
+                    href="{% url 'bulletin:get-bulletin' bulletin_id=object.post.object_id %}">
                     <h4 class="post-author">view post</h4>
                 </a>
-                {% if post.bulletin.user.is_active %}
-                <a class="white-text" title="{{ post.bulletin.user.display_name }}"
-                    href="{% url 'get-user-profile' username=object.post.bulletin.user.username %}?ref=topic">
+                {% if object.post.user.is_active %}
+                <a class="white-text" title="{{ object.post.user.display_name }}"
+                    href="{% url 'get-user-profile' username=object.post.user.username %}?ref=topic">
                     <h4 class="post-author">go to creator's page</h4>
                 </a>
                 {% else %}

@@ -1,22 +1,21 @@
 {% load url_target_blank %}
 
 <div class="col s5">
-    <!-- <p class="blue-text trending">lsdfbvjk</p> -->
-    <h4 class="post-title">{{ post.bulletin.title }}</h4>
+    <h4 class="post-title">{{ post.title }}</h4>
     <div class="row votes">
         <div class="col s12">
             {{post.displayed_upvotes|shrink_num}} score
         </div>
     </div>
-    {% if post.bulletin.user.is_active %}
-    <a title="{{ post.bulletin.user.display_name }}" class="post-author"
-        href="{% url 'get-user-profile' username=post.bulletin.user.username %}?ref=post">
-        {{ post.bulletin.user.display_name }}
+    {% if post.user.is_active %}
+    <a title="{{ post.user.display_name }}" class="post-author"
+        href="{% url 'get-user-profile' username=post.user.username %}?ref=post">
+        {{ post.user.display_name }}
     </a>
     {% else %}
     <a class="post-author">
         [deleted]
     </a>
     {% endif %}
-    <pre class="post-caption">{{ post.bulletin.caption|urlize|urlize_target_blank }}</pre>
+    <pre class="post-caption">{{ post.caption|urlize|urlize_target_blank }}</pre>
 </div>

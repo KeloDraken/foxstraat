@@ -84,8 +84,9 @@ def user_logout(request):
 def user_dashboard(request):
     ref_from_url(request)
     announcements = Announcement.objects.all().order_by('-datetime_created')
-
+    posts = Bulletin.objects.all().exclude(user=request.user).order_by('?')[:3]
     context = {
+        'posts': posts,
         'announcements': announcements,
     }
     return render(request, 'views/dashboard/dashboard.html', context)
@@ -95,13 +96,7 @@ def get_user_profile(request, username):
     ref_from_url(request)
     user = User.objects.get(username=username)
     if user.is_active:
-        bulletin = Bulletin.objects.filter(user=user).order_by('-datetime_created')
-
-        posts = []
-
-        for i  in bulletin:
-            post_image = BulletinImage.objects.get(bulletin=i)
-            posts.append(post_image)
+        posts = Bulletin.objects.filter(user=user).order_by('-datetime_created')
 
         context = {
             'posts': posts,

@@ -100,25 +100,19 @@ def create_bulletin(request):
 
 def get_bulletin(request, bulletin_id):
     ref_from_url(request)
-    bulletin = Bulletin.objects.get(object_id=bulletin_id)
-    post = BulletinImage.objects.get(bulletin=bulletin)
+    post = Bulletin.objects.get(object_id=bulletin_id)
 
     if request.user.is_authenticated:
         post.upvotes += 1
         post.save()
 
-    user_bulletins = Bulletin.objects.filter(
-        user=bulletin.user
+    more_from_user = Bulletin.objects.filter(
+        user=post.user
     ).order_by('?')[:2]
-    
-    more_from_user = []
-    for i in user_bulletins:
-        obj =  BulletinImage.objects.filter(bulletin=i)
-        more_from_user.append(obj)
         
     context = {
         'post': post,
-        'more_from_user': more_from_user,
+        'more_from_user': more_from_user
     }
     return render(
         request, 
@@ -128,7 +122,7 @@ def get_bulletin(request, bulletin_id):
 
 def explore_bulletins(request):
     ref_from_url(request)
-    posts = BulletinImage.objects.all().order_by('-upvotes')
+    posts = Bulletin.objects.all().order_by('-upvotes')
 
     topics = Tag.objects.all()
     context = {

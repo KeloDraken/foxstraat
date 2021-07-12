@@ -69,8 +69,8 @@
 
                     {% for post in posts %}
                     <div class="grid-item">
-                        <a title="{{ post.bulletin.title }}"
-                            href="{% url 'bulletin:get-bulletin' bulletin_id=post.bulletin.object_id %}">
+                        <a title="{{ post.title }}"
+                            href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
                             <img class="post-image" src="{{ post.image.url }}">
                         </a>
                     </div>

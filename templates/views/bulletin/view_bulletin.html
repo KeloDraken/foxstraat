@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{post.bulletin.user.display_name}} - {{ post.bulletin.title }}{% endblock %}
+{% block title %}{{post.user.display_name}} - {{ post.title }}{% endblock %}
 
 {% block styles %}
 <style>
@@ -14,10 +14,12 @@
         font-weight: 600;
         white-space: pre-wrap;
     }
+
     .caption-url {
         color: #333333;
         text-decoration: underline;
     }
+
     .post-image {
         width: 100%;
     }
@@ -53,24 +55,22 @@
             <img class="post-image" src="{{ post.image.url }}" alt="post">
             <h5 class="section-heading">
                 More from
-                {% if post.bulletin.user.is_active %}
-                    {{ post.bulletin.user.display_name }}
+                {% if post.user.is_active %}
+                {{ post.user.display_name }}
                 {% else %}
-                    [deleted]
+                [deleted]
                 {% endif %}
             </h5>
             <div class="row">
                 {% for i in more_from_user %}
-                    {% for bulletin in i %}
-                        {% if not bulletin.bulletin.object_id == post.bulletin.object_id %}
-                        <a title="{{ bulletin.bulletin.title }}"
-                            href="{% url 'bulletin:get-bulletin' bulletin_id=bulletin.bulletin.object_id %}">
-                            <div class="col s6">
-                                <img class="section-images" src="{{ bulletin.image.url }}" alt="">
-                            </div>
-                        </a>
-                        {% endif %}
-                    {% endfor %}
+                    {% if not i.object_id == post.object_id %}
+                    <a title="{{ bulletin.bulletin.title }}"
+                        href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}">
+                        <div class="col s6">
+                            <img class="section-images" src="{{ i.image.url }}" alt="">
+                        </div>
+                    </a>
+                    {% endif %}
                 {% endfor %}
             </div>
             <small>Comments coming soon</small>
