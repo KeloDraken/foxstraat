@@ -10,14 +10,16 @@
 <span class="card-title"><b>Recommended</b></span>
 {% for post in posts %}
 <div class="card z-depth-2">
-    <div class="card-image">
-        {% if post.image %}
-        <img class="post-image" src="{{ post.image.url }}">
-        {% else %}
-        <div class="image_placeholder">No profile picture</div>
-        {% endif %}
-    </div>
-    <p>aoaisndcak</p>
+    <a href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}" title="{{ post.title }}">
+        <div class="card-image">
+            {% if post.image %}
+            <img class="post-image" src="{{ post.image.url }}">
+            {% else %}
+            <div class="image_placeholder">No profile picture</div>
+            {% endif %}
+        </div>
+        <p class="black-text">{{post.user.display_name}}</p>
+    </a>
 </div>
 {% endfor %}
-<a href="#" class="btn btn-flat white black-text">Explore More...</a>
+<a href="{% url 'bulletin:explore-bulletins' %}?ref=dashboard" class="btn btn-flat white black-text">Explore More...</a>
