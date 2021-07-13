@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}{{post.user.display_name}} - {{ post.title }}{% endblock %}
+{% load url_target_blank %}
+
+{% block title %}Foxstraat Selekt - {{ post.name }}{% endblock %}
 
 {% block styles %}
 <style>
@@ -10,7 +12,6 @@
     .post-caption {
         font-family: Arial, Helvetica, sans-serif;
         color: #333333;
-        margin-left: 5px;
         font-weight: 600;
         white-space: pre-wrap;
     }
@@ -25,8 +26,8 @@
     }
 
     .post-author {
-        font-size: 1.3em;
-        color: #353535;
+        font-size: 1em;
+        color: #555555;
     }
 
     .section-images {
@@ -38,6 +39,10 @@
 
     .post-title {
         font-weight: 600 !important;
+    }
+
+    .price {
+        margin-bottom: -1rem;
     }
 
     .section-heading {
@@ -52,30 +57,32 @@
 <div class="container content">
     <div class="row">
         <div class="col s7">
-            <img class="post-image" src="{{ post.image.url }}" alt="post">
-            <h5 class="section-heading">
-                More from
-                {% if post.user.is_active %}
-                {{ post.user.display_name }}
-                {% else %}
-                [deleted]
-                {% endif %}
-            </h5>
-            <div class="row">
-                {% for i in more_from_user %}
-                    {% if not i.object_id == post.object_id %}
-                    <a title="{{ bulletin.bulletin.title }}"
-                        href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}?ref=bul_bul">
-                        <div class="col s6">
-                            <img class="section-images" src="{{ i.image.url }}" alt="">
-                        </div>
-                    </a>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <small>Comments coming soon</small>
+            <img class="post-image" src="{{ post.screenshot_1.url }}" alt="post">
         </div>
-        {% include 'components/bulletin/bulletin_meta_data.html' %}
+
+        <div class="col s5">
+            <h4 class="post-title">{{ post.name }}</h4>
+            <div class="row votes">
+                <div class="col s12 price">
+                    {{post.price}} gelt
+                </div>
+            </div>
+            {% if post.user.is_active %}
+            <a title="{{ post.user.display_name }}" class="post-author"
+                href="{% url 'get-user-profile' username=post.user.username %}?ref=acc_selekt">
+                by {{ post.user.display_name }}
+            </a>
+            {% else %}
+            <a class="post-author">
+                [deleted]
+            </a>
+            {% endif %}
+            <pre class="post-caption">{{ post.description|urlize|urlize_target_blank }}</pre>
+        </div>
+        <div class="col s5">
+            <a href="#" class="btn btn-medium black white-text">Buy template</a>
+        </div>
+
     </div>
 </div>
 {% endblock %}
