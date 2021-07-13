@@ -2,9 +2,9 @@ User-Agent: *
 Disallow: /media/
 Disallow: /admin/
 Disallow: /static/
+Disallow: /u/
 Allow: /u/login/
 Allow: /u/register/
-Disallow: /u/
 Disallow: /s/
 Disallow: /search/
 Disallow: /n/
