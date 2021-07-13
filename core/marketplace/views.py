@@ -147,6 +147,7 @@ def buy_template(request, listing_id):
     request.user.gelt-= template.price
     request.user.save()
 
+    messages.success(request, 'You\'ve successfully bought access to this template. Copy the CSS into the Customise Profile section of the edit profile page')
     context = {
         'template': template
     }
