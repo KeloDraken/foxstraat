@@ -31,6 +31,10 @@
         color: rgb(112, 112, 112) !important;
         opacity: 1 !important;
     }
+
+    .btn {
+        width: 50vw;
+    }
 </style>
 {% endblock %}
 
@@ -55,10 +59,11 @@
     </div>
     <br>
     {% endif %}
-    <form id="post_form">
+    <form method="post" action="{% url 'marketplace:buy-template' listing_id=template.object_id %}" id="post_form">
         {% csrf_token %}
         <textarea cols="100" id="template" rows="100" placeholder="Paste your custom css here" required name="template"
             class="custom_styles">{{template.template}}</textarea>
+        <button class="btn btn-large black white-text" type="submit">apply styles</button>
     </form>
 </div>
 {% endblock %}
