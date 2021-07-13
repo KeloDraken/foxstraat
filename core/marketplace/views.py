@@ -48,7 +48,12 @@ def add_listing(request):
         try:
             price = request.POST.get('price')
             if not len(price) <= 0 and not price == None:
-                pass
+                try:
+                    price = int(price)
+                except:
+                    messages.error(request, 
+                    'Couldn\'t add listing because of a price error')
+                    return redirect('marketplace:add-listing')
             else:
                 messages.error(request, 
                 'Couldn\'t add listing because of a price error')
