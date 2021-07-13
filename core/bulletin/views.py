@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.forms import modelformset_factory
+from django.http.response import Http404
 from django.shortcuts import redirect, render
 
 from utils.helpers import (
@@ -149,3 +150,18 @@ def manage_posts(request):
         'views/bulletin/manage_posts.html',
         context
     )
+
+@login_required
+def delete_post(request, bulletin_id):
+    try:
+        bulletin = Bulletin.objects.get(object_id=bulletin_id)
+    except:
+        raise Http404
+    
+    if not bulletin.user == request.user:
+        raise Http404
+
+    else:
+        bulletin.delete()
+        messages.success(request, 'Your post has been deleted')
+        return redirect('bulletin:manage-posts')

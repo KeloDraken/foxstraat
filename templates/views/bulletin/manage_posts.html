@@ -49,6 +49,7 @@
         flex: 1;
         padding: 0 0.5em;
     }
+
     .explore {
         margin-top: 2rem;
     }
@@ -57,7 +58,20 @@
 
 {% block body %}
 {% include 'components/navbar.html' %}
-
+{% if messages %}
+<div class="container center">
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="red white-text">{{ message }}</div>
+    {% elif message.tags == 'success' %}
+    <div class="green white-text">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+{% endif %}
 <div class="container explore">
     <h1 class="center">Manage posts</h1>
     <div class="grid">
@@ -74,16 +88,10 @@
                     href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}?ref=bul_exp">
                     <h4 class="post-author">view post</h4>
                 </a>
-                {% if post.user.is_active %}
-                <a class="white-text" title="{{ post.user.display_name }}"
-                    href="{% url 'get-user-profile' username=post.user.username %}?ref=acc_exp">
+                <a class="white-text" title="The post will be permanently removed from Foxstraat"
+                    href="{% url 'bulletin:delete-post' bulletin_id=post.object_id %}">
                     <h4 class="post-author">delete post</h4>
                 </a>
-                {% else %}
-                <a class="white-text" title="[deleted]">
-                    <h4 class="post-author">go to creator's page</h4>
-                </a>
-                {% endif %}
             </div>
             <img class="post-image" src="{{ post.image.url }}" />
         </div>
