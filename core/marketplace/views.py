@@ -11,7 +11,7 @@ from core.marketplace.models import Template
 @login_required
 def storefront(request):
     ref_from_url(request)
-    listings = Template.objects.all()
+    listings = Template.objects.all().order_by('?')
     context = {
         'listings': listings
     }

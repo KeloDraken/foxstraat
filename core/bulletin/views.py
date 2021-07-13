@@ -28,22 +28,10 @@ from core.bulletin.models import (
 @login_required
 def create_bulletin(request):
     ref_from_url(request)
-    captcha = FormWithCaptcha
+    captcha = FormWithCaptcha()
 
-    ImageFormSet = modelformset_factory(
-        BulletinImage, 
-        form=BulletinImageForm, 
-        extra=1
-    )    
-    
-    if request.method == 'POST':
+    if request.method == 'POST':        
         post_form = CreateBulletinForm(request.POST)
-        formset = ImageFormSet(
-            request.POST, 
-            request.FILES,
-            queryset=BulletinImage.objects.none()
-        )
-        
         # TODO: remove this try/catch in production
         try:
             captcha_data = request.POST['g-recaptcha-response']
@@ -51,9 +39,15 @@ def create_bulletin(request):
             captcha_data = '...'
             
         if not captcha_data == '':
-            if post_form.is_valid() and formset.is_valid():
+            if post_form.is_valid():
                 post_form = post_form.save(commit=False)
                 post_form.user = request.user
+
+                if request.FILES.get('image'):
+                    post_form.image = request.FILES.get('image')
+                else:
+                    messages.error(request, 'Post wasn\'t created. No image was found')
+                    return redirect('bulletin:create-bulletin')
 
                 object_id = object_id_generator(11, Bulletin)
                 post_form.object_id = object_id
@@ -65,12 +59,6 @@ def create_bulletin(request):
                 request.user.num_posts =+ 1
                 request.user.save()
                 post_form.save()
-
-                for form in formset.cleaned_data:
-                    if form:
-                        image = form['image']
-                        photo = BulletinImage(bulletin=post_form, image=image)
-                        photo.save()
 
                 link_tags_to_post(post_id=object_id, tags=hashtags)
                 
@@ -85,11 +73,9 @@ def create_bulletin(request):
             )
     else:
         post_form = CreateBulletinForm()
-        formset = ImageFormSet(queryset=BulletinImage.objects.none())
 
     context = {
-        'post_form': post_form, 
-        'formset': formset,
+        'post_form': post_form,
         'captcha': captcha,
     }
     return render(
@@ -110,7 +96,7 @@ def get_bulletin(request, bulletin_id):
     more_from_user = Bulletin.objects.filter(
         user=post.user
     ).order_by('?')[:2]
-        
+
     context = {
         'post': post,
         'more_from_user': more_from_user
