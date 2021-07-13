@@ -108,6 +108,8 @@
 {% include 'components/navbar.html' %}
 
 <div class="container explore">
+    <h1 class="center">Frontpage</h1>
+
     <div class="topic-scroll">
         {% for topic in topics %}
         <a href="{% url 'forums:get-topic' topic_id=topic.name %}" class="topic-pill">{{ topic.name }}</a>
