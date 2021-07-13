@@ -135,3 +135,17 @@ def explore_bulletins(request):
         'views/bulletin/explore_bulletins.html',
         context
     )
+
+@login_required
+def manage_posts(request):
+    ref_from_url(request)
+    posts = Bulletin.objects.filter(user=request.user).order_by('-upvotes')
+    context = {
+        'posts': posts
+    }
+    
+    return render(
+        request, 
+        'views/bulletin/manage_posts.html',
+        context
+    )
