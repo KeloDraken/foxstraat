@@ -104,6 +104,14 @@
             {% include 'components/dashboard/user_details.html' %}
             <!-- user details section ends -->
 
+            <!-- Manage posts section -->
+            {% include 'components/dashboard/manage_posts.html' %}
+            <!-- Manage posts section ends -->
+
+            <!-- Manage listings section -->
+            {% include 'components/dashboard/manage_listings.html' %}
+            <!-- Manage listings section ends -->
+
             <!-- Site info section -->
             {% include 'components/dashboard/site_info.html' %}
             <!-- site info section ends -->
@@ -120,24 +128,13 @@
             </form>
             <div class="row">
                 <div class="col s6">
-
                     <!-- Create post section -->
                     {% include 'components/dashboard/create_post.html' %}
                     <!-- Create post section ends -->
 
-
                     <!-- foxstraat announcements section -->
                     {% include 'components/dashboard/announcements.html' %}
                     <!-- foxstraat announcements section ends -->
-
-
-                    <!-- Manage posts section -->
-                    {% include 'components/dashboard/manage_posts.html' %}
-                    <!-- Manage posts section ends -->
-                    <!-- Manage posts section -->
-                    {% include 'components/dashboard/manage_listings.html' %}
-                    <!-- Manage posts section ends -->
-
                 </div>
                 <div class="col s6">
                     {% include 'components/dashboard/create_announcement.html' %}
@@ -146,16 +143,9 @@
                     {% include 'components/dashboard/add_marketplace_listing.html' %}
                     <!-- Marketplace section ends -->
 
-
                     <!-- People section -->
                     {% include 'components/dashboard/recommended.html' %}
                     <!-- People section ends -->
-
-                    <!-- 
-                        {% if not request.user.is_superuser %}
-                        <div class="ad grey-text">Advertisement</div>
-                        {% endif %} 
-                    -->
                 </div>
             </div>
         </div>
