@@ -70,7 +70,7 @@
         {% for listing in listings %}
         <div class="grid-item" title="{{ listing.description }}">
             <div class="content">
-                <a class="white-text" title="{{ listing.name }}" href="#">
+                <a class="white-text" title="{{ listing.name }}" href="{% url 'marketplace:view-listing' listing_id=listing.object_id %}">
                     <h4 class="post-author">view listing</h4>
                 </a>
 

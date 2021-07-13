@@ -116,3 +116,17 @@ def add_listing(request):
         request,
         'views/marketplace/add_listing.html', 
     )
+
+@login_required
+def view_listing(request, listing_id):
+    ref_from_url(request)
+    post = Template.objects.get(object_id=listing_id)
+
+    context = {
+        'post': post
+    }
+    return render(
+        request, 
+        'views/marketplace/view_listing.html', 
+        context
+    )
