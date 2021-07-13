@@ -21,6 +21,7 @@ def ref_from_url(request):
             return
         
         obj, created = Ref.objects.get_or_create(
+            object_id=object_id_generator(size=11, model=True),
             source=ref.lower(),
         )
         obj.hits += 1
