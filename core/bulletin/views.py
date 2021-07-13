@@ -111,7 +111,7 @@ def explore_bulletins(request):
     ref_from_url(request)
     posts = Bulletin.objects.all().order_by('-upvotes')
 
-    topics = Tag.objects.all()
+    topics = Tag.objects.all().order_by('?')[:30]
     context = {
         'topics': topics,
         'posts': posts
