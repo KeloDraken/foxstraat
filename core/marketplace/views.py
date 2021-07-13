@@ -66,26 +66,22 @@ def add_listing(request):
             return redirect('marketplace:add-listing')
         
         try:
-            template = request.POST.get('template')            
-            if not len(price) <= 0 and not price == None:
-                if '<script>' in template \
-                or '</script>' in template \
-                or '<SCRIPT>' in template \
-                or '</SCRIPT>' in template :
-                    messages.error(
-                        request, 
-                        '''
-                        Only css is allowed.
-                        Your account has been placed on a watchlist. 
-                        Continued use of non-css code will result in a 
-                        permanent ban from Foxstraat.
-                        '''
-                    )
-                    return redirect('marketplace:add-listing')
-            else:
-                messages.error(request,    
-                'Couldn\'t add listing because of a CSS error')
+            template = request.POST.get('template')         
+            if '<script>' in template \
+            or '</script>' in template \
+            or '<SCRIPT>' in template \
+            or '</SCRIPT>' in template :
+                messages.error(
+                    request, 
+                    '''
+                    Only css is allowed.
+                    Your account has been placed on a watchlist. 
+                    Continued use of non-css code will result in a 
+                    permanent ban from Foxstraat.
+                    '''
+                )
                 return redirect('marketplace:add-listing')
+            
         except:
             messages.error(request,    
                 'Couldn\'t add listing because of a CSS error')
@@ -118,6 +114,37 @@ def add_listing(request):
         request,
         'views/marketplace/add_listing.html', 
     )
+
+
+@login_required
+def manage_listings(request):
+    ref_from_url(request)
+    posts = Template.objects.filter(user=request.user)
+    context = {
+        'posts': posts
+    }
+    
+    return render(
+        request, 
+        'views/marketplace/manage_listings.html',
+        context
+    )
+
+@login_required
+def delete_listing(request, listing_id):
+    try:
+        bulletin = Template.objects.get(object_id=listing_id)
+    except:
+        raise Http404
+    
+    if not bulletin.user == request.user:
+        raise Http404
+
+    else:
+        bulletin.delete()
+        messages.success(request, 'Your post has been deleted')
+        return redirect('marketplace:manage-listing')
+
 
 @login_required
 def view_listing(request, listing_id):
