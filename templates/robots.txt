@@ -2,10 +2,10 @@ User-Agent: *
 Disallow: /media/
 Disallow: /admin/
 Disallow: /static/
+Allow: /u/login/
+Allow: /u/register/
 Disallow: /u/
 Disallow: /s/
 Disallow: /search/
 Disallow: /n/
-Allow: /u/login/
-Allow: /u/register/
 Crawl-delay: 1
