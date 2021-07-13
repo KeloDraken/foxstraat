@@ -140,19 +140,28 @@ def buy_template(request, listing_id):
     except:
         raise Http404
 
-    creator = User.objects.get(object_id=template.user.object_id)
-    creator.gelt += template.price
-    creator.save()
+    if request.user.gelt < template.price:
+        messages.error(
+            request, 
+            'You don\'t have enough gelt to buy this template.\
+             You can earn gelt by posting and browsing Foxstraat \
+            or by selling your own templates'
+        )
+        return redirect('marketplace:view-listing', listing_id=listing_id)
+    else:
+        creator = User.objects.get(object_id=template.user.object_id)
+        creator.gelt += template.price
+        creator.save()
 
-    request.user.gelt-= template.price
-    request.user.save()
+        request.user.gelt-= template.price
+        request.user.save()
 
-    messages.success(request, 'You\'ve successfully bought access to this template. Copy the CSS into the Customise Profile section of the edit profile page')
-    context = {
-        'template': template
-    }
-    return render(
-        request, 
-        'views/marketplace/buy_template.html', 
-        context
-    )
+        messages.success(request, 'You\'ve successfully bought access to this template. Copy the CSS into the Customise Profile section of the edit profile page')
+        context = {
+            'template': template
+        }
+        return render(
+            request, 
+            'views/marketplace/buy_template.html', 
+            context
+        )
