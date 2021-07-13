@@ -80,7 +80,7 @@
             <pre class="post-caption">{{ post.description|urlize|urlize_target_blank }}</pre>
         </div>
         <div class="col s5">
-            <a href="#" class="btn btn-medium black white-text">Buy template</a>
+            <a href="{% url 'marketplace:buy-template' listing_id=post.object_id %}" class="btn btn-medium black white-text">Buy template</a>
         </div>
 
     </div>

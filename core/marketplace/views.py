@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http.response import Http404
 from django.shortcuts import redirect, render
 
 from utils.helpers import object_id_generator, ref_from_url
 
+from core.accounts.models import User
 from core.marketplace.models import Template
 
 @login_required
@@ -128,5 +130,28 @@ def view_listing(request, listing_id):
     return render(
         request, 
         'views/marketplace/view_listing.html', 
+        context
+    )
+
+@login_required
+def buy_template(request, listing_id):
+    try:
+        template = Template.objects.get(object_id=listing_id)
+    except:
+        raise Http404
+
+    creator = User.objects.get(object_id=template.user.object_id)
+    creator.gelt += template.price
+    creator.save()
+
+    request.user.gelt-= template.price
+    request.user.save()
+
+    context = {
+        'template': template
+    }
+    return render(
+        request, 
+        'views/marketplace/buy_template.html', 
         context
     )

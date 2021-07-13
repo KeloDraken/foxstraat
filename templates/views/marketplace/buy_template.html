@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Foxstraat - Add listing{% endblock %}
+
+{% block styles %}
+<style>
+    .form-input {
+        color: #000 !important;
+        width: 83% !important;
+        padding: 3px !important;
+        border: 1px solid #797979 !important;
+    }
+
+    form {
+        margin-left: 10vw;
+    }
+
+    .form-input::placeholder {
+        color: rgb(112, 112, 112) !important;
+        opacity: 1 !important;
+    }
+
+    .custom_styles {
+        width: 84% !important;
+        height: 20vh !important;
+        padding: 3px !important;
+        border: 1px solid #797979 !important;
+    }
+
+    .custom_styles::placeholder {
+        color: rgb(112, 112, 112) !important;
+        opacity: 1 !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+
+<div class="container">
+    <h3 class="center">{{template.name}}</h3>
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="red white-text">
+            {{ message }}
+        </div>
+        {% elif message.tags == 'success' %}
+        <div class="green white-text">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
+    <form id="post_form">
+        {% csrf_token %}
+        <textarea cols="100" id="template" rows="100" placeholder="Paste your custom css here" required name="template"
+            class="custom_styles">{{template.template}}</textarea>
+            <label for="template">Copy styles into the Customise profile section in your Edit profile</label>
+    </form>
+</div>
+{% endblock %}
