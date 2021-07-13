@@ -103,6 +103,10 @@
             <!-- User details section -->
             {% include 'components/dashboard/user_details.html' %}
             <!-- user details section ends -->
+
+            <!-- Site info section -->
+            {% include 'components/dashboard/site_info.html' %}
+            <!-- site info section ends -->
             <div class="info">
                 <a class="sign-out" href="{% url 'accounts:user-logout' %}">Sign out</a>
             </div>
@@ -127,10 +131,13 @@
                     <!-- foxstraat announcements section ends -->
 
 
+                    <!-- Manage posts section -->
+                    {% include 'components/dashboard/manage_posts.html' %}
+                    <!-- Manage posts section ends -->
+                    <!-- Manage posts section -->
+                    {% include 'components/dashboard/manage_listings.html' %}
+                    <!-- Manage posts section ends -->
 
-                    <!-- Site info section -->
-                    {% include 'components/dashboard/site_info.html' %}
-                    <!-- site info section ends -->
                 </div>
                 <div class="col s6">
                     {% include 'components/dashboard/create_announcement.html' %}
@@ -138,10 +145,6 @@
                     <!-- Marketplace section -->
                     {% include 'components/dashboard/add_marketplace_listing.html' %}
                     <!-- Marketplace section ends -->
-
-                    <!-- Manage posts section -->
-                    {% include 'components/dashboard/manage_posts.html' %}
-                    <!-- Manage posts section ends -->
 
 
                     <!-- People section -->
