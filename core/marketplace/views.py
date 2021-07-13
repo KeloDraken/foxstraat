@@ -120,15 +120,22 @@ def add_listing(request):
 def manage_listings(request):
     ref_from_url(request)
     posts = Template.objects.filter(user=request.user)
-    context = {
-        'posts': posts
-    }
-    
-    return render(
-        request, 
-        'views/marketplace/manage_listings.html',
-        context
-    )
+    if not posts:
+        messages.error(
+            request, 
+            'You don\'t have any marketplace listings. Create your listing'
+        )
+        return redirect('marketplace:add-listing')
+    else:
+        context = {
+            'posts': posts
+        }
+        
+        return render(
+            request, 
+            'views/marketplace/manage_listings.html',
+            context
+        )
 
 @login_required
 def delete_listing(request, listing_id):
