@@ -126,7 +126,7 @@ def add_song(request):
                 'Please confirm that you\'re not a robot'
             )
     else:
-        post_form = CreateBulletinForm()
+        post_form = AddSongForm()
 
     context = {
         'post_form': post_form,
