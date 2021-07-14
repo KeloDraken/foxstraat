@@ -20,10 +20,10 @@ urlpatterns = [
     path('delete/<bulletin_id>', delete_post, name='delete-post'),
 
     # Music
-    path('add/song/', add_song, name='add-song'),
-    path('song/<song_id>/', get_song, name='get-song'),
-    path('song/<song_id>/', get_song, name='get-song'),
-    path('charts/', music_chart, name='music-charts'),
+    path('songs/add/', add_song, name='add-song'),
+    path('songs/<song_id>/', get_song, name='get-song'),
+    path('songs/<song_id>/', get_song, name='get-song'),
+    path('songs/chart/', music_chart, name='music-charts'),
     
     path('<bulletin_id>/', get_bulletin, name='get-bulletin'),
     path('', explore_bulletins, name='explore-bulletins'),
