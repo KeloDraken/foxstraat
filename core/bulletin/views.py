@@ -142,7 +142,7 @@ def add_song(request):
     }
     return render(
         request, 
-        'views/bulletin/add_song.html', 
+        'views/music/add_song.html', 
         context
     )
 
@@ -193,7 +193,7 @@ def get_song(request, song_id):
     }
     return render(
         request, 
-        'views/bulletin/view_song.html', 
+        'views/music/view_song.html', 
         context
     )
 
