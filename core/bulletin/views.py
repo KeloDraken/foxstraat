@@ -146,6 +146,12 @@ def add_song(request):
         context
     )
 
+def music_chart(request):
+    songs = Song.objects.all().order_by('-upvotes')
+    context = {
+        'songs': songs,
+    }
+    return render(request, 'views/music/charts.html', context)
 
 def get_bulletin(request, bulletin_id):
     ref_from_url(request)

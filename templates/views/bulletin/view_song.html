@@ -18,13 +18,15 @@
         color: #333333;
         text-decoration: underline;
     }
+
     .post-image {
         width: 100%;
     }
 
-    .price{
+    .price {
         margin-bottom: -1rem;
     }
+
     .post-author {
         font-size: 1.3em;
         color: #353535;
@@ -56,27 +58,22 @@
             <img class="post-image" src="{{ post.cover_art.url }}" alt="post">
             <h5 class="section-heading">
                 More from
-                {% if post.user.is_active %}
                 {{ post.user.display_name }}
-                {% else %}
-                [deleted]
-                {% endif %}
             </h5>
             <div class="row">
                 {% for i in more_from_user %}
-                    {% if not i.object_id == post.object_id %}
-                    <a title="{{ bulletin.bulletin.title }}"
-                        href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}?ref=bul_bul">
-                        <div class="col s6">
-                            <img class="section-images" src="{{ i.image.url }}" alt="">
-                        </div>
-                    </a>
-                    {% endif %}
+                {% if not i.object_id == post.object_id %}
+                <a title="{{ bulletin.bulletin.title }}"
+                    href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}?ref=bul_bul">
+                    <div class="col s6">
+                        <img class="section-images" src="{{ i.image.url }}" alt="">
+                    </div>
+                </a>
+                {% endif %}
                 {% endfor %}
             </div>
             <small>Comments coming soon</small>
         </div>
-        {% include 'components/bulletin/bulletin_meta_data.html' %}
     </div>
 </div>
 {% endblock %}
