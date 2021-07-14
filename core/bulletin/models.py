@@ -61,3 +61,21 @@ class PostTag(models.Model):
 
     def __str__(self):
         return self.hashtag
+
+
+class Song(models.Model):
+    object_id = models.CharField(max_length=11, null=False, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    artist_name = models.CharField(max_length=200, null=True, blank=True)
+    cover_art = ProcessedImageField(
+        upload_to='bulletin/music/cover_art/',
+        processors=[ResizeToFit(480, 600)],
+        format='JPEG',
+        options={'quality': 90},
+        null=True
+    )
+    displayed_upvotes = models.PositiveIntegerField(default=0)
+    upvotes = models.PositiveIntegerField(default=0)
+    caption = models.TextField(null=True, blank=True)
+    date_created = models.DateField(auto_now_add=True, null=True, blank=True)
+    datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
