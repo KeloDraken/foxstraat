@@ -49,6 +49,52 @@ class PostTag(models.Model):
 
 
 class Song(models.Model):
+    GENRES = [
+        # Rock and metal
+        ('Rock','Rock'),
+        ('Punk rock','Punk rock'),
+        ('Indie rock','Indie rock'),
+        ('Alternative rock','Alternative rock'),
+        ('Pop rock','Pop rock'),
+        ('Hard rock','Hard rock'),
+        ('Heavy metal','Heavy metal'),
+        ('Grunge','Grunge'),
+        ('Emo','Emo'),
+
+        # Pop
+        ('Pop','Pop'),
+        ('Indie','Indie'),
+        ('Hip hop','Hip hop'),
+        ('Country','Country'),
+        ('Afro pop','Afro pop'),
+        ('K-pop','K-pop'),
+        ('Reggae','Reggae'),
+        
+        # Balladesk
+        ('RnB','RnB'),
+        ('Ballad','Ballad'),
+        ('Gospel','Gospel'),
+
+        # Dance
+        ('Dance','Dance'),
+        ('House music','House music'),
+        
+        # Classical
+        ('Opera','Opera'),
+        ('Classical','Classical'),
+        ('Soundtrack','Soundtrack'),
+        
+        # Other
+        ('Trance','Trance'),
+        ('Lo-fi','Lo-fi'),
+        ('New wave','New wave'),
+        ('Ambient music','Ambient music'),
+        ('World music','World music'),
+        ('Folk','Folk'),
+
+        ('Jazz','Jazz'),
+    ]
+
     object_id = models.CharField(max_length=11, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
@@ -59,6 +105,7 @@ class Song(models.Model):
         options={'quality': 90},
         null=True
     )
+    genre = models.CharField(max_length=100, null=True, blank=True, choices=GENRES)
 
     spotify = models.URLField(max_length=200, null=True, blank=True)
     soundcloud = models.URLField(max_length=200, null=True, blank=True)
