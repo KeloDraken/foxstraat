@@ -105,6 +105,7 @@ class Song(models.Model):
         options={'quality': 90},
         null=True
     )
+    artists = models.CharField(max_length=1000, null=True, blank=True)
     genre = models.CharField(max_length=100, null=False, blank=False, default='Rock', choices=GENRES)
     is_explicit = models.BooleanField(default=False)
     spotify = models.URLField(max_length=200, null=True, blank=True)
