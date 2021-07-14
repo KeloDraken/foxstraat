@@ -51,6 +51,7 @@ class PostTag(models.Model):
 class Song(models.Model):
     object_id = models.CharField(max_length=11, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, null=True, blank=True)
     artist_name = models.CharField(max_length=200, null=True, blank=True)
     cover_art = ProcessedImageField(
         upload_to='bulletin/music/cover_art/',
