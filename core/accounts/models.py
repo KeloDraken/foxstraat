@@ -55,7 +55,7 @@ class User(AbstractUser):
     instagram = models.CharField(max_length=60, null=True, blank=True)
     vsco = models.CharField(max_length=60, null=True, blank=True)
     twitter = models.CharField(max_length=60, null=True, blank=True)
-    website = models.CharField(max_length=300, null=True, blank=True)
+    website = models.URLField(max_length=300, null=True, blank=True)
     default_styles = models.TextField(
         null=False, 
         blank=False, 

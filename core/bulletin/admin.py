@@ -2,16 +2,11 @@ from django.contrib import admin
 
 from core.bulletin.models import (
     Bulletin,
-    BulletinImage,
+    Song,
     Tag,
 )
 
-class BulletinImageInline(admin.TabularInline):
-    model = BulletinImage
-    extra = 3
 
-class BulletinAdmin(admin.ModelAdmin):
-    inlines = [ BulletinImageInline, ]
-
-admin.site.register(Bulletin, BulletinAdmin)
+admin.site.register(Bulletin)
 admin.site.register(Tag)
+admin.site.register(Song)
