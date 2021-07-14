@@ -5,7 +5,6 @@ from core.models import Ref
 
 from core.bulletin.models import (
     Bulletin,
-    BulletinImage, 
     PostTag, 
     Tag
 )

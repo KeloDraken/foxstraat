@@ -1,4 +1,3 @@
-from utils.helpers import ref_from_url
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
@@ -7,6 +6,7 @@ from django.http.response import Http404
 
 from django.shortcuts import redirect, render
 
+from utils.helpers import ref_from_url
 from core.forms import FormWithCaptcha
 
 from core.accounts.forms import (
@@ -15,7 +15,7 @@ from core.accounts.forms import (
 )
 from core.accounts.models import User
 from core.announcements.models import Announcement
-from core.bulletin.models import Bulletin, BulletinImage
+from core.bulletin.models import Bulletin
 
 
 def user_registration(request):

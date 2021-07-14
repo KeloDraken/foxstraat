@@ -2,7 +2,7 @@ from django import forms
 
 from core.bulletin.models import (
     Bulletin,
-    BulletinImage,
+    Song,
 )
 
 class CreateBulletinForm(forms.ModelForm):
@@ -47,7 +47,28 @@ class CreateBulletinForm(forms.ModelForm):
         )
  
  
-class BulletinImageForm(forms.ModelForm):
+class AddSongForm(forms.ModelForm):
+    title = forms.CharField(
+        max_length=140, 
+        label='', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Give your post a short title',
+                'autocomplete': 'off',
+                'autofocus': 'true',
+                'autocapitalize': 'off'
+            }
+        )
+    ) 
+    caption = forms.CharField(required=False, widget=forms.Textarea(
+        attrs={
+            'cols': 100,
+            'class': 'form-input',
+            'placeholder': 'Write your caption...',
+            'rows': 100,
+        }
+    ))
     image = forms.ImageField(
         required=False, 
         widget=forms.FileInput(
@@ -59,7 +80,12 @@ class BulletinImageForm(forms.ModelForm):
             }
         )
     )
-
     class Meta:
-        model = BulletinImage
-        fields = ('image',)
+        model = Song
+        fields = (
+            'title',
+            'caption',
+            'image',
+        )
+ 
+ 

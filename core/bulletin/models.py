@@ -23,21 +23,6 @@ class Bulletin(models.Model):
     caption = models.TextField(null=True, blank=True)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    
-class BulletinImage(models.Model):
-    bulletin = models.ForeignKey(
-        Bulletin, 
-        on_delete=models.CASCADE, 
-        related_name='images'
-    )
-    upvotes = models.PositiveIntegerField(default=0)
-    displayed_upvotes = models.PositiveIntegerField(default=0)
-    image = ProcessedImageField(
-        upload_to='bulletin/images/',
-        processors=[ResizeToFit(480, 600)],
-        format='JPEG',
-        options={'quality': 90}
-    )
 
 
 class Tag(models.Model):
