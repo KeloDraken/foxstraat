@@ -106,7 +106,7 @@ class Song(models.Model):
         null=True
     )
     genre = models.CharField(max_length=100, null=False, blank=False, default='Rock', choices=GENRES)
-
+    is_explicit = models.BooleanField(default=False)
     spotify = models.URLField(max_length=200, null=True, blank=True)
     soundcloud = models.URLField(max_length=200, null=True, blank=True)
     youtube = models.URLField(max_length=200, null=True, blank=True)
