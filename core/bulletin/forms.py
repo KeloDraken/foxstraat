@@ -61,15 +61,49 @@ class AddSongForm(forms.ModelForm):
             }
         )
     ) 
-    caption = forms.CharField(required=False, widget=forms.Textarea(
-        attrs={
-            'cols': 100,
-            'class': 'form-input',
-            'placeholder': 'Write your caption...',
-            'rows': 100,
-        }
-    ))
-    image = forms.ImageField(
+    spotify = forms.URLField(
+        required=False,
+        max_length=140, 
+        label='', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Give your post a short title',
+                'autocomplete': 'off',
+                'autofocus': 'true',
+                'autocapitalize': 'off'
+            }
+        )
+    ) 
+    soundcloud = forms.URLField(
+        required=False,
+        max_length=140, 
+        label='', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Give your post a short title',
+                'autocomplete': 'off',
+                'autofocus': 'true',
+                'autocapitalize': 'off'
+            }
+        )
+    ) 
+    youtube = forms.URLField(
+        required=False,
+        max_length=140, 
+        label='', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Give your post a short title',
+                'autocomplete': 'off',
+                'autofocus': 'true',
+                'autocapitalize': 'off'
+            }
+        )
+    ) 
+    cover_art = forms.ImageField(
         required=False, 
         widget=forms.FileInput(
             attrs={
@@ -84,8 +118,10 @@ class AddSongForm(forms.ModelForm):
         model = Song
         fields = (
             'title',
-            'caption',
-            'image',
+            'spotify',
+            'soundcloud',
+            'youtube',
+            'cover_art',
         )
  
  
