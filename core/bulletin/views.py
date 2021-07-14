@@ -18,7 +18,8 @@ from core.bulletin.forms import (
     CreateBulletinForm
 )
 from core.bulletin.models import (
-    Bulletin, 
+    Bulletin,
+    Song, 
     Tag
 )
 
@@ -90,7 +91,7 @@ def add_song(request):
     captcha = FormWithCaptcha()
 
     if request.method == 'POST':        
-        post_form = CreateBulletinForm(request.POST)
+        post_form = AddSongForm(request.POST)
         # TODO: remove this try/catch in production
         try:
             captcha_data = request.POST['g-recaptcha-response']
@@ -102,24 +103,18 @@ def add_song(request):
                 post_form = post_form.save(commit=False)
                 post_form.user = request.user
 
-                if request.FILES.get('image'):
-                    post_form.image = request.FILES.get('image')
+                if request.FILES.get('cover_image'):
+                    post_form.image = request.FILES.get('cover_image')
                 else:
-                    messages.error(request, 'Post wasn\'t created. No image was found')
-                    return redirect('bulletin:create-bulletin')
+                    messages.error(request, 'Song wasn\'t added. No cover art was found')
+                    return redirect('bulletin:add-song')
 
-                object_id = object_id_generator(11, Bulletin)
+                object_id = object_id_generator(11, Song)
                 post_form.object_id = object_id
                 
-                caption = request.POST['caption']
-                
-                hashtags = extract_hashtags(text=caption)
-
                 request.user.num_posts =+ 1
                 request.user.save()
                 post_form.save()
-
-                link_tags_to_post(post_id=object_id, tags=hashtags)
                 
                 return redirect(f'/p/{object_id}')
 
@@ -139,7 +134,7 @@ def add_song(request):
     }
     return render(
         request, 
-        'views/bulletin/create_bulletin.html', 
+        'views/bulletin/add_song.html', 
         context
     )
 
