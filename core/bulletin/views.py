@@ -83,8 +83,6 @@ def create_bulletin(request):
         context
     )
 
-
-
 @login_required
 def add_song(request):
     ref_from_url(request)
@@ -103,20 +101,30 @@ def add_song(request):
                 post_form = post_form.save(commit=False)
                 post_form.user = request.user
 
-                if request.FILES.get('cover_image'):
-                    post_form.image = request.FILES.get('cover_image')
+                if request.FILES.get('cover_art'):
+                    post_form.image = request.FILES.get('cover_art')
                 else:
                     messages.error(request, 'Song wasn\'t added. No cover art was found')
                     return redirect('bulletin:add-song')
 
-                object_id = object_id_generator(11, Song)
-                post_form.object_id = object_id
-                
-                request.user.num_posts =+ 1
-                request.user.save()
-                post_form.save()
-                
-                return redirect(f'/p/{object_id}')
+                spotify = request.POST.get('spotify')
+                soundcloud = request.POST.get('soundcloud')
+                youtube = request.POST.get('youtube')
+
+                if len(spotify) <= 0 or spotify == None \
+                and len(soundcloud) <= 0 or soundcloud == None \
+                and len(youtube) <= 0 or youtube == None:
+                    messages.error(request, 'You need to provide a link to your song')
+                    return redirect('bulletin:add-song')
+                else:
+                    object_id = object_id_generator(11, Song)
+                    post_form.object_id = object_id
+                    
+                    request.user.num_posts =+ 1
+                    request.user.save()
+                    post_form.save()
+                    
+                    return redirect(f'/p/{object_id}')
 
             else:    
                 messages.error(request, 'Post creation failed')

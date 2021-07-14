@@ -51,7 +51,7 @@
     </div>
     <br>
     {% endif %}
-    <form id="post_form" method="post" action="{% url 'bulletin:create-bulletin' %}" enctype="multipart/form-data">
+    <form id="post_form" method="post" action="{% url 'bulletin:add-song' %}" enctype="multipart/form-data">
         <div class="row">
             <div class="col s7">
                 {% csrf_token %}
