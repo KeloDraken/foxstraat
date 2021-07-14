@@ -50,11 +50,11 @@ class CreateBulletinForm(forms.ModelForm):
 class AddSongForm(forms.ModelForm):
     title = forms.CharField(
         max_length=140, 
-        label='', 
+        label='Song title', 
         widget=forms.TextInput(
             attrs={
                 'class': 'form-input',
-                'placeholder': 'Give your post a short title',
+                'placeholder': 'Song title',
                 'autocomplete': 'off',
                 'autofocus': 'true',
                 'autocapitalize': 'off'
@@ -63,42 +63,39 @@ class AddSongForm(forms.ModelForm):
     ) 
     spotify = forms.URLField(
         required=False,
-        max_length=140, 
-        label='', 
+        max_length=180, 
+        label='Spotify url', 
         widget=forms.TextInput(
             attrs={
                 'class': 'form-input',
-                'placeholder': 'Give your post a short title',
+                'placeholder': 'Spotify url',
                 'autocomplete': 'off',
-                'autofocus': 'true',
                 'autocapitalize': 'off'
             }
         )
     ) 
     soundcloud = forms.URLField(
         required=False,
-        max_length=140, 
-        label='', 
+        max_length=180, 
+        label='Soundclound url', 
         widget=forms.TextInput(
             attrs={
                 'class': 'form-input',
-                'placeholder': 'Give your post a short title',
+                'placeholder': 'Soundclound url',
                 'autocomplete': 'off',
-                'autofocus': 'true',
                 'autocapitalize': 'off'
             }
         )
     ) 
     youtube = forms.URLField(
         required=False,
-        max_length=140, 
-        label='', 
+        max_length=180, 
+        label='YouTube url', 
         widget=forms.TextInput(
             attrs={
                 'class': 'form-input',
-                'placeholder': 'Give your post a short title',
+                'placeholder': 'YouTube url',
                 'autocomplete': 'off',
-                'autofocus': 'true',
                 'autocapitalize': 'off'
             }
         )
