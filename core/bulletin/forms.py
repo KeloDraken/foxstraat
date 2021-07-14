@@ -115,10 +115,9 @@ class AddSongForm(forms.ModelForm):
         model = Song
         fields = (
             'title',
+            'genre',
             'spotify',
             'soundcloud',
             'youtube',
             'cover_art',
         )
- 
- 

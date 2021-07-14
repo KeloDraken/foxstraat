@@ -11,6 +11,16 @@
         border: 1px solid #797979 !important;
     }
 
+    .select {
+        color: #000 !important;
+        width: 83% !important;
+        margin-left: 3.5vw !important;
+    }
+
+    .select  li  span {
+        color: #000 !important;
+    }
+
     .form-input::placeholder {
         color: rgb(112, 112, 112) !important;
         opacity: 1 !important;
@@ -53,7 +63,7 @@
     {% endif %}
     <form id="post_form" method="post" action="{% url 'bulletin:add-song' %}" enctype="multipart/form-data">
         <div class="row">
-            <div class="col s7">
+            <div class="input-field col s7">
                 {% csrf_token %}
                 {% for hidden in post_form.hidden_fields %}
                 {{ hidden }}
@@ -102,6 +112,12 @@
 
 {% block scripts %}
 <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('select')
+        var instances = M.FormSelect.init(elems, {
+            classes: "select"
+        })
+    })
     function processImage() {
         const selectedFile = document.querySelector('#selected-image').files[0];
         if (!selectedFile) return;
