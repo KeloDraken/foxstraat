@@ -151,7 +151,11 @@ def music_chart(request):
     context = {
         'songs': songs,
     }
-    return render(request, 'views/music/charts.html', context)
+    return render(
+        request, 
+        'views/music/charts.html', 
+        context
+    )
 
 def get_bulletin(request, bulletin_id):
     ref_from_url(request)
