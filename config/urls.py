@@ -38,6 +38,9 @@ urlpatterns = [
         template_name='robots.txt',
         content_type='text/plain'
     )),
+
+    # Blogs urls
+    path('blog/', include('core.blog.urls', namespace='blog')),
     
     # Accounts urls
     path('u/', include('core.accounts.urls', namespace='accounts')),
