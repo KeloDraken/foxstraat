@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'core',
     'core.accounts',
     'core.announcements',
+    'core.blog',
     'core.bulletin',
     'core.forums',
     'core.marketplace',
