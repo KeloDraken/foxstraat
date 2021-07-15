@@ -89,7 +89,7 @@ def get_bulletin(request, bulletin_id):
 
     more_from_user = Bulletin.objects.filter(
         user=post.user
-    ).order_by('?')[:2]
+    ).order_by('?')[:4]
 
     context = {
         'post': post,
