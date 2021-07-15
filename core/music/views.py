@@ -130,3 +130,14 @@ def music_chart(request):
         context
     )
 
+def get_genre(request, genre):
+    songs = Song.objects.filter(genre=genre).order_by('-upvotes')
+    context = {
+        'genre': genre,
+        'songs': songs,
+    }
+    return render(
+        request, 
+        'views/music/view_genre.html', 
+        context
+    )
