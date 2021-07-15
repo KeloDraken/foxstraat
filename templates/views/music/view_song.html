@@ -50,9 +50,11 @@
         font-weight: 600;
         font-size: 1.5em;
     }
+
     .more {
         margin-top: 2rem !important;
     }
+
     .links {
         margin-top: 1rem;
     }
@@ -80,12 +82,15 @@
             {% endif %}
             <br>
             <div class="links">
+                {% if post.spotify %}
                 <a href="#" class="btn btn-medium black green-text">Spotify</a>
-
+                {% endif %}
+                {% if post.soundcloud %}
                 <a href="#" class="btn btn-medium black orange-text">Soundcloud</a>
-
+                {% endif %}
+                {% if post.youtube %}
                 <a href="#" class="btn btn-medium black red-text">YouTube</a>
-
+                {% endif %}
             </div>
 
             <!-- More from user -->

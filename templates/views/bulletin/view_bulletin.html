@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load url_target_blank %}
+
 {% block title %}{{post.user.display_name}} - {{ post.title }}{% endblock %}
 
 {% block styles %}
@@ -18,13 +20,15 @@
         color: #333333;
         text-decoration: underline;
     }
+
     .post-image {
         width: 100%;
     }
 
-    .price{
+    .price {
         margin-bottom: -1rem;
     }
+
     .post-author {
         font-size: 1.3em;
         color: #353535;
@@ -33,7 +37,7 @@
     .section-images {
         /* width: 100%; */
         object-fit: cover;
-        width: 250px;
+        width: 180px;
         height: 140px;
     }
 
@@ -46,6 +50,14 @@
         font-weight: 600;
         font-size: 1.5em;
     }
+
+    .more {
+        margin-top: 2rem !important;
+    }
+
+    .links {
+        margin-top: 1rem;
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -54,29 +66,48 @@
     <div class="row">
         <div class="col s7">
             <img class="post-image" src="{{ post.image.url }}" alt="post">
-            <h5 class="section-heading">
-                More from
-                {% if post.user.is_active %}
+            <small>Comments coming soon</small>
+        </div>
+        <div class="col s5">
+            <h4 class="post-title">{{ post.title }}</h4>
+            {% if post.user.is_active %}
+            <a title="{{ post.user.display_name }}" class="post-author"
+                href="{% url 'get-user-profile' username=post.user.username %}?ref=acc_bul">
                 {{ post.user.display_name }}
-                {% else %}
+            </a>
+            {% else %}
+            <a class="post-author">
                 [deleted]
+            </a>
+            {% endif %}
+            <br>
+            <p class="post-caption">
+                {{ post.caption}}
+            </p>
+
+            <!-- More from user -->
+            <div class="more">
+                {% if more_from_user %}
+                <h5 class="section-heading">
+                    More from artist
+                </h5>
                 {% endif %}
-            </h5>
-            <div class="row">
-                {% for i in more_from_user %}
+                <div class="row">
+                    {% for i in more_from_user %}
+                    {% if i.image %}
                     {% if not i.object_id == post.object_id %}
-                    <a title="{{ bulletin.bulletin.title }}"
-                        href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}?ref=bul_bul">
+                    <a title="{{ i.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}?ref=bul_bul">
                         <div class="col s6">
-                            <img class="section-images" src="{{ i.image.url }}" alt="">
+                            <img class="section-images" src="{{ i.image.url }}" alt="bulletin">
                         </div>
                     </a>
                     {% endif %}
-                {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-            <small>Comments coming soon</small>
+            <!-- More from user ends -->
         </div>
-        {% include 'components/bulletin/bulletin_meta_data.html' %}
     </div>
 </div>
 {% endblock %}
