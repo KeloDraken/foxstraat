@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.http.response import Http404
 
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from utils.helpers import object_id_generator, ref_from_url
 from core.forms import FormWithCaptcha
@@ -83,7 +83,6 @@ def user_logout(request):
     logout(request)
     return redirect('accounts:user-login')
 
-
 @login_required
 def user_dashboard(request):
     ref_from_url(request)
@@ -95,10 +94,10 @@ def user_dashboard(request):
     }
     return render(request, 'views/dashboard/dashboard.html', context)
 
-
 def get_user_profile(request, username):
     ref_from_url(request)
-    user = User.objects.get(username=username)
+    user = get_object_or_404(User, username=username)
+
     if user.is_active:
         posts = Bulletin.objects.filter(user=user).order_by('-datetime_created')
 
