@@ -107,7 +107,7 @@ def get_song(request, song_id):
 
     more_from_user = Song.objects.filter(
         user=post.user
-    ).order_by('?')[:2]
+    ).order_by('?')[:4]
 
     context = {
         'post': post,

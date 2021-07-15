@@ -37,7 +37,7 @@
     .section-images {
         /* width: 100%; */
         object-fit: cover;
-        width: 250px;
+        width: 180px;
         height: 140px;
     }
 
@@ -50,6 +50,12 @@
         font-weight: 600;
         font-size: 1.5em;
     }
+    .more {
+        margin-top: 2rem !important;
+    }
+    .links {
+        margin-top: 1rem;
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -58,25 +64,6 @@
     <div class="row">
         <div class="col s7">
             <img class="post-image" src="{{ post.cover_art.url }}" alt="post">
-            {% if more_from_user %}
-            <h5 class="section-heading">
-                More from artist
-            </h5>
-            {% endif %}
-            <div class="row">
-                {% for i in more_from_user %}
-                    {% if i.cover_art %}
-                        {% if not i.object_id == post.object_id %}
-                        <a title="{{ i.title }}"
-                            href="{% url 'music:get-song' song_id=i.object_id %}?ref=song_bul">
-                            <div class="col s6">
-                                <img class="section-images" src="{{ i.cover_art.url }}" alt="song cover art">
-                            </div>
-                        </a>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </div>
             <small>Comments coming soon</small>
         </div>
         <div class="col s5">
@@ -91,6 +78,38 @@
                 [deleted]
             </a>
             {% endif %}
+            <br>
+            <div class="links">
+                <a href="#" class="btn btn-medium black green-text">Spotify</a>
+
+                <a href="#" class="btn btn-medium black orange-text">Soundcloud</a>
+
+                <a href="#" class="btn btn-medium black red-text">YouTube</a>
+
+            </div>
+
+            <!-- More from user -->
+            <div class="more">
+                {% if more_from_user %}
+                <h5 class="section-heading">
+                    More from artist
+                </h5>
+                {% endif %}
+                <div class="row">
+                    {% for i in more_from_user %}
+                    {% if i.cover_art %}
+                    {% if not i.object_id == post.object_id %}
+                    <a title="{{ i.title }}" href="{% url 'music:get-song' song_id=i.object_id %}?ref=song_bul">
+                        <div class="col s6">
+                            <img class="section-images" src="{{ i.cover_art.url }}" alt="song cover art">
+                        </div>
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- More from user ends -->
         </div>
     </div>
 </div>
