@@ -43,7 +43,7 @@
         <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}?ref=musc_prof_nav">Music</a>
         <a class="nav-links" href="#">Blog</a>
         <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a>
-        <a class="nav-links" href="#">Charts</a>
+        <a class="nav-links" href="{% url 'bulletin:explore-music' %}">Charts</a>
         <a class="nav-links" href="{% url 'about' %}">About</a>
     </div>
 
