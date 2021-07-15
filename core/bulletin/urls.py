@@ -21,7 +21,7 @@ urlpatterns = [
 
     # Music
     path('songs/add/', add_song, name='add-song'),
-    path('songs/chart/', music_chart, name='music-charts'),
+    path('songs/explore/', music_chart, name='explore-music'),
     path('songs/<song_id>/', get_song, name='get-song'),
     
     path('<bulletin_id>/', get_bulletin, name='get-bulletin'),
