@@ -131,7 +131,7 @@ def music_chart(request):
     )
 
 def get_genre(request, genre):
-    songs = Song.objects.filter(genre=genre).order_by('-upvotes')
+    songs = Song.objects.filter(genre__icontains=genre).order_by('-upvotes')
     context = {
         'genre': genre,
         'songs': songs,

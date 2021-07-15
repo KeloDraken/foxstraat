@@ -29,12 +29,15 @@
     .links{
         margin-top: 1rem;
     }
+    .page-heading{
+        text-transform: capitalize;
+    }
 </style>
 {% endblock %}
 
 {% block body %}
 {% include 'components/navbar.html' %}
-<h3 class="center">{{genre}}</h3>
+<h3 class="center page-heading">{{genre}}</h3>
 <div class="music-container container">
     {% for song in songs %}
     {% include 'components/music/song_preview.html' %}
