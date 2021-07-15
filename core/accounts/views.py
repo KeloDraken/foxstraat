@@ -15,7 +15,8 @@ from core.accounts.forms import (
 )
 from core.accounts.models import User
 from core.announcements.models import Announcement
-from core.bulletin.models import Bulletin, Song
+from core.bulletin.models import Bulletin
+from core.music.models import Song
 
 
 def user_registration(request):
