@@ -8,10 +8,7 @@
         <div class="red white-text">{{ message }}</div>
         {% elif message.tags == 'success' %}
         <div class="green white-text">
-            {{ message }}.
-            <a class="view-changes white-text" href="{% url 'get-user-profile' username=request.user.username %}">
-                View changes
-            </a>
+            {{ message }}
         </div>
         {% endif %}
         {% endfor %}
