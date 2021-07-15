@@ -3,8 +3,16 @@
         <img class="cover-art" src="{{ song.cover_art.url }}" alt="song cover art">
     </div>
     <div class="col s9">
-        <a href="{% url 'music:get-song' song_id=song.object_id %}" class="song-title">{{ song.title }}</a> <br>
-        <a href="{% url 'get-user-songs' username=song.user.username %}" class="song-artists">{{ song.artists }}</a> <br>
-        <a href="{% url 'music:get-genre' genre=song.genre %}" class="song-genre">{{ song.genre }}</a>
+        {{forloop.counter}} <a href="{% url 'music:get-song' song_id=song.object_id %}" class="song-title">
+            {{ song.title }}</a> <br>
+        <a href="{% url 'get-user-songs' username=song.user.username %}" class="song-artists">{{ song.artists }}</a>
+        <br>
+        <a href="{% url 'music:get-genre' genre=song.genre %}" class="song-genre">{{ song.genre }}</a> <br>
+
+        <div class="links">
+            <a href="#" class="btn btn-medium black green-text">Spotify</a>
+            <a href="#" class="btn btn-medium black orange-text">Soundcloud</a>
+            <a href="#" class="btn btn-medium black red-text">YouTube</a>
+        </div>
     </div>
 </div>
