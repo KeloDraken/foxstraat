@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col s3">
+        <img class="cover-art" src="{{ song.cover_art.url }}" alt="song cover art">
+    </div>
+    <div class="col s9">
+        <span class="song-title">{{ song.title }}</span> <br>
+        <a href="{% url 'get-user-songs' username=song.user.username %}" class="song-artists">{{ song.artists }}</a> <br>
+        <span class="song-genre">{{ song.genre }}</span>
+    </div>
+</div>

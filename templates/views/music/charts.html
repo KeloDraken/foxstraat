@@ -2,9 +2,36 @@
 
 {% block title %}Foxstraat - Top 100{% endblock %}
 
+{% block styles %}
+<style>
+    .cover-art {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+    }
+    .music-container {
+        margin-top: 2rem;
+        margin-left: 25vw;
+        margin-right: 25vw;
+    }
+    .song-title{
+        font-size: 1.6em;
+    }
+    .song-artists{
+        font-size: 0.9em;
+    }
+    .song-genre{
+        font-size: 1em;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 {% include 'components/navbar.html' %}
-<div class="container">
-    
+<h3 class="center">Music Charts</h3>
+<div class="music-container container">
+    {% for song in songs %}
+    {% include 'components/music/song_preview.html' %}
+    {% endfor %}
 </div>
 {% endblock %}

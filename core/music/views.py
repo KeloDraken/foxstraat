@@ -16,6 +16,7 @@ from core.forms import FormWithCaptcha
 from core.music.forms import AddSongForm
 from core.music.models import Song
 
+
 @login_required
 def add_song(request):
     ref_from_url(request)
@@ -96,18 +97,6 @@ def add_song(request):
             context
         )
 
-
-def music_chart(request):
-    songs = Song.objects.all().order_by('-upvotes')
-    context = {
-        'songs': songs,
-    }
-    return render(
-        request, 
-        'views/music/charts.html', 
-        context
-    )
-
 def get_song(request, song_id):
     ref_from_url(request)
     post = get_object_or_404(Song, object_id=song_id)
@@ -129,3 +118,15 @@ def get_song(request, song_id):
         'views/music/view_song.html', 
         context
     )
+
+def music_chart(request):
+    songs = Song.objects.all().order_by('-upvotes')
+    context = {
+        'songs': songs,
+    }
+    return render(
+        request, 
+        'views/music/charts.html', 
+        context
+    )
+
