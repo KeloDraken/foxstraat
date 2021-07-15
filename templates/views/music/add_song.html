@@ -61,7 +61,7 @@
     </div>
     <br>
     {% endif %}
-    <form id="post_form" method="post" action="{% url 'bulletin:add-song' %}" enctype="multipart/form-data">
+    <form id="post_form" method="post" action="{% url 'music:add-song' %}" enctype="multipart/form-data">
         <div class="row">
             <div class="input-field col s7">
                 {% csrf_token %}
