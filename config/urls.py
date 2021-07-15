@@ -24,6 +24,7 @@ from django.urls import include, path
 
 from core.accounts.views import (
     get_user_profile,
+    get_user_songs,
 )
 
 from core.views import about, index
@@ -58,6 +59,7 @@ urlpatterns = [
     
     # User main profile
     path('<username>/', get_user_profile, name='get-user-profile'),
+    path('<username>/music/', get_user_songs, name='get-user-songs'),
 
 ] + static(
     settings.STATIC_URL, 

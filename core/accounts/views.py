@@ -15,7 +15,7 @@ from core.accounts.forms import (
 )
 from core.accounts.models import User
 from core.announcements.models import Announcement
-from core.bulletin.models import Bulletin
+from core.bulletin.models import Bulletin, Song
 
 
 def user_registration(request):
@@ -103,6 +103,19 @@ def get_user_profile(request, username):
             'user': user
         }
         return render(request, 'views/accounts/user_profile.html', context)
+    else:
+        raise Http404
+
+def get_user_songs(request, username):
+    ref_from_url(request)
+    user = User.objects.get(username=username)
+    if user.is_active:
+        songs = Song.objects.filter(user=user).order_by('-datetime_created')
+        context = {
+            'posts': songs,
+            'user': user
+        }
+        return render(request, 'views/accounts/user_songs.html', context)
     else:
         raise Http404
 
