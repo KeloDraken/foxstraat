@@ -157,6 +157,12 @@ def edit_user_profile(request):
                 )
             else:
                 user.bio = bio
+
+            is_artist = request.POST.get('is_artist')
+            if is_artist == 'on':
+                user.is_artist = True
+            else:
+                pass
             
             instagram = request.POST['instagram']
             if not len(instagram) <= 0 and not instagram == None:

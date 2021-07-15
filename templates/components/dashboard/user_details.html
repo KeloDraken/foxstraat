@@ -10,7 +10,9 @@
         {% endif %}
     </div>
     <div class="card-content">
-        <span class="card-title">{{ user.display_name }}</span>
+        <span class="card-title">{{ user.display_name }} <br>
+            <span class="grey-text small">user id: {{user.object_id}} </span>
+        </span>
         <p>
             joined: {{user.datetime_joined|naturaltime}} <br>
             gelt: {{user.gelt|shrink_num}} <br>
@@ -19,8 +21,8 @@
         </p>
     </div>
     <div class="red card-action">
-        <a class="black-text" style="text-decoration: underline;"
-            href="{% url 'accounts:edit-user-profile' %}">Edit profile</a>
+        <a class="black-text" style="text-decoration: underline;" href="{% url 'accounts:edit-user-profile' %}">Edit
+            profile</a>
     </div>
 
 </div>
