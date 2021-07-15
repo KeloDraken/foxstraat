@@ -83,7 +83,7 @@
             <h4 class="post-title">{{ post.title }}</h4>
             {% if post.user.is_active %}
             <a title="{{ post.user.display_name }}" class="post-author"
-                href="{% url 'get-user-profile' username=post.user.username %}?ref=acc_bul">
+                href="{% url 'get-user-songs' username=post.user.username %}?ref=acc_bul">
                 {{ post.artists }}
             </a>
             {% else %}
