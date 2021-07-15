@@ -103,11 +103,12 @@ class Song(models.Model):
         processors=[ResizeToFit(480, 600)],
         format='JPEG',
         options={'quality': 90},
-        null=True
+        null=True,
+        blank=True
     )
     artists = models.CharField(max_length=1000, null=True, blank=True)
     genre = models.CharField(max_length=100, null=False, blank=False, default='Rock', choices=GENRES)
-    is_explicit = models.BooleanField(default=False)
+    is_explicit = models.BooleanField(default=False, null=True)
     spotify = models.URLField(max_length=200, null=True, blank=True)
     soundcloud = models.URLField(max_length=200, null=True, blank=True)
     youtube = models.URLField(max_length=200, null=True, blank=True)

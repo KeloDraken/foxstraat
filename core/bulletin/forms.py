@@ -48,7 +48,21 @@ class CreateBulletinForm(forms.ModelForm):
  
  
 class AddSongForm(forms.ModelForm):
+    artists = forms.CharField(
+        max_length=140, 
+        label='Artists', 
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-input',
+                'placeholder': 'Artists',
+                'autocomplete': 'off',
+                'autofocus': 'true',
+                'autocapitalize': 'off'
+            }
+        )
+    ) 
     title = forms.CharField(
+        required=True,
         max_length=140, 
         label='Song title', 
         widget=forms.TextInput(
@@ -56,7 +70,6 @@ class AddSongForm(forms.ModelForm):
                 'class': 'form-input',
                 'placeholder': 'Song title',
                 'autocomplete': 'off',
-                'autofocus': 'true',
                 'autocapitalize': 'off'
             }
         )
@@ -114,6 +127,7 @@ class AddSongForm(forms.ModelForm):
     class Meta:
         model = Song
         fields = (
+            'artists',
             'title',
             'genre',
             'spotify',

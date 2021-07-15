@@ -88,7 +88,7 @@ def add_song(request):
     ref_from_url(request)
     captcha = FormWithCaptcha()
 
-    if request.method == 'POST':        
+    if request.method == 'POST':   
         post_form = AddSongForm(request.POST)
         # TODO: remove this try/catch in production
         try:
@@ -97,6 +97,7 @@ def add_song(request):
             captcha_data = '...'
             
         if not captcha_data == '':
+            
             if post_form.is_valid():
                 post_form = post_form.save(commit=False)
                 post_form.user = request.user
@@ -106,7 +107,7 @@ def add_song(request):
                 else:
                     messages.error(request, 'Song wasn\'t added. No cover art was found')
                     return redirect('bulletin:add-song')
-
+                
                 spotify = request.POST.get('spotify')
                 soundcloud = request.POST.get('soundcloud')
                 youtube = request.POST.get('youtube')
@@ -120,11 +121,23 @@ def add_song(request):
                     object_id = object_id_generator(11, Song)
                     post_form.object_id = object_id
                     
+                    is_explicit = request.POST.get('is_explicit')
+                    if is_explicit == 'on':
+                        post_form.is_explicit = True
+                    else:
+                        pass
+
+                    artists = request.POST.get('artists')
+                    if not len(artists) <= 0 and not artists == None:
+                        post_form.artists = artists
+                    else:
+                        post_form.artists = request.user.display_name
+
                     request.user.num_posts =+ 1
                     request.user.save()
                     post_form.save()
                     
-                    return redirect(f'/p/song/{object_id}')
+                    return redirect(f'/p/songs/{object_id}')
 
             else:    
                 messages.error(request, 'Post creation failed')

@@ -69,15 +69,17 @@
                 {{ hidden }}
                 {% endfor %}
 
-
+                <p>
+                    <label>
+                        <input name="is_explicit" id="is_explicit" type="checkbox">
+                        <span class="black-text">Explicit</span>
+                    </label>
+                </p>
+                
                 {% for field in post_form %}
                 {{ field }} <br />
                 {% endfor %}
-
-                {{ formset.management_form }}
-                {% for form in formset %}
-                {{ form }}
-                {% endfor %}
+                
 
                 <br>
                 <br>
