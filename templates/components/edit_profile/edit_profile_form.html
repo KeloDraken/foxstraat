@@ -34,6 +34,10 @@
         </p>
         <br>
         {% endif %}
+        <h5 class="black-text">Display name</h5>
+        <input type="text" value="{% if user.display_name %}{{ user.display_name }}{% endif %}" class="form-input"
+            name="display_name" id="display_name" placeholder="Display name" />
+            <br>
         <h5 class="black-text">Social handles</h5>
         <input type="text" value="{% if user.instagram %}{{ user.instagram }}{% endif %}" class="form-input"
             name="instagram" id="instagram" placeholder="Instagram" maxlength="60" />

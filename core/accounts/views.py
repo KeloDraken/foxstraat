@@ -170,6 +170,12 @@ def edit_user_profile(request):
             else:
                 pass
             
+            display_name = request.POST['display_name']
+            if not len(display_name) <= 0 and not display_name == None:
+                user.display_name = display_name
+            else:
+                pass
+
             instagram = request.POST['instagram']
             if not len(instagram) <= 0 and not instagram == None:
                 user.instagram = instagram

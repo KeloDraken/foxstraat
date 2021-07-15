@@ -39,7 +39,7 @@ class User(AbstractUser):
             'unique': _("A user with that username already exists."),
         },
     )
-    display_name = models.CharField(max_length=20, null=True, blank=True)
+    display_name = models.CharField(max_length=100, null=True, blank=True)
     profile_pic = ProcessedImageField(
         upload_to='accounts/profile_pics/',
         processors=[ResizeToFit(320, 440)],
