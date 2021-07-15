@@ -6,7 +6,7 @@ from django.http.response import Http404
 
 from django.shortcuts import redirect, render
 
-from utils.helpers import ref_from_url
+from utils.helpers import object_id_generator, ref_from_url
 from core.forms import FormWithCaptcha
 
 from core.accounts.forms import (
@@ -42,7 +42,10 @@ def user_registration(request):
                     password = request.POST['password2']
 
                     user = authenticate(username=username.lower(), password=password)
-
+                    object_id = object_id_generator(11, User)
+                    user.object_id = object_id
+                    user.save()
+                    
                     if user is not None:
                         login(request, user)
                         messages.success(
