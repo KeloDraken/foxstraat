@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'core.bulletin',
     'core.forums',
     'core.marketplace',
+    'core.music',
     'core.search',
 
     # template tags
