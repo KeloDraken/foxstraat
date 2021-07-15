@@ -10,9 +10,15 @@
         <a href="{% url 'music:get-genre' genre=song.genre %}" class="song-genre">{{ song.genre }}</a> <br>
 
         <div class="links">
+            {% if song.spotify %}
             <a href="#" class="btn btn-medium black green-text">Spotify</a>
+            {% endif %}
+            {% if song.soundcloud %}
             <a href="#" class="btn btn-medium black orange-text">Soundcloud</a>
+            {% endif %}
+            {% if song.youtube %}
             <a href="#" class="btn btn-medium black red-text">YouTube</a>
+            {% endif %}
         </div>
     </div>
 </div>
