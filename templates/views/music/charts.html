@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Foxstraat - Top 100{% endblock %}
+{% block title %}Foxstraat - {{ genre }}{% endblock %}
 
 {% block styles %}
 <style>
@@ -16,19 +16,22 @@
     }
     .song-title{
         font-size: 1.6em;
+        color: #212121;
     }
     .song-artists{
         font-size: 0.9em;
+        color: #585858;
     }
     .song-genre{
         font-size: 1em;
+        color: #212121;
     }
 </style>
 {% endblock %}
 
 {% block body %}
 {% include 'components/navbar.html' %}
-<h3 class="center">Music Charts</h3>
+<h3 class="center">Top charts</h3>
 <div class="music-container container">
     {% for song in songs %}
     {% include 'components/music/song_preview.html' %}
