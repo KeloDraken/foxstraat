@@ -124,12 +124,12 @@
         <div class="grid-item">
             <div class="content">
                 <a class="white-text" title="{{ object.post.title }}"
-                    href="{% url 'bulletin:get-bulletin' bulletin_id=object.post.object_id %}?ref=bul_topic">
+                    href="{% url 'bulletin:get-bulletin' bulletin_id=object.post.object_id %}">
                     <h4 class="post-author">view post</h4>
                 </a>
                 {% if object.post.user.is_active %}
                 <a class="white-text" title="{{ object.post.user.display_name }}"
-                    href="{% url 'get-user-profile' username=object.post.user.username %}?ref=acc_topic">
+                    href="{% url 'get-user-profile' username=object.post.user.username %}">
                     <h4 class="post-author">go to creator's page</h4>
                 </a>
                 {% else %}

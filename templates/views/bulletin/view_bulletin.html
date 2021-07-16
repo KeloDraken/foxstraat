@@ -72,7 +72,7 @@
             <h4 class="post-title">{{ post.title }}</h4>
             {% if post.user.is_active %}
             <a title="{{ post.user.display_name }}" class="post-author"
-                href="{% url 'get-user-profile' username=post.user.username %}?ref=acc_bul">
+                href="{% url 'get-user-profile' username=post.user.username %}">
                 {{ post.user.display_name }}
             </a>
             {% else %}
@@ -94,7 +94,7 @@
                     {% for i in more_from_user %}
                     {% if i.image %}
                     {% if not i.object_id == post.object_id %}
-                    <a title="{{ i.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}?ref=bul_bul">
+                    <a title="{{ i.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=i.object_id %}">
                         <div class="col s6">
                             <img class="section-images" src="{{ i.image.url }}" alt="bulletin">
                         </div>

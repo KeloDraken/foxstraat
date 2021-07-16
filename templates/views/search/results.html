@@ -81,9 +81,9 @@
         {% if not results|length == 0 %}
         {% for result in results %}
         <a class="user-link"
-            href="{% url 'get-user-profile' username=result.username %}?ref=acc_search">https://foxstraat.com >
+            href="{% url 'get-user-profile' username=result.username %}">https://foxstraat.com >
             {{result.username}}</a><br>
-        <a href="{% url 'get-user-profile' username=result.username %}?ref=acc_search" class="user-name"><span
+        <a href="{% url 'get-user-profile' username=result.username %}" class="user-name"><span
                 class="user-joined">{{result.last_login|date:"d M Y" }} -</span> {{ result.display_name }}</a><br>
         <span class="user-bio">{% if result.bio %}{{ result.bio }}{% endif %}</span> <br><br>
         {% endfor %}
