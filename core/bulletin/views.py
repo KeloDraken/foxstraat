@@ -117,6 +117,21 @@ def frontpage(request):
         context
     )
 
+def explore_photos(request):
+    ref_from_url(request)
+    posts = Bulletin.objects.all().order_by('-upvotes')
+
+    context = {
+        'heading': 'Foxfeed',
+        'posts': posts
+    }
+    
+    return render(
+        request, 
+        'views/frontpage/explore_photos.html',
+        context
+    )
+
 @login_required
 def manage_posts(request):
     ref_from_url(request)

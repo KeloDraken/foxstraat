@@ -2,7 +2,8 @@ from django.urls import path
 
 from core.bulletin.views import (
     create_bulletin,
-    delete_post, 
+    delete_post,
+    explore_photos, 
     frontpage,
     get_bulletin,
     manage_posts
@@ -13,9 +14,7 @@ app_name = 'bulletin'
 
 urlpatterns = [
     path('', frontpage, name='explore-bulletins'),
-    path('', frontpage, name='explore-bulletins'),
-    path('', frontpage, name='explore-bulletins'),
-    path('', frontpage, name='explore-bulletins'),
+    path('photo/', explore_photos, name='explore-photos'),
     path('photo/<bulletin_id>/', get_bulletin, name='get-bulletin'),
 
 
