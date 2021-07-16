@@ -50,15 +50,10 @@
 <h3 class="center page-heading">{{heading}}</h3>
 
 <div class="topic-scroll center">
-    <a href="#" class="topic-pill">Ten for today</a>
-    <a href="#" class="topic-pill">New</a>
-    <a href="#" class="topic-pill">Hot</a>
-    <a href="#" class="topic-pill">All time</a>
-</div>
-<div class="topic-scroll">
-    {% for topic in topics %}
-    <a href="{% url 'forums:get-topic' topic_id=topic.name %}" class="topic-pill">{{ topic.name }}</a>
-    {% endfor %}
+    <a href="{% url 'music:explore-music' %}?ref=top_musc_pill" class="topic-pill">Ten for today</a>
+    <a href="{% url 'music:new-music' %}?ref=new_musc_pill" class="topic-pill">New</a>
+    <a href="{% url 'music:hot-music' %}?ref=hot_musc_pill" class="topic-pill">Hot</a>
+    <a href="{% url 'music:all-time-music' %}?ref=all_musc_pill" class="topic-pill">All time</a>
 </div>
 <div class="music-container container">
     {% for song in songs %}

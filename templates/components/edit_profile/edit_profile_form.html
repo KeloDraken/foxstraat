@@ -28,7 +28,7 @@
         {% if not request.user.is_artist %}
         <p>
             <label>
-                <input name="is_blogger" id="is_blogger" type="checkbox">
+                <input name="is_artist" id="is_artist" type="checkbox">
                 <span class="black-text">Convert to artist account</span>
             </label>
         </p>
@@ -37,7 +37,7 @@
         {% if not request.user.is_blogger %}
         <p>
             <label>
-                <input name="is_artist" id="is_artist" type="checkbox">
+                <input name="is_blogger" id="is_blogger" type="checkbox">
                 <span class="black-text">Add blogging feature</span>
             </label>
         </p>
