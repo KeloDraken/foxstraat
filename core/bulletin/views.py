@@ -18,6 +18,7 @@ from core.bulletin.models import (
     Bulletin,
     Tag
 )
+from core.music.models import Song
 
 
 @login_required
@@ -103,11 +104,10 @@ def get_bulletin(request, bulletin_id):
 
 def frontpage(request):
     ref_from_url(request)
-    posts = Bulletin.objects.all().order_by('-upvotes')
+    posts = Song.objects.all().order_by('-upvotes')
 
-    topics = Tag.objects.all().order_by('?')[:30]
     context = {
-        'topics': topics,
+        'heading': 'Frontpage',
         'posts': posts
     }
     
