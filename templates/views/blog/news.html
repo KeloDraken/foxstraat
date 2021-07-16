@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 {% block title %}Foxstraat - News{% endblock %}
 
+{% block styles %}
+<style>
+    .content{
+        margin-top: 3rem !important;
+    }
+    .date {
+        font-size: 2em !important;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 {% include 'components/navbar.html' %}
+<h3 class="center">Foxstraat News</h3>
+<div class="container content">
+    {% for i in news %}
+    <div class="center">
+        <b>
+            <p>
+                <span class="date">
+                    {{ i.datetime_created|date:"d M Y" }}
+                </span> <br> 
+                {{ i.text }}
+            </p>
+        </b>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
