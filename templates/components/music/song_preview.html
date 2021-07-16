@@ -11,13 +11,13 @@
 
         <div class="links">
             {% if song.spotify %}
-            <a href="#" class="btn btn-medium black green-text">Spotify</a>
+            <a href="{{ song.spotify }}" target="_blank" class="btn btn-medium black green-text">Spotify</a>
             {% endif %}
             {% if song.soundcloud %}
-            <a href="#" class="btn btn-medium black orange-text">Soundcloud</a>
+            <a href="{{ song.soundcloud }}" target="_blank" class="btn btn-medium black orange-text">Soundcloud</a>
             {% endif %}
             {% if song.youtube %}
-            <a href="#" class="btn btn-medium black red-text">YouTube</a>
+            <a href="{{ song.youtube }}" target="_blank" class="btn btn-medium black red-text">YouTube</a>
             {% endif %}
         </div>
     </div>

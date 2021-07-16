@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>Foxstraat - Engineering</title>
     <link rel="stylesheet" href="{% static 'css/material.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link href="{% static 'css/material-icons-rounded.css' %}" rel="stylesheet" />
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" /> -->
-    {% block styles %}{% endblock %}
     <style>
         *{
             font-weight: 600;
@@ -50,7 +49,9 @@
 
 <body>
     <div class="hide-on-med-and-down">
-        {% block body %}{% endblock %}
+        <div class="container">
+            <h1>Engineering Blog</h1>
+        </div>
     </div>
     <div class="hide-on-large-only">
         <div style="height: 100vh;" class="container center black">
@@ -68,8 +69,6 @@
     
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
     <script src="{% static 'js/materialize.min.js' %}"></script>
-    {% block scripts %}{% endblock %}
-
-</body>
+ </body>
 
 </html>
