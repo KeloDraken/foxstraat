@@ -20,25 +20,45 @@
     section {
         height: 60vh;
     }
+
     .heading {
+        margin-top: 5rem;
         font-size: 7em;
     }
+
     .subheading {
         font-size: 2em !important;
         font-weight: 400;
         margin-top: -1em;
     }
-    .banner{
-        height: 80vh;
+
+    .section-heading {
+        text-transform: uppercase;
     }
+
+    .banner {
+        height: 72vh;
+    }
+
     .about {
         border-top: 2px solid #212121;
+        height: 72vh;
         padding-top: 2rem;
     }
 
     .join {
         font-weight: 700 !important;
         width: 20rem;
+    }
+
+    .footer-link {
+        color: #000000;
+        text-decoration: underline;
+    }
+
+    .text {
+        font-size: 2em;
+        color: #000000;
     }
 </style>
 {% endblock %}
@@ -64,12 +84,55 @@
 
 <section class="blue about">
     <div class="container">
-        <h3 id="about" class="black-text">About Foxstraat</h3>
+        <p class="text center section-heading">
+            Prepare to be assimilated
+        </p>
+        <p class="text">
+            Foxstraat is a friendly online community for small artists
+            and bands to build an audience. It lets you customise your
+            profile's css to whatever you want. Make it match your brand
+            and aesthetic or go to town with crazy designs, we encourage it.
+            Share your favourite images and your music, and discover new artists
+            and people.
+        </p>
+    </div>
+</section>
+
+<section class="red about">
+    <div class="container">
+        <p class="text center section-heading">
+            Brought to you by Kelo
+        </p>
         <div class="row">
-            <div class="col s4 red"></div>
-            <div class="col s4 green"></div>
-            <div class="col s4 yellow"></div>
+            <div class="col s4">
+                <p class="text">
+                    <a class="footer-link" href="">Rules</a> <br>
+                    <a class="footer-link" href="">Terms</a> <br>
+                    <a class="footer-link" href="">Privacy</a> <br>
+                </p>
+            </div>
+            <div class="col s4">
+                <p class="text">
+                    <a class="footer-link" href="https://instagram.com/KeloDraken" rel="noopener noreferrer"
+                        target="_blank">Instagram</a> <br>
+                    <a class="footer-link" target="_blank"
+                        href="https://twitter.com/intent/follow?screen_name=KeloDraken&tw_p=followbutton">
+                        Twitter
+                    </a>
+                    <br>
+                    <a class="footer-link" href="https://ko-fi.com/Y8Y31URML" rel="noopener noreferrer"
+                        target="_blank">ko-fi</a> <br>
+                </p>
+            </div>
+            <div class="col s4">
+                <p class="text">
+                    <a class="footer-link" href="">News</a> <br>
+                    <a class="footer-link" href="">Engineering</a> <br>
+                    <a class="footer-link" href="">Blog</a> <br>
+                </p>
+            </div>
         </div>
+        <small>&copy; 2021 Samkelo Rocks (Pty) Ltd. All rights reserved.</small>
     </div>
 </section>
 {% endblock %}
