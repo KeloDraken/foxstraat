@@ -203,7 +203,7 @@ def edit_user_profile(request):
             if not len(custom_styles) <= 0 and not custom_styles == None:
                 user.custom_styles = custom_styles
             else:
-                pass
+                user.custom_styles = None
 
             user.save()
             messages.success(request, 'Profile successfully updated')
