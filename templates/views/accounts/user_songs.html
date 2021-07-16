@@ -45,10 +45,10 @@
         {% endif %}
         {% if user.is_blogger %}
         <a class="nav-links" href="#">Blog</a>
+        {% endif %}
         <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a>
         <a class="nav-links" href="{% url 'music:explore-music' %}">Charts</a>
         <a class="nav-links" href="{% url 'about' %}">About</a>
-        {% endif %}
     </div>
 
     <div class="container">
