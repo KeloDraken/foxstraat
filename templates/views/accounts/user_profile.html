@@ -42,10 +42,13 @@
         <a class="nav-links" href="{% url 'get-user-profile' username=user.username %}?ref=acc_prof_nav">Home</a>
         {% if user.is_artist %}
         <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}">Music</a>
-        {% endif %}        <a class="nav-links" href="#">Blog</a>
+        {% endif %}
+        {% if user.is_blogger %}
+        <a class="nav-links" href="#">Blog</a>
         <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a>
         <a class="nav-links" href="{% url 'music:explore-music' %}">Charts</a>
         <a class="nav-links" href="{% url 'about' %}">About</a>
+        {% endif %}
     </div>
 
     <div class="container">
