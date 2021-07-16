@@ -123,7 +123,7 @@ def get_user_songs(request, username):
         else:
             raise Http404
     else:
-        raise Http404
+        return redirect('get-user-profile', username=username)
 
 @login_required
 def edit_user_profile(request):
