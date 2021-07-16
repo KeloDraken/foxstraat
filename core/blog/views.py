@@ -62,6 +62,13 @@ def add_blog_post(request):
         )
 
 
+def get_engineering(request):
+    blogs = Blog.objects.all().order_by('-datetime_created')
+    context = {
+        'blog': blogs,
+    }
+    return render(request, 'views/blog/get_blog.html', context)
+
 def get_engineering_blog(request, blog_id):
     blog = get_object_or_404(Blog, object_id=blog_id)
     context = {
