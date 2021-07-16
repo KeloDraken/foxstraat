@@ -147,7 +147,7 @@ def hot_music_chart(request):
     songs = Song.objects.all().order_by('-upvotes')[:10]
     context = {
         'songs': songs,
-        'heading': 'Today\'s hottest'
+        'heading': 'Today\'s most trending'
     }
     return render(
         request, 
