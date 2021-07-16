@@ -5,25 +5,6 @@
 
 {% block styles %}
 <style>
-    .topic-scroll::-webkit-scrollbar {
-        border-radius: 0;
-        height: 7px;
-        width: 3px;
-        border: 1px solid #000000;
-    }
-
-    .topic-scroll::-webkit-scrollbar-track {
-        width: 3px;
-        height: 3px;
-        border-radius: 0;
-        background: #ffffff;
-    }
-
-    .topic-scroll::-webkit-scrollbar-thumb {
-        border-radius: 4px;
-        background: #d8d8d8;
-    }
-
     .post-image {
         width: 100%;
         border-radius: 2px;
@@ -79,13 +60,6 @@
         overflow-y: hidden;
         white-space: nowrap;
         cursor: pointer;
-    }
-
-    .topic-scroll.active {
-        background: rgba(255, 255, 255, 0.3);
-        cursor: grabbing;
-        cursor: -webkit-grabbing;
-        transform: scale(1);
     }
 
     .topic-pill {
