@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Foxstraat - Add song{% endblock %}
+
+{% block styles %}
+<style>
+    .form-input {
+        color: #000 !important;
+        width: 83% !important;
+        border: 1px solid #797979 !important;
+    }
+
+    .select {
+        color: #000 !important;
+        width: 83% !important;
+        margin-left: 3.5vw !important;
+    }
+
+    .select li span {
+        color: #000 !important;
+    }
+
+    .form-input::placeholder {
+        color: rgb(112, 112, 112) !important;
+        opacity: 1 !important;
+    }
+</style>
+<style>
+    .image-preview {
+        border: 2px solid #ccc;
+        height: 300px;
+        width: 240px;
+    }
+
+    textarea {
+        max-width: 100% !important;
+        max-height: 60% !important;
+        width: 1000px !important;
+        height: 200px !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+
+<div class="container center">
+    <h3>Add song</h3>
+    {% if messages %}
+    <div class="container center">
+        {% for message in messages %}
+        {% if message.tags == 'error' %}
+        <div class="red white-text">{{ message }}</div>
+        {% elif message.tags == 'success' %}
+        <div class="green white-text">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+    {% endif %}
+    <form id="post_form" method="post" action="{% url 'music:add-song' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for hidden in post_form.hidden_fields %}
+        {{ hidden }}
+        {% endfor %}
+
+        {% for field in post_form %}
+        {{ field }} <br />
+        {% endfor %}
+
+        {{ captcha }}
+        <br>
+        <input type="submit" name="submit" value="Submit" />
+        <br>
+        <br>
+        <small class="left grey-text">
+            Before you submit your post you need to make sure that you've
+            read and understood the Rules. Failure to comply will result
+            in permanent banishment from Foxstraat.
+        </small>
+    </form>
+</div>
+</div>
+{% endblock %}
