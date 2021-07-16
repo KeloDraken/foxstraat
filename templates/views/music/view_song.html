@@ -87,7 +87,7 @@
         </div>
         <div class="col s5">
             <h4 class="post-title">{{ post.title }} {% if post.is_explicit %}<span
-                    title="Song might contain offesive language" class="explicit">E</span>{% endif %}</h4>
+                    title="Song may contain offesive language" class="explicit">E</span>{% endif %}</h4>
             {% if post.user.is_active %}
             <a title="{{ post.user.display_name }}" class="post-author"
                 href="{% url 'get-user-songs' username=post.user.username %}">

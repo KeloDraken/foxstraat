@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Foxstraat - Alpha{% endblock %}
+{% block title %}Foxstraat - Prepare to be assimilated{% endblock %}
 
 {% block styles %}
 <style>
@@ -20,13 +20,17 @@
     section {
         height: 60vh;
     }
-
+    .heading {
+        font-size: 7em;
+    }
     .subheading {
         font-size: 2em !important;
         font-weight: 400;
         margin-top: -1em;
     }
-
+    .banner{
+        height: 80vh;
+    }
     .about {
         border-top: 2px solid #212121;
         padding-top: 2rem;
@@ -46,8 +50,8 @@
 
 <!-- banner begins -->
 <section class="container center banner">
-    <h1 class="logo black-text heading">What is it?</h1>
-    <p class="subheading black-text">Prepare to be assimilated.</p>
+    <h1 class=" black-text heading">Let your creativity shine</h1>
+    <p class="subheading black-text">Build a custom profile and share your art</p>
     {% if not request.user.is_authenticated %}
     <a href="{% url 'accounts:user-register' %}" class="btn btn-large waves-effect waves-light black join">Get
         started</a>
