@@ -64,8 +64,7 @@ class User(AbstractUser):
         """
 <style>
     /* 
-    You may edit other HTML Tags' styles.
-    
+    You can edit other HTML Tags' styles.
     This Google font is a part of our branding. 
     YOU ARE NOT ALLOWED TO CHANGE THIS FONT */
     @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
@@ -74,13 +73,6 @@ class User(AbstractUser):
 
     /* Branding styles begin */
     .logo {
-        /* 
-        The logo font size cannot be less than 2em.
-        You may change the logo's colours, however, 
-        there needs to be ENOUGH CONTRAST between the 
-        logo and the background so much that the logo 
-        still remains visible. 
-        */
         font-size: 2em !important;
         color: #212121;
         padding: 10px 16px;
@@ -88,18 +80,16 @@ class User(AbstractUser):
         float: left;
         font-family: "Lobster", cursive;
     }
-
     /* Branding styles end */
 
     .container {
-        /* Add a top margin to avoid content overlay */
         margin: 7rem 7rem;
     }
 
     /* Navbar styles */
     .navbar {
         overflow: hidden;
-        background-color: #fff;
+        background-color: #212121;
         box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
         position: fixed;
         top: 0;
@@ -113,7 +103,7 @@ class User(AbstractUser):
         font-family: Arial, Helvetica, sans-serif;
         margin-top: 10px;
         display: block;
-        color: #212121;
+        color: #ffffff;
         font-size: 1em;
       	text-transform: capitalize;
         text-align: center;
@@ -122,10 +112,8 @@ class User(AbstractUser):
     }
 
     .nav-links:hover {
-        background: #ddd;
-        color: black;
+        background: transparent;
     }
-
     /* Navbar styles end */
 
     .section-heading {
@@ -174,21 +162,6 @@ class User(AbstractUser):
         font-weight: 700;
         margin-right: 1em !important;
     }
-    .join-btn-container{
-        width: 88%;
-    }
-    .join-btn{
-        cursor: pointer;
-        border: 0;
-        width: 100%;
-        border-radius: 2px;
-        font-weight: 600;
-        font-size: 1.2em;
-        color: #fff;
-        box-shadow: #4e4e4e 2px 2px 4px;
-        padding: 7px;
-        background-color: #181818;
-    }
     /* user basic info styles end */
 
     /* user advanced info styles start */
@@ -218,7 +191,6 @@ class User(AbstractUser):
         font-weight: 500;
         white-space: pre-wrap;
     }
-
     /* user advanced info styles end */
 
     /* Post image styles */
