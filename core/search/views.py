@@ -38,7 +38,6 @@ def advanced_search(request):
     else:
         return render(request, 'views/search/search.html')
 
-
 def search(request):
     ref_from_url(request)
     search_query = request.GET.get('q')
@@ -47,7 +46,7 @@ def search(request):
             Q(username__icontains=search_query)|
             Q(display_name__icontains=search_query)|
             Q(bio__icontains=search_query)
-        ).order_by('-last_login').exclude(is_active=False)
+        ).order_by('-last_login').exclude(is_active=False)[:20]
         context = {
             'query': search_query,
             'results': results
