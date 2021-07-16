@@ -28,12 +28,21 @@
         {% if not request.user.is_artist %}
         <p>
             <label>
-                <input name="is_artist" id="is_artist" type="checkbox">
+                <input name="is_blogger" id="is_blogger" type="checkbox">
                 <span class="black-text">Convert to artist account</span>
             </label>
         </p>
         <br>
         {% endif %}
+
+        <p>
+            <label>
+                <input name="is_artist" id="is_artist" type="checkbox">
+                <span class="black-text">Add blogging feature</span>
+            </label>
+        </p>
+        <br>
+
         <h5 class="black-text">Display name</h5>
         <input type="text" value="{% if user.display_name %}{{ user.display_name }}{% endif %}" class="form-input"
             name="display_name" id="display_name" placeholder="Display name" />
