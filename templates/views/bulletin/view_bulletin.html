@@ -37,7 +37,7 @@
     .section-images {
         /* width: 100%; */
         object-fit: cover;
-        width: 180px;
+        width: 193px;
         height: 140px;
     }
 
@@ -81,15 +81,13 @@
             </a>
             {% endif %}
             <br>
-            <p class="post-caption">
-                {{ post.caption}}
-            </p>
+            <pre class="post-caption">{{ post.caption}}</pre>
 
             <!-- More from user -->
             <div class="more">
                 {% if more_from_user %}
                 <h5 class="section-heading">
-                    More from artist
+                    More from {{post.user.display_name}}
                 </h5>
                 {% endif %}
                 <div class="row">
