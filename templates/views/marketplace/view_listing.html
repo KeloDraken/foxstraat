@@ -26,8 +26,8 @@
     }
 
     .post-author {
-        font-size: 1em;
-        color: #555555;
+        font-size: 1.3em;
+        color: #585858;
     }
 
     .section-images {
@@ -39,10 +39,12 @@
 
     .post-title {
         font-weight: 600 !important;
+        margin-bottom: 0;
     }
 
     .price {
         margin-bottom: -1rem;
+        margin-top: 0.5rem;
     }
 
     .section-heading {
@@ -80,14 +82,20 @@
         <div class="col s5">
             <h4 class="post-title">{{ post.name }}</h4>
             <div class="row votes">
+                {% if post.gelt == 0 %}
                 <div class="col s12 price">
                     {{post.price}} gelt
                 </div>
+                {% else %}
+                <div class="col s12 price free">
+                    FREE
+                </div>
+                {% endif %}
             </div>
             {% if post.user.is_active %}
             <a title="{{ post.user.display_name }}" class="post-author"
                 href="{% url 'get-user-profile' username=post.user.username %}">
-                by {{ post.user.display_name }}
+                {{ post.user.display_name }}
             </a>
             {% else %}
             <a class="post-author">
@@ -97,7 +105,8 @@
             <pre class="post-caption">{{ post.description|urlize|urlize_target_blank }}</pre>
         </div>
         <div class="col s5">
-            <a href="{% url 'marketplace:buy-template' listing_id=post.object_id %}" class="btn btn-medium black white-text">Buy template</a>
+            <a href="{% url 'marketplace:buy-template' listing_id=post.object_id %}"
+                class="btn btn-medium black white-text">Buy template</a>
         </div>
 
     </div>
