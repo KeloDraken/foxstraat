@@ -61,7 +61,7 @@
     </div>
     <br>
     {% endif %}
-    <form id="post_form" method="post" action="{% url 'music:add-song' %}" enctype="multipart/form-data">
+    <form id="post_form" method="post" action="{% url 'blog:add-blog' %}">
         {% csrf_token %}
         {% for hidden in post_form.hidden_fields %}
         {{ hidden }}
@@ -70,7 +70,7 @@
         {% for field in post_form %}
         {{ field }} <br />
         {% endfor %}
-
+        {{post_form.errors}}
         {{ captcha }}
         <br>
         <input type="submit" name="submit" value="Submit" />
