@@ -34,7 +34,7 @@
         </p>
         <br>
         {% endif %}
-
+        {% if not request.user.is_blogger %}
         <p>
             <label>
                 <input name="is_artist" id="is_artist" type="checkbox">
@@ -42,7 +42,7 @@
             </label>
         </p>
         <br>
-
+        {% endif %}
         <h5 class="black-text">Display name</h5>
         <input type="text" value="{% if user.display_name %}{{ user.display_name }}{% endif %}" class="form-input"
             name="display_name" id="display_name" placeholder="Display name" />

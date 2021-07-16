@@ -169,6 +169,12 @@ def edit_user_profile(request):
                 user.is_artist = True
             else:
                 pass
+
+            is_blogger = request.POST.get('is_blogger')
+            if is_blogger == 'on':
+                user.is_blogger = True
+            else:
+                pass
             
             display_name = request.POST['display_name']
             if not len(display_name) <= 0 and not display_name == None:
