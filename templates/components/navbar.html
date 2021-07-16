@@ -42,13 +42,6 @@
                             </span>
                         </a>
                     </li>
-                    <li title="{{ user.username }}">
-                        <a href="{% url 'get-user-profile' username=user.username %}">
-                            <span class="material-icons-outlined">
-                                account_circle
-                            </span>
-                        </a>
-                    </li>
                     <!-- <li title="Forums">
                         <a href="{% url 'forums:get-forum' %}">
                             <span class="material-icons-outlined">
@@ -56,7 +49,6 @@
                             </span>
                         </a>
                     </li> -->
-                    {% if request.user.is_authenticated %}
                     <li title="Foxstraat Selekt">
                         <a href="{% url 'marketplace:storefront' %}">
                             <span class="material-icons-outlined">
@@ -64,7 +56,13 @@
                             </span>
                         </a>
                     </li>
-                    {% endif %}
+                    <li title="{{ user.username }}">
+                        <a href="{% url 'get-user-profile' username=user.username %}">
+                            <span class="material-icons-outlined">
+                                account_circle
+                            </span>
+                        </a>
+                    </li>
                     <li title="About Foxstraat">
                         <a href="{% url 'about' %}">
                             <span class="material-icons-outlined">
