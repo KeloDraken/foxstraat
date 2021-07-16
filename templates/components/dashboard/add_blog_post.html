@@ -1,3 +1,4 @@
+{% if request.user.is_blogger %}
 <!-- Create blog section -->
 <div title="Add a new blog post" class="card z-depth-0">
     <div class="brown  card-action">
@@ -7,3 +8,4 @@
     </div>
 </div>
 <!-- Create blog section ends -->
+{% endif %}

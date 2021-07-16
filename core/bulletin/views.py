@@ -101,7 +101,7 @@ def get_bulletin(request, bulletin_id):
         context
     )
 
-def explore_bulletins(request):
+def frontpage(request):
     ref_from_url(request)
     posts = Bulletin.objects.all().order_by('-upvotes')
 
@@ -113,7 +113,7 @@ def explore_bulletins(request):
     
     return render(
         request, 
-        'views/bulletin/explore_bulletins.html',
+        'views/bulletin/frontpage.html',
         context
     )
 

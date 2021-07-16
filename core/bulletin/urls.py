@@ -3,7 +3,7 @@ from django.urls import path
 from core.bulletin.views import (
     create_bulletin,
     delete_post, 
-    explore_bulletins,
+    frontpage,
     get_bulletin,
     manage_posts
 )
@@ -17,5 +17,5 @@ urlpatterns = [
     path('delete/<bulletin_id>', delete_post, name='delete-post'),
 
     path('<bulletin_id>/', get_bulletin, name='get-bulletin'),
-    path('', explore_bulletins, name='explore-bulletins'),
+    path('', frontpage, name='explore-bulletins'),
 ]
