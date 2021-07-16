@@ -8,4 +8,5 @@ Allow: /u/register/
 Disallow: /s/
 Disallow: /search/
 Disallow: /n/
+Disallow: /f/
 Crawl-delay: 1

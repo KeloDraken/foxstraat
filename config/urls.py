@@ -46,10 +46,10 @@ urlpatterns = [
     path('u/', include('core.accounts.urls', namespace='accounts')),
 
     # Bulletin urls
-    path('p/', include('core.bulletin.urls', namespace='bulletin')),    
+    path('f/', include('core.bulletin.urls', namespace='bulletin')),    
     
     # Bulletin urls
-    path('p/songs/', include('core.music.urls', namespace='music')),
+    path('f/songs/', include('core.music.urls', namespace='music')),
 
     # Topics urls
     path('b/', include('core.forums.urls', namespace='forums')),

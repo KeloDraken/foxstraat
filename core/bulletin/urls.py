@@ -12,10 +12,15 @@ from core.bulletin.views import (
 app_name = 'bulletin'
 
 urlpatterns = [
+    path('', frontpage, name='explore-bulletins'),
+    path('', frontpage, name='explore-bulletins'),
+    path('', frontpage, name='explore-bulletins'),
+    path('', frontpage, name='explore-bulletins'),
+    path('photo/<bulletin_id>/', get_bulletin, name='get-bulletin'),
+
+
     path('add/', create_bulletin, name='create-bulletin'),
     path('manage/', manage_posts, name='manage-posts'),
     path('delete/<bulletin_id>', delete_post, name='delete-post'),
 
-    path('<bulletin_id>/', get_bulletin, name='get-bulletin'),
-    path('', frontpage, name='explore-bulletins'),
 ]
