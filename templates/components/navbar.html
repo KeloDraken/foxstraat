@@ -49,13 +49,13 @@
                             </span>
                         </a>
                     </li>
-                    <li title="Forums">
+                    <!-- <li title="Forums">
                         <a href="{% url 'forums:get-forum' %}">
                             <span class="material-icons-outlined">
                                 forum
                             </span>
                         </a>
-                    </li>
+                    </li> -->
                     {% if request.user.is_authenticated %}
                     <li title="Foxstraat Selekt">
                         <a href="{% url 'marketplace:storefront' %}">
