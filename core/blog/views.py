@@ -13,8 +13,8 @@ from utils.helpers import object_id_generator, ref_from_url
 @login_required
 def add_blog_post(request):
     ref_from_url(request)
-    if not request.user.is_artist:
-        messages.error(request, 'You\'re not an artist yet. Go to Edit profile to convert your account')
+    if not request.user.is_blogger:
+        messages.error(request, 'You\'re not a blogger yet. Go to Edit profile to add feature to your account')
         return redirect('index')
     else:
         captcha = FormWithCaptcha()
@@ -29,7 +29,7 @@ def add_blog_post(request):
                 
             if not captcha_data == '':
                 if post_form.is_valid():
-                    post_form.save(commit=False)
+                    post_form = post_form.save(commit=False)
                     post_form.user = request.user
 
                     object_id = object_id_generator(11, Blog)
