@@ -119,10 +119,47 @@ def get_song(request, song_id):
         context
     )
 
-def music_chart(request):
-    songs = Song.objects.all().order_by('-upvotes')
+def top_music_chart(request):
+    songs = Song.objects.all().order_by('-upvotes')[:10]
     context = {
         'songs': songs,
+        'heading': 'Ten for today',
+    }
+    return render(
+        request, 
+        'views/music/charts.html', 
+        context
+    )
+
+def new_music_chart(request):
+    songs = Song.objects.all().order_by('-datetime_created')[:10]
+    context = {
+        'songs': songs,
+        'heading': 'Just submitted'
+    }
+    return render(
+        request, 
+        'views/music/charts.html', 
+        context
+    )
+
+def hot_music_chart(request):
+    songs = Song.objects.all().order_by('-upvotes')[:10]
+    context = {
+        'songs': songs,
+        'heading': 'Today\'s hottest'
+    }
+    return render(
+        request, 
+        'views/music/charts.html', 
+        context
+    )
+
+def alltime_music_chart(request):
+    songs = Song.objects.all().order_by('-upvotes')[:10]
+    context = {
+        'songs': songs,
+        'heading': 'Top of all time'
     }
     return render(
         request, 
