@@ -57,7 +57,7 @@ def create_bulletin(request):
 
                 link_tags_to_post(post_id=object_id, tags=hashtags)
                 
-                return redirect(f'/p/{object_id}')
+                return redirect('bulletin:get-bulletin', bulletin_id=object_id)
 
             else:    
                 messages.error(request, 'Post creation failed')
@@ -113,7 +113,7 @@ def frontpage(request):
     
     return render(
         request, 
-        'views/bulletin/frontpage.html',
+        'views/frontpage/frontpage.html',
         context
     )
 
