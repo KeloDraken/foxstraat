@@ -43,9 +43,9 @@
         {% if user.is_artist %}
         <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}">Music</a>
         {% endif %}
-        {% if user.is_blogger %}
+        <!-- {% if user.is_blogger %}
         <a class="nav-links" href="#">Blog</a>
-        {% endif %}
+        {% endif %} -->
         <a class="nav-links" href="{% url 'bulletin:explore-bulletins' %}">Explore</a>
         <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a>
         <a class="nav-links" href="{% url 'music:explore-music' %}">Charts</a>
