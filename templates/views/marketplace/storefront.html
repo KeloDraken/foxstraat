@@ -53,14 +53,27 @@
         margin-top: -1rem;
         font-size: 1.3em !important;
     }
+    .topic-pill {
+        font-size: 1em;
+        color: #212121;
+        background-color: rgb(250, 250, 250) !important;
+        border: 2px solid #3d3d3d;
+        border-radius: 4px;
+        margin: 0 .8rem .6rem 0;
+        padding: 2px 5px;
+    }
 </style>
 {% endblock %}
 
 {% block body %}
 {% include 'components/navbar.html' %}
 <div class="container">
-    <h3 class="center">Foxstraat Selekt</h3>
-
+    <h3 class="center page-heading">Foxstraat Selekt</h3>
+    <div class="topic-scroll center">
+        <a href="{% url 'bulletin:explore-bulletins' %}" class="topic-pill">Templates</a>
+        <a href="{% url 'bulletin:explore-photos' %}" class="topic-pill">Foxstraat Merch</a>
+    </div>
+    
     <div class="grid">
         <!-- columns -->
         <div class="grid-col grid-col--1"></div>
