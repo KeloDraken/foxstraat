@@ -62,7 +62,7 @@ def add_blog_post(request):
         )
 
 
-def get_blog(request, blog_id):
+def get_engineering_blog(request, blog_id):
     blog = get_object_or_404(Blog, object_id=blog_id)
     context = {
         'blog': blog,
