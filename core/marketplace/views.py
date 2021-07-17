@@ -195,7 +195,7 @@ def buy_template(request, listing_id):
             )
             return redirect('marketplace:view-listing', listing_id=listing_id)
         else:
-            creator = User.objects.get(object_id=template.user.object_id)
+            creator = User.objects.get(username=template.user.username)
             creator.gelt += template.price
             creator.save()
 

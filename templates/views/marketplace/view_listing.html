@@ -82,8 +82,8 @@
         <div class="col s5">
             <h4 class="post-title">{{ post.name }}</h4>
             <div class="row votes">
-                {% if post.gelt == 0 %}
-                <div class="col s12 price">
+                {% if not post.gelt == 0 %}
+                <div class="col s12 price free">
                     {{post.price}} gelt
                 </div>
                 {% else %}
