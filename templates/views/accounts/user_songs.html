@@ -39,7 +39,7 @@
 <body>
     <div class="navbar">
         <a class="logo" href="/">Foxstraat.</a>
-        <a class="nav-links" href="{% url 'get-user-profile' username=user.username %}">Home</a>
+        <a class="nav-links" href="{% url 'get-user-profile' username=user.username %}">Photos</a>
         {% if user.is_artist %}
         <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}">Music</a>
         {% endif %}
