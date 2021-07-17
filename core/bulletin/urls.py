@@ -13,7 +13,7 @@ from core.bulletin.views import (
 app_name = 'bulletin'
 
 urlpatterns = [
-    path('', frontpage, name='explore-bulletins'),
+    path('', frontpage, name='frontpage'),
     path('photo/', explore_photos, name='explore-photos'),
     path('photo/<bulletin_id>/', get_bulletin, name='get-bulletin'),
 
