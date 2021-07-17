@@ -33,6 +33,21 @@
             flex: 1;
             padding: 0 0.5em;
         }
+
+        .message {
+            font-family: Arial, Helvetica, sans-serif;
+            width: 100%;
+            font-size: 1.5em;
+            font-weight: 700;
+            padding: 5px 4px;
+        }
+
+        .success {
+            background-color: rgb(69, 209, 69);
+        }
+        .error {
+            background-color: rgb(235, 54, 54);
+        }
     </style>
 </head>
 
@@ -44,8 +59,8 @@
         <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}">Music</a>
         {% endif %}
         <!-- {% if user.is_blogger %}
-        <a class="nav-links" href="#">Blog</a>
-        {% endif %} -->
+            <a class="nav-links" href="#">Blog</a>
+            {% endif %} -->
         <a class="nav-links" href="{% url 'bulletin:explore-bulletins' %}">Explore</a>
         <!-- <a class="nav-links" href="{% url 'forums:get-forum' %}">Forums</a> -->
         <a class="nav-links" href="{% url 'music:explore-music' %}">Charts</a>
@@ -53,6 +68,20 @@
     </div>
 
     <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="error message">
+                    {{message}}
+                </div>
+                {% elif message.tags == 'success' %}
+                <div class="success message">
+                    {{message}}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
         <div class="row">
             <div class="col-3">
                 <div class="row">
@@ -69,8 +98,7 @@
 
                     {% for post in posts %}
                     <div class="grid-item">
-                        <a title="{{ post.title }}"
-                            href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
+                        <a title="{{ post.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
                             <img class="post-image" src="{{ post.image.url }}">
                         </a>
                     </div>

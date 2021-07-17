@@ -6,7 +6,7 @@
 {% block styles %}
 <style>
     .post-image {
-        width: 120%;
+        width: 300px;
         border-radius: 2px;
         margin-bottom: 1em;
     }
@@ -79,18 +79,17 @@
         <div class="grid-col grid-col--1"></div>
         <div class="grid-col grid-col--2"></div>
         <div class="grid-col grid-col--3"></div>
-        <div class="grid-col grid-col--4"></div>
         <!-- items -->
         {% for post in posts %}
         <div class="grid-item">
             <div class="content">
                 <a class="white-text" title="{{ post.name }}"
                     href="{% url 'marketplace:view-listing' listing_id=post.object_id %}">
-                    <h4 class="post-author">view post</h4>
+                    <h4 class="post-author">view listing</h4>
                 </a>
                 <a class="white-text" title="The listing will be permanently removed from Foxstraat Selekt"
                     href="{% url 'marketplace:delete-listing' listing_id=post.object_id %}">
-                    <h4 class="post-author">delete post</h4>
+                    <h4 class="post-author">delete listing</h4>
                 </a>
             </div>
             <img class="post-image" src="{{ post.screenshot_1.url }}" />

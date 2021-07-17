@@ -178,7 +178,7 @@ def buy_template(request, listing_id):
         request.user.custom_styles = styles
         request.user.save()
         messages.success(request, 'Template has been applied to your profile')
-        return redirect('accounts:user-dashboard')
+        return redirect('get-user-profile', username=request.user.username)
     
     else:
         try:
