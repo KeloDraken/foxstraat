@@ -121,7 +121,10 @@
                 </a>
                 {% endif %}
             </div>
+            <a class="white-text" title="{{ post.title }}"
+                    href="{% url 'music:get-song' song_id=post.object_id %}">
             <img class="post-image" src="{{ post.cover_art.url }}" />
+            </a>
         </div>
         {% endfor %}
     </div>

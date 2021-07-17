@@ -10,9 +10,7 @@
         {% endif %}
     </div>
     <div class="card-content">
-        <span class="card-title">{{ user.display_name }} <br>
-            <span class="grey-text small">user id: {{user.object_id}} </span>
-        </span>
+        <span class="card-title">{{ user.display_name }} </span>
         <p>
             joined: {{user.datetime_joined|naturaltime}} <br>
             gelt: {{user.gelt|shrink_num}} <br>

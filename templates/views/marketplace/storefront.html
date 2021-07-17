@@ -49,10 +49,12 @@
         flex: 1;
         padding: 0 0.5em;
     }
-    .listing-name{
+
+    .listing-name {
         margin-top: -1rem;
         font-size: 1.3em !important;
     }
+
     .topic-scroll {
         margin: 4px 4px;
         margin-bottom: 2rem;
@@ -64,6 +66,7 @@
         white-space: nowrap;
         cursor: pointer;
     }
+
     .topic-pill {
         font-size: 1em;
         color: #212121;
@@ -84,7 +87,7 @@
         <a href="{% url 'marketplace:storefront' %}" class="topic-pill">Templates</a>
         <a href="{% url 'bulletin:explore-photos' %}" class="topic-pill">Foxstraat Merch</a>
     </div>
-    
+
     <div class="grid">
         <!-- columns -->
         <div class="grid-col grid-col--1"></div>
@@ -94,7 +97,8 @@
         {% for listing in listings %}
         <div class="grid-item" title="{{ listing.description }}">
             <div class="content">
-                <a class="white-text" title="{{ listing.name }}" href="{% url 'marketplace:view-listing' listing_id=listing.object_id %}">
+                <a class="white-text" title="{{ listing.name }}"
+                    href="{% url 'marketplace:view-listing' listing_id=listing.object_id %}">
                     <h4 class="post-author">view listing</h4>
                 </a>
 
@@ -103,8 +107,11 @@
                     <h4 class="post-author">go to creator's page</h4>
                 </a>
             </div>
-            <img class="post-image" src="{{ listing.screenshot_1.url }}" />
-            <p  class="listing-name">{{listing.name}}</p>
+            <a class="white-text" title="{{ listing.name }}"
+                href="{% url 'marketplace:view-listing' listing_id=listing.object_id %}">
+                <img class="post-image" src="{{ listing.screenshot_1.url }}" />
+            </a>
+            <p class="listing-name">{{listing.name}}</p>
         </div>
         {% endfor %}
     </div>

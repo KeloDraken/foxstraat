@@ -43,9 +43,6 @@ def user_registration(request):
                     password = request.POST['password2']
 
                     user = authenticate(username=username.lower(), password=password)
-                    object_id = object_id_generator(11, User)
-                    user.object_id = object_id
-                    user.save()
                     
                     if user is not None:
                         login(request, user)
