@@ -73,7 +73,6 @@ def add_listing(request):
                     request, 
                     '''
                     Only css is allowed.
-                    Your account has been placed on a watchlist. 
                     Continued use of non-css code will result in a 
                     permanent ban from Foxstraat.
                     '''
