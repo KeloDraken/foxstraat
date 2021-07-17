@@ -3,14 +3,13 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 
-from utils.helpers import object_id_generator, ref_from_url
+from utils.helpers import object_id_generator
 
 from core.accounts.models import User
 from core.marketplace.models import Template
 
 @login_required
 def storefront(request):
-    ref_from_url(request)
     listings = Template.objects.all().order_by('?')
     context = {
         'listings': listings
@@ -19,7 +18,6 @@ def storefront(request):
 
 @login_required
 def add_listing(request):
-    ref_from_url(request)
     if request.method == 'POST':
         try:
             name = request.POST.get('name')
@@ -115,10 +113,8 @@ def add_listing(request):
         'views/marketplace/add_listing.html', 
     )
 
-
 @login_required
 def manage_listings(request):
-    ref_from_url(request)
     posts = Template.objects.filter(user=request.user)
     if not posts:
         messages.error(
@@ -152,10 +148,8 @@ def delete_listing(request, listing_id):
         messages.success(request, 'Your post has been deleted')
         return redirect('marketplace:manage-listing')
 
-
 @login_required
 def view_listing(request, listing_id):
-    ref_from_url(request)
     post = Template.objects.get(object_id=listing_id)
 
     context = {

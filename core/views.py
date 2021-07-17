@@ -35,6 +35,5 @@ def news(request):
     return render(request, 'views/blog/news.html', context)
 
 def about(request):
-    ref_from_url(request)
     add_feedback(request)
     return render(request, 'views/index.html')

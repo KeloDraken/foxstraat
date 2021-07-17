@@ -1,15 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 
 from django.shortcuts import render
 
-from utils.helpers import (
-    object_id_generator,
-    ref_from_url
-)
+from utils.helpers import object_id_generator
 
 from core.forms import FormWithCaptcha
 
@@ -19,7 +15,6 @@ from core.music.models import Song
 
 @login_required
 def add_song(request):
-    ref_from_url(request)
     if not request.user.is_artist:
         messages.error(request, 'You\'re not an artist yet. Go to Edit profile to convert your account')
         return redirect('index')
@@ -98,7 +93,6 @@ def add_song(request):
         )
 
 def get_song(request, song_id):
-    ref_from_url(request)
     post = get_object_or_404(Song, object_id=song_id)
 
     if request.user.is_authenticated:

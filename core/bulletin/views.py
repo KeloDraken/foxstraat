@@ -7,8 +7,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from utils.helpers import (
     extract_hashtags,
     link_tags_to_post, 
-    object_id_generator,
-    ref_from_url
+    object_id_generator
 )
 
 from core.forms import FormWithCaptcha
@@ -23,7 +22,6 @@ from core.music.models import Song
 
 @login_required
 def create_bulletin(request):
-    ref_from_url(request)
     captcha = FormWithCaptcha()
 
     if request.method == 'POST':        
@@ -81,7 +79,6 @@ def create_bulletin(request):
     )
 
 def get_bulletin(request, bulletin_id):
-    ref_from_url(request)
     post = get_object_or_404(Bulletin, object_id=bulletin_id)
 
     if request.user.is_authenticated:
@@ -105,7 +102,6 @@ def get_bulletin(request, bulletin_id):
     )
 
 def frontpage(request):
-    ref_from_url(request)
     posts = Song.objects.all().order_by('-upvotes')
 
     context = {
@@ -120,7 +116,6 @@ def frontpage(request):
     )
 
 def explore_photos(request):
-    ref_from_url(request)
     posts = Bulletin.objects.all().order_by('-upvotes')
 
     context = {
@@ -136,7 +131,6 @@ def explore_photos(request):
 
 @login_required
 def manage_posts(request):
-    ref_from_url(request)
     posts = Bulletin.objects.filter(user=request.user).order_by('-upvotes')
     if not posts:
         messages.error(request, 'You don\'t have any posts yet. Create your post')

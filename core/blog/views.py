@@ -7,12 +7,11 @@ from core.forms import FormWithCaptcha
 from core.blog.forms import CreateBlogPostForm
 from core.blog.models import Blog
 
-from utils.helpers import object_id_generator, ref_from_url
+from utils.helpers import object_id_generator
 
 
 @login_required
 def add_blog_post(request):
-    ref_from_url(request)
     if not request.user.is_blogger:
         messages.error(request, 'You\'re not a blogger yet. Go to Edit profile to add feature to your account')
         return redirect('index')

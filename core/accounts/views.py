@@ -6,7 +6,6 @@ from django.http.response import Http404
 
 from django.shortcuts import get_object_or_404, redirect, render
 
-from utils.helpers import object_id_generator, ref_from_url
 from core.forms import FormWithCaptcha
 
 from core.accounts.forms import (
@@ -20,7 +19,6 @@ from core.music.models import Song
 
 
 def user_registration(request):
-    ref_from_url(request)
     if request.user.is_authenticated:
         return redirect('accounts:user-dashboard')
     else:
@@ -82,7 +80,6 @@ def user_logout(request):
 
 @login_required
 def user_dashboard(request):
-    ref_from_url(request)
     announcements = Announcement.objects.all().order_by('-datetime_created')
     posts = Bulletin.objects.all().exclude(user=request.user).order_by('?')[:3]
     context = {
@@ -92,7 +89,6 @@ def user_dashboard(request):
     return render(request, 'views/dashboard/dashboard.html', context)
 
 def get_user_profile(request, username):
-    ref_from_url(request)
     user = get_object_or_404(User, username=username)
 
     if user.is_active:
@@ -107,7 +103,6 @@ def get_user_profile(request, username):
         raise Http404
 
 def get_user_songs(request, username):
-    ref_from_url(request)
     user = User.objects.get(username=username)
     if user.is_artist:
         if user.is_active:
@@ -124,7 +119,6 @@ def get_user_songs(request, username):
 
 @login_required
 def edit_user_profile(request):
-    ref_from_url(request)
     if request.method == 'POST':
         custom_styles = request.POST['custom_styles']
         
@@ -212,7 +206,6 @@ def edit_user_profile(request):
 
 @login_required
 def delete_account(request):
-    ref_from_url(request)
     if request.user.is_superuser:
         messages.error(request, 'Admins need to use the admin site to delete their accounts')
         return redirect('accounts:user-dashboard')
