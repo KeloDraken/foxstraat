@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Ref
+from core.models import Ref, Feedback, News
 
 
 class RefAdmin(admin.ModelAdmin):
@@ -9,3 +9,5 @@ class RefAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(Ref, RefAdmin)
+admin.site.register(News)
+admin.site.register(Feedback)

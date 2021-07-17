@@ -12,8 +12,3 @@ class Blog(models.Model):
     upvotes = models.PositiveIntegerField(default=0)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
-
-class News(models.Model):
-    text = models.TextField(null=False, blank=False)
-    datetime_created = models.DateTimeField(auto_now_add=True)

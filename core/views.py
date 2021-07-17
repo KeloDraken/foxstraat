@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
 from utils.helpers import ref_from_url
-from core.blog.models import News
+from core.models import News
 
 
 def index(request):
