@@ -87,15 +87,8 @@
     <div class="topic-scroll center">
         <a href="{% url 'bulletin:frontpage' %}" class="topic-pill">Music</a>
         <a href="{% url 'bulletin:explore-photos' %}" class="topic-pill">Photos</a>
-        <!-- <a href="{% url 'music:new-music' %}" class="topic-pill">Blogs</a> -->
         <a href="{% url 'forums:get-forum' %}" class="topic-pill">Forums</a>
     </div>
-
-    <!-- <div class="topic-scroll">
-        {% for topic in topics %}
-        <a href="{% url 'forums:get-topic' topic_id=topic.name %}" class="topic-pill">{{ topic.name }}</a>
-        {% endfor %}
-    </div> -->
     <div class="grid">
         <!-- columns -->
         <div class="grid-col grid-col--1"></div>
@@ -103,8 +96,9 @@
         <div class="grid-col grid-col--3"></div>
         <div class="grid-col grid-col--4"></div>
         <!-- items -->
+        <div class="infinite-container">
         {% for post in posts %}
-        <div class="grid-item">
+        <div class="grid-item infinite-item">
             <div class="content">
                 <a class="white-text" title="{{ post.title }}"
                     href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
@@ -127,7 +121,9 @@
             </a>
         </div>
         {% endfor %}
+        </div>
     </div>
+    {% include 'components/infinite_scroll_fetch.html' %}
 
 </div>
 
@@ -142,5 +138,20 @@
         columns: '.grid-col',
         items: '.grid-item'
     });
+</script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/infinite.min.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        offset: 'bottom-in-view',
+        onBeforePageLoad: function () {
+            $('.spinner-border').show()
+        },
+        onAfterPageLoad: function () {
+            $('.spinner-border').hide()
+        }
+    })
 </script>
 {% endblock %}

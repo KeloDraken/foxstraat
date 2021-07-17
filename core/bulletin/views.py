@@ -1,8 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from django.core.paginator import Paginator
+
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic.list import ListView
 
 from utils.helpers import (
     extract_hashtags,
@@ -13,10 +16,8 @@ from utils.helpers import (
 from core.forms import FormWithCaptcha
 
 from core.bulletin.forms import CreateBulletinForm
-from core.bulletin.models import (
-    Bulletin,
-    Tag
-)
+from core.bulletin.models import Bulletin
+
 from core.music.models import Song
 
 
@@ -116,11 +117,16 @@ def frontpage(request):
     )
 
 def explore_photos(request):
-    posts = Bulletin.objects.all().order_by('-upvotes')
+    post_objects = Bulletin.objects.all().order_by('-upvotes')
+
+    paginator = Paginator(post_objects, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         'heading': 'Posts of the day',
-        'posts': posts
+        'posts': post_objects,
+        'page_obj': page_obj
     }
     
     return render(
