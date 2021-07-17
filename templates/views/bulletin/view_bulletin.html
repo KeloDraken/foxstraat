@@ -99,11 +99,7 @@
             </a>
             {% endif %}
             <p class="post-genre">
-                {% if request.user == post.user %}
-                <span class="song-genre">{{post.upvotes}} impression{{post.upvotes|pluralize}}</span>
-                {% else %}
                 <span class="song-genre">{{post.datetime_created|naturaltime}}</span>
-                {% endif %}
             </p>
             <pre class="post-caption">{{post.caption}}</pre>
             <!-- More from user -->
