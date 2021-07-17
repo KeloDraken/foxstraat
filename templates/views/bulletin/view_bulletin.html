@@ -99,9 +99,13 @@
             </a>
             {% endif %}
             <p class="post-genre">
+                {% if request.user == post.user %}
+                <span class="song-genre">{{post.upvotes}} impression{{post.upvotes|pluralize}}</span>
+                {% else %}
                 <span class="song-genre">{{post.datetime_created|naturaltime}}</span>
+                {% endif %}
             </p>
-            <pre class="post-caption">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid sed facere est dignissimos nihil eveniet repellat beatae adipisci tempore ducimus, cumque minus ipsam pariatur magni, eaque corporis maiores incidunt exercitationem?</pre>
+            <pre class="post-caption">{{post.caption}}</pre>
             <!-- More from user -->
             <div class="more">
                 {% if more_from_user %}
