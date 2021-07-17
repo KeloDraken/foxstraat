@@ -23,7 +23,7 @@
 
     .heading {
         margin-top: 5rem;
-        font-size: 7em;
+        font-size: 6em;
     }
 
     .subheading {
@@ -111,8 +111,8 @@
 
 <!-- banner begins -->
 <section class="container center banner">
-    <h1 class=" black-text heading">Let your creativity shine</h1>
-    <p class="subheading black-text">Build a custom profile and share your art</p>
+    <h1 class=" black-text heading">Build a custom profile and share your art</h1>
+    <p class="subheading black-text">A platform for small bands and artists to find a new audience</p>
     {% if not request.user.is_authenticated %}
     <a href="{% url 'accounts:user-register' %}" class="btn btn-large waves-effect waves-light black join">Get
         started</a>
@@ -148,7 +148,7 @@
             {% csrf_token %}
             <textarea placeholder="Write your feedback here..." class="form-input" name="feedback"
                 id="feedback"></textarea>
-            <button class="btn submit-btn btn-large black white-text center" type="submit">Send</button>
+            <button class="btn submit-btn btn-large black white-text center" type="submit">SUBMIT FEEDBACK</button>
         </form>
     </div>
 </section>
