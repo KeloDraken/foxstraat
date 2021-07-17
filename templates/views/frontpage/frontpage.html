@@ -52,13 +52,13 @@
 
     .topic-scroll {
         margin: 4px 4px;
-        margin-bottom: 2rem;
         padding: 4px;
         width: 100%;
         border-radius: 5px;
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
+        margin-bottom: 1rem;
         cursor: pointer;
     }
 
@@ -75,6 +75,10 @@
     .explore {
         margin-top: 2rem;
     }
+    .filters {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 </style>
 {% endblock %}
 
@@ -87,15 +91,9 @@
     <div class="topic-scroll center">
         <a href="{% url 'bulletin:frontpage' %}" class="topic-pill">Music</a>
         <a href="{% url 'bulletin:explore-photos' %}" class="topic-pill">Photos</a>
-        <!-- <a href="{% url 'music:new-music' %}" class="topic-pill">Blogs</a> -->
         <a href="{% url 'forums:get-forum' %}" class="topic-pill">Forums</a>
     </div>
 
-    <!-- <div class="topic-scroll">
-        {% for topic in topics %}
-        <a href="{% url 'forums:get-topic' topic_id=topic.name %}" class="topic-pill">{{ topic.name }}</a>
-        {% endfor %}
-    </div> -->
     <div class="grid">
         <!-- columns -->
         <div class="grid-col grid-col--1"></div>

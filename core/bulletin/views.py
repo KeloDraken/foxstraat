@@ -105,7 +105,7 @@ def frontpage(request):
     posts = Song.objects.all().order_by('-upvotes')
 
     context = {
-        'heading': 'Frontpage',
+        'heading': 'Explore today\'s songs',
         'posts': posts
     }
     
@@ -119,7 +119,7 @@ def explore_photos(request):
     posts = Bulletin.objects.all().order_by('-upvotes')
 
     context = {
-        'heading': 'Foxfeed',
+        'heading': 'Posts of the day',
         'posts': posts
     }
     
