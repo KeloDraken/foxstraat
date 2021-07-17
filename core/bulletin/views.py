@@ -86,7 +86,9 @@ def get_bulletin(request, bulletin_id):
 
     if request.user.is_authenticated:
         post.upvotes += 1
+        post.user.upvotes += 1
         post.save()
+        post.user.save()
 
     more_from_user = Bulletin.objects.filter(
         user=post.user

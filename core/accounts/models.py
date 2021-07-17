@@ -89,7 +89,7 @@ class User(AbstractUser):
     /* Navbar styles */
     .navbar {
         overflow: hidden;
-        background-color: #212121;
+        background-color: #fff;
         box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
         position: fixed;
         top: 0;
@@ -202,7 +202,7 @@ class User(AbstractUser):
     }
     /* post image styles end */
 </style>
-    """
+        """
     )
     custom_styles = models.TextField(null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
