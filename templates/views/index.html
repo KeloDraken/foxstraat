@@ -94,6 +94,21 @@
 {% include 'components/navbar.html' %}
 <!-- Navbar ends -->
 
+{% if messages %}
+<div class="container center">
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="red white-text">{{ message }}</div>
+    {% elif message.tags == 'success' %}
+    <div class="green white-text">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+{% endif %}
+
 <!-- banner begins -->
 <section class="container center banner">
     <h1 class=" black-text heading">Let your creativity shine</h1>
@@ -129,7 +144,8 @@
         <p class="text center section-heading">
             Give us feedback or suggestions
         </p>
-        <form class="center">
+        <form method="post" action="{% url 'about' %}" class="center">
+            {% csrf_token %}
             <textarea placeholder="Write your feedback here..." class="form-input" name="feedback"
                 id="feedback"></textarea>
             <button class="btn submit-btn btn-large black white-text center" type="submit">Send</button>
