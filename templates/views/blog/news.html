@@ -3,11 +3,19 @@
 
 {% block styles %}
 <style>
-    .content{
+    .content {
         margin-top: 3rem !important;
     }
+
     .date {
-        font-size: 2em !important;
+        font-size: 1.5em !important;
+    }
+
+    .news {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333333;
+        font-weight: 600;
+        white-space: pre-wrap;
     }
 </style>
 {% endblock %}
@@ -18,14 +26,9 @@
 <div class="container content">
     {% for i in news %}
     <div class="center">
-        <b>
-            <p>
-                <span class="date">
-                    {{ i.datetime_created|date:"d M Y" }}
-                </span> <br> 
-                {{ i.text }}
-            </p>
-        </b>
+
+        <span class="date">{{ i.datetime_created|date:"d M Y" }}</span>
+        <pre class="news center">{{ i.text }}</pre>
     </div>
     {% endfor %}
 </div>
