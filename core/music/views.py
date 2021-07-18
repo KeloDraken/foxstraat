@@ -126,17 +126,11 @@ def top_music_chart(request):
         page_number = 1
 
     page_obj = paginator.get_page(page_number)
-
-    if page_number > 1:
-        add_10 = True
-    else:
-        add_10 = False
     
     current_date = date.today()
     weekday = calendar.day_name[current_date.weekday()]
 
     context = {
-        'add_10': add_10,
         'page_obj': page_obj,
         'heading': f'Foxstraat {weekday} Hot 100',
     }

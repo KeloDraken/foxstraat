@@ -76,6 +76,29 @@
         margin-top: 2rem;
     }
 </style>
+<style>
+    .subheading {
+        font-size: 2em !important;
+        font-weight: 400;
+        margin-top: -1em;
+    }
+    .section-heading {
+        text-transform: uppercase;
+    }
+    .about {
+        border-top: 2px solid #212121;
+        height: 40vh;
+        padding-top: 2rem;
+    }
+    .footer-link {
+        color: #000000;
+        text-decoration: underline;
+    }
+    .text {
+        font-size: 1.2em;
+        color: #000000;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
@@ -96,35 +119,37 @@
         <div class="grid-col grid-col--4"></div>
         <!-- items -->
         <div class="infinite-container">
-        {% for post in posts %}
-        <div class="grid-item infinite-item">
-            <div class="content">
+            {% for post in page_obj %}
+            <div class="grid-item infinite-item">
+                <div class="content">
+                    <a class="white-text" title="{{ post.title }}"
+                        href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
+                        <h4 class="post-author">view post</h4>
+                    </a>
+                    {% if post.user.is_active %}
+                    <a class="white-text" title="{{ post.user.display_name }}"
+                        href="{% url 'get-user-profile' username=post.user.username %}">
+                        <h4 class="post-author">go to creator's page</h4>
+                    </a>
+                    {% else %}
+                    <a class="white-text" title="[deleted]">
+                        <h4 class="post-author">go to creator's page</h4>
+                    </a>
+                    {% endif %}
+                </div>
                 <a class="white-text" title="{{ post.title }}"
                     href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
-                    <h4 class="post-author">view post</h4>
+                    <img class="post-image" src="{{ post.image.url }}" />
                 </a>
-                {% if post.user.is_active %}
-                <a class="white-text" title="{{ post.user.display_name }}"
-                    href="{% url 'get-user-profile' username=post.user.username %}">
-                    <h4 class="post-author">go to creator's page</h4>
-                </a>
-                {% else %}
-                <a class="white-text" title="[deleted]">
-                    <h4 class="post-author">go to creator's page</h4>
-                </a>
-                {% endif %}
             </div>
-            <a class="white-text" title="{{ post.title }}"
-                href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
-                <img class="post-image" src="{{ post.image.url }}" />
-            </a>
-        </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
     {% include 'components/infinite_scroll_fetch.html' %}
 
+
 </div>
+{% include 'components/footer.html' %}
 
 {% endblock %}
 

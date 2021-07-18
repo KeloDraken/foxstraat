@@ -1,3 +1,6 @@
+import calendar
+from datetime import date
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -16,8 +19,6 @@ from core.forms import FormWithCaptcha
 
 from core.bulletin.forms import CreateBulletinForm
 from core.bulletin.models import Bulletin
-
-from core.music.models import Song
 
 
 @login_required
@@ -104,13 +105,20 @@ def get_bulletin(request, bulletin_id):
 def frontpage(request):
     post_objects = Bulletin.objects.all().order_by('-upvotes')
 
-    paginator = Paginator(post_objects, 3)
-    page_number = request.GET.get('page')
+    paginator = Paginator(post_objects, 20)
+    
+    try:
+        page_number = int(request.GET.get('sida'))
+    except:
+        page_number = 1
+    
     page_obj = paginator.get_page(page_number)
 
+    current_date = date.today()
+    weekday = calendar.day_name[current_date.weekday()]
+
     context = {
-        'heading': 'Posts of the day',
-        'posts': post_objects,
+        'heading': f'Explore {weekday}\'s photos',
         'page_obj': page_obj
     }
     
