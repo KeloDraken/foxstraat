@@ -11,31 +11,6 @@
         margin-bottom: 1em;
     }
 
-    .content {
-        width: fit-content;
-        position: absolute;
-        border-radius: 5px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        background-color: rgba(0, 0, 0, 0.4);
-        margin-top: 1em;
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s, opacity 0.3s linear;
-    }
-
-    .account-author {
-        margin: 0.2em 0.5em;
-        margin-bottom: 1rem !important;
-        margin-top: 1rem !important;
-        font-size: 1em;
-        font-weight: 600;
-    }
-
-    .account-author:hover {
-        text-decoration: underline;
-    }
-
     .grid {
         display: flex;
     }
@@ -82,18 +57,22 @@
         font-weight: 400;
         margin-top: -1em;
     }
+
     .section-heading {
         text-transform: uppercase;
     }
+
     .about {
         border-top: 2px solid #212121;
         height: 40vh;
         padding-top: 2rem;
     }
+
     .footer-link {
         color: #000000;
         text-decoration: underline;
     }
+
     .text {
         font-size: 1.2em;
         color: #000000;
@@ -126,8 +105,6 @@
                     href="{% url 'get-user-profile' username=account.username %}">
                     {% if account.profile_pic %}
                     <img class="account-image" src="{{ account.profile_pic.url }}" alt="account cover image" />
-                    {% else %}
-                    <div class="image-container"></div>
                     {% endif %}
                 </a>
             </div>
