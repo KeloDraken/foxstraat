@@ -56,7 +56,7 @@
         <a class="logo" href="/">Foxstraat.</a>
         <a class="nav-links" href="{% url 'get-user-profile' username=user.username %}">Photos</a>
         {% if user.is_artist %}
-        <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}">Music</a>
+        <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}">Songs</a>
         {% endif %}
         <!-- {% if user.is_blogger %}
             <a class="nav-links" href="#">Blog</a>
