@@ -128,8 +128,8 @@
 
             <div class="vote" data-what-type="bulletin" data-what-id="{{ post.id }}">
 
-                <span class="{% if has_voted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">thumb_up</span>
-                <span class="material-icons-outlined">thumb_down</span>
+                <span class="{% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">thumb_up</span>
+                <span class="{% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">thumb_down</span>
 
             </div>
 

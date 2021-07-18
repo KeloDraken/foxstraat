@@ -74,7 +74,6 @@ def _cast_vote(bulletin, vote_value, vote):
     else:
         return HttpResponseBadRequest()
 
-
 def cast_vote(request, bulletin_id):
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
@@ -172,8 +171,6 @@ def create_bulletin(request):
         context
     )
 
-
-
 def get_bulletin(request, bulletin_id):
     post = get_object_or_404(Bulletin, object_id=bulletin_id)
 
@@ -181,9 +178,24 @@ def get_bulletin(request, bulletin_id):
         user=post.user
     ).order_by('?')[:4]
 
-    # upvotes = post.upvotes / random.randint(1,20)
+    has_voted = check_has_user_voted(request.user, post)
+
+    if has_voted:
+        vote = Vote.objects.get(user=request.user, bulletin=post)
+        if vote.value == -1:
+            has_downvoted = True
+            has_upvoted = False
+        elif vote.value == 1:
+            has_downvoted = False
+            has_upvoted = True
+        else:
+            has_downvoted = False
+            has_upvoted = False
+
+
     context = {
-        'has_voted': check_has_user_voted(request.user, post),
+        'has_upvoted': has_upvoted,
+        'has_downvoted': has_downvoted,
         'post': post,
         'upvotes': post.score,
         'more_from_user': more_from_user
