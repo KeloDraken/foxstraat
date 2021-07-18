@@ -11,7 +11,7 @@
 <div class="col-6 user-details-basic-container">
     <div class="profile-image-container">
         {% if user.profile_pic %}
-        <img class="profile-picture" src="{{ user.profile_pic.url }}" />
+        <img class="profile-picture" src="{{ user.profile_pic.url }}" alt="User avatar" />
         {% else %}
         <div class="image_placeholder">No profile picture</div>
         {% endif %}

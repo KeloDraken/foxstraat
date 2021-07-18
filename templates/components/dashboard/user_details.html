@@ -4,7 +4,7 @@
 <div class="card z-depth-0">
     <div class="card-image">
         {% if user.profile_pic %}
-        <img class="profile-image" src="{{ user.profile_pic.url }}">
+        <img class="profile-image" src="{{ user.profile_pic.url }}" alt="User avatar">
         {% else %}
         <div class="image_placeholder">No profile picture</div>
         {% endif %}

@@ -139,7 +139,7 @@
                 </div>
                 <a class="white-text" title="{{ post.title }}"
                     href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
-                    <img class="post-image" src="{{ post.image.url }}" />
+                    <img class="post-image" src="{{ post.image.url }}" alt="Post cover image" />
                 </a>
             </div>
             {% endfor %}

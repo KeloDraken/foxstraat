@@ -132,7 +132,7 @@
             </div>
             <a class="white-text" title="{{ listing.name }}"
                 href="{% url 'marketplace:view-listing' listing_id=listing.object_id %}">
-                <img class="post-image" src="{{ listing.screenshot_1.url }}" />
+                <img class="post-image" src="{{ listing.screenshot_1.url }}" alt="Listing screenshot"/>
             </a>
             <p class="listing-name">{{listing.name}}</p>
         </div>

@@ -13,7 +13,7 @@
     <a href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}" title="{{ post.title }}">
         <div class="card-image">
             {% if post.image %}
-            <img class="post-image" src="{{ post.image.url }}">
+            <img class="post-image" src="{{ post.image.url }}" alt="Post cover image">
             {% else %}
             <div class="image_placeholder">No profile picture</div>
             {% endif %}
