@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http.response import Http404
 
 from django.shortcuts import get_object_or_404, redirect, render
@@ -18,6 +19,23 @@ from core.bulletin.models import Bulletin
 from core.music.models import Song
 
 
+def explore_users(request):
+    user_objects = User.objects.all().order_by('-datetime_created')
+    paginator = Paginator(user_objects, 20)
+    
+    try:
+        page_number = int(request.GET.get('sida'))
+    except:
+        page_number = 1
+
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'heading': 'Cool new people',
+        'page_obj': page_obj
+    }
+    return render(request, 'views/frontpage/explore_users.html', context)
+    
 def user_registration(request):
     if request.user.is_authenticated:
         return redirect('accounts:user-dashboard')
