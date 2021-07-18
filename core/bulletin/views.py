@@ -50,9 +50,10 @@ def create_bulletin(request):
                 caption = request.POST['caption']
                 
                 hashtags = extract_hashtags(text=caption)
-
+                
                 request.user.num_posts =+ 1
                 request.user.save()
+                
                 post_form.save()
 
                 link_tags_to_post(post_id=object_id, tags=hashtags)
