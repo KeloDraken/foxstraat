@@ -82,18 +82,22 @@
         font-weight: 400;
         margin-top: -1em;
     }
+
     .section-heading {
         text-transform: uppercase;
     }
+
     .about {
         border-top: 2px solid #212121;
         height: 40vh;
         padding-top: 2rem;
     }
+
     .footer-link {
         color: #000000;
         text-decoration: underline;
     }
+
     .text {
         font-size: 1.2em;
         color: #000000;
@@ -109,7 +113,7 @@
 
     <div class="topic-scroll center">
         <a href="{% url 'bulletin:frontpage' %}" class="topic-pill">Frontpage</a>
-        <a href="{% url 'forums:get-forum' %}" class="topic-pill">People</a>
+        <a href="{% url 'accounts:explore-users' %}" class="topic-pill">People</a>
         <a href="{% url 'forums:get-forum' %}" class="topic-pill">Forums</a>
     </div>
     <div class="grid">
