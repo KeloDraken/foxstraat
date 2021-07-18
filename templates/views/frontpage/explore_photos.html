@@ -133,25 +133,9 @@
 <script src="{% static 'js/colcade.js' %}"></script>
 <!-- <script src="https://unpkg.com/colcade@0/colcade.js"></script> -->
 <script>
-    // selector string as first argument
     var colc = new Colcade('.grid', {
         columns: '.grid-col',
         items: '.grid-item'
     });
-</script>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'js/infinite.min.js' %}"></script>
-<script>
-    var infinite = new Waypoint.Infinite({
-        element: $('.infinite-container')[0],
-        offset: 'bottom-in-view',
-        onBeforePageLoad: function () {
-            $('.spinner-border').show()
-        },
-        onAfterPageLoad: function () {
-            $('.spinner-border').hide()
-        }
-    })
 </script>
 {% endblock %}

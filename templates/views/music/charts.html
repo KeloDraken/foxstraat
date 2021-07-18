@@ -30,9 +30,11 @@
         font-size: 1em;
         color: #212121;
     }
+
     .links {
         margin-top: 1rem;
     }
+
     .topic-pill {
         font-size: 1em;
         color: #212121;
@@ -56,8 +58,11 @@
     <a href="{% url 'music:all-time-music' %}" class="topic-pill">All time</a>
 </div>
 <div class="music-container container">
-    {% for song in songs %}
+    {% for song in page_obj %}
     {% include 'components/music/song_preview.html' %}
     {% endfor %}
+</div>
+<div class="container">
+    {% include 'components/infinite_scroll_fetch.html' %}
 </div>
 {% endblock %}

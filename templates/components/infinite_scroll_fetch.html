@@ -1,5 +1,35 @@
-{% if page_obj.has_next %}
-<a class="infinite-more-link" href="?page={{page_obj.next_page_number}}"></a>
-{% endif %}
+<style>
+    .pagination {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+</style>
 
-<h3 class="center spinner-border">loading...</h3>
+
+<div class="pagination center">
+    {% if page_obj.has_previous %}
+    <a class="btn-flat blue-text white material-icons-outlined" href="?sida={{ page_obj.previous_page_number }}">
+        arrow_back_ios
+    </a>
+    {% else %}
+    <span class="btn-flat grey-text white material-icons-outlined">
+        arrow_back_ios
+    </span>
+    {% endif %}
+    <span class="step-links">
+
+        <span class="current">
+            page {{ page_obj.number }} of {{page_obj.paginator.num_pages}}
+        </span>
+    </span>
+
+    {% if page_obj.has_next %}
+    <a class="btn-flat blue-text white material-icons-outlined" href="?sida={{ page_obj.next_page_number }}">
+        arrow_forward_ios
+    </a>
+    {% else %}
+    <span class="btn-flat grey-text white material-icons-outlined">
+        arrow_forward_ios
+    </span>
+    {% endif %}
+</div>
