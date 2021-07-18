@@ -2,6 +2,7 @@ from django.urls import path
 
 from core.accounts.views import (
     delete_account,
+    explore_users,
     user_registration, 
     user_login,
     user_logout,
@@ -18,6 +19,8 @@ urlpatterns = [
 
     path('dashboard/', user_dashboard, name='user-dashboard'),
     path('edit/', edit_user_profile, name='edit-user-profile'),
+    
+    path('explore/', explore_users, name='explore-users'),
 
     path('delete/', delete_account, name='delete-user'),
 ]
