@@ -103,7 +103,7 @@ class User(AbstractUser):
         font-family: Arial, Helvetica, sans-serif;
         margin-top: 10px;
         display: block;
-        color: #ffffff;
+        color: #212121;
         font-size: 1em;
       	text-transform: capitalize;
         text-align: center;
