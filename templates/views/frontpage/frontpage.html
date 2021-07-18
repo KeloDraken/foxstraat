@@ -52,13 +52,13 @@
 
     .topic-scroll {
         margin: 4px 4px;
+        margin-bottom: 2rem;
         padding: 4px;
         width: 100%;
         border-radius: 5px;
         overflow-x: auto;
         overflow-y: hidden;
         white-space: nowrap;
-        margin-bottom: 1rem;
         cursor: pointer;
     }
 
@@ -75,10 +75,6 @@
     .explore {
         margin-top: 2rem;
     }
-    .filters {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
 </style>
 {% endblock %}
 
@@ -87,13 +83,11 @@
 
 <div class="container explore">
     <h3 class="center page-heading">{{heading}}</h3>
-    
+
     <div class="topic-scroll center">
-        <a href="{% url 'bulletin:frontpage' %}" class="topic-pill">Music</a>
-        <a href="{% url 'bulletin:explore-photos' %}" class="topic-pill">Photos</a>
+        <a href="{% url 'bulletin:frontpage' %}" class="topic-pill">Frontpage</a>
         <a href="{% url 'forums:get-forum' %}" class="topic-pill">Forums</a>
     </div>
-
     <div class="grid">
         <!-- columns -->
         <div class="grid-col grid-col--1"></div>
@@ -101,31 +95,34 @@
         <div class="grid-col grid-col--3"></div>
         <div class="grid-col grid-col--4"></div>
         <!-- items -->
+        <div class="infinite-container">
         {% for post in posts %}
-        <div class="grid-item">
+        <div class="grid-item infinite-item">
             <div class="content">
                 <a class="white-text" title="{{ post.title }}"
-                    href="{% url 'music:get-song' song_id=post.object_id %}">
-                    <h4 class="post-author">view song</h4>
+                    href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
+                    <h4 class="post-author">view post</h4>
                 </a>
                 {% if post.user.is_active %}
                 <a class="white-text" title="{{ post.user.display_name }}"
                     href="{% url 'get-user-profile' username=post.user.username %}">
-                    <h4 class="post-author">go to artist's page</h4>
+                    <h4 class="post-author">go to creator's page</h4>
                 </a>
                 {% else %}
                 <a class="white-text" title="[deleted]">
-                    <h4 class="post-author">go to artist's page</h4>
+                    <h4 class="post-author">go to creator's page</h4>
                 </a>
                 {% endif %}
             </div>
             <a class="white-text" title="{{ post.title }}"
-                    href="{% url 'music:get-song' song_id=post.object_id %}">
-            <img class="post-image" src="{{ post.cover_art.url }}" />
+                href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
+                <img class="post-image" src="{{ post.image.url }}" />
             </a>
         </div>
         {% endfor %}
+        </div>
     </div>
+    {% include 'components/infinite_scroll_fetch.html' %}
 
 </div>
 
@@ -135,7 +132,6 @@
 <script src="{% static 'js/colcade.js' %}"></script>
 <!-- <script src="https://unpkg.com/colcade@0/colcade.js"></script> -->
 <script>
-    // selector string as first argument
     var colc = new Colcade('.grid', {
         columns: '.grid-col',
         items: '.grid-item'

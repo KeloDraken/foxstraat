@@ -73,7 +73,7 @@ def add_song(request):
                         request.user.save()
                         post_form.save()
                         
-                        return redirect(f'/p/songs/{object_id}')
+                        return redirect('music:get-song', song_id=object_id)
 
                 else:    
                     messages.error(request, 'Post creation failed')
@@ -119,14 +119,24 @@ def get_song(request, song_id):
 def top_music_chart(request):
     songs = Song.objects.all().order_by('-upvotes')
     paginator = Paginator(songs, 10)
-    page_number = request.GET.get('sida')
+
+    try:
+        page_number = int(request.GET.get('sida'))
+    except:
+        page_number = 1
+
     page_obj = paginator.get_page(page_number)
+
+    if page_number > 1:
+        add_10 = True
+    else:
+        add_10 = False
     
     current_date = date.today()
     weekday = calendar.day_name[current_date.weekday()]
 
     context = {
-        'songs': songs,
+        'add_10': add_10,
         'page_obj': page_obj,
         'heading': f'Foxstraat {weekday} Hot 100',
     }
@@ -137,10 +147,25 @@ def top_music_chart(request):
     )
 
 def new_music_chart(request):
-    songs = Song.objects.all().order_by('-datetime_created')[:10]
+    songs = Song.objects.all().order_by('-datetime_created')
+    paginator = Paginator(songs, 10)
+    
+    try:
+        page_number = int(request.GET.get('sida'))
+    except:
+        page_number = 1
+
+    page_obj = paginator.get_page(page_number)
+
+    if page_number > 1:
+        add_10 = True
+    else:
+        add_10 = False
+    
     context = {
-        'songs': songs,
-        'heading': 'Just submitted'
+        'add_10': add_10,
+        'page_obj': page_obj,
+        'heading': 'Recent submissions',
     }
     return render(
         request, 
@@ -149,10 +174,20 @@ def new_music_chart(request):
     )
 
 def hot_music_chart(request):
-    songs = Song.objects.all().order_by('-upvotes')[:10]
+    songs = Song.objects.all().order_by('-upvotes')
+    paginator = Paginator(songs, 10)
+    
+    try:
+        page_number = int(request.GET.get('sida'))
+    except:
+        page_number = 1
+
+    page_obj = paginator.get_page(page_number)
+
+
     context = {
-        'songs': songs,
-        'heading': 'Today\'s most trending'
+        'page_obj': page_obj,
+        'heading': 'Trending today',
     }
     return render(
         request, 
@@ -161,10 +196,19 @@ def hot_music_chart(request):
     )
 
 def alltime_music_chart(request):
-    songs = Song.objects.all().order_by('-upvotes')[:10]
+    songs = Song.objects.all().order_by('-upvotes')
+    paginator = Paginator(songs, 10)
+    
+    try:
+        page_number = int(request.GET.get('sida'))
+    except:
+        page_number = 1
+
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'songs': songs,
-        'heading': 'Top of all time'
+        'page_obj': page_obj,
+        'heading': f'All time top voted',
     }
     return render(
         request, 
@@ -172,11 +216,20 @@ def alltime_music_chart(request):
         context
     )
 
-def get_genre(request, genre):
+def get_genre(request, genre):    
     songs = Song.objects.filter(genre__icontains=genre).order_by('-upvotes')
+    paginator = Paginator(songs, 10)
+    
+    try:
+        page_number = int(request.GET.get('sida'))
+    except:
+        page_number = 1
+
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'genre': genre,
-        'songs': songs,
+        'page_obj': page_obj,
     }
     return render(
         request, 

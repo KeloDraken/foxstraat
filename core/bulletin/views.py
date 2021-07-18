@@ -102,20 +102,6 @@ def get_bulletin(request, bulletin_id):
     )
 
 def frontpage(request):
-    posts = Song.objects.all().order_by('-upvotes')
-
-    context = {
-        'heading': 'Explore today\'s songs',
-        'posts': posts
-    }
-    
-    return render(
-        request, 
-        'views/frontpage/frontpage.html',
-        context
-    )
-
-def explore_photos(request):
     post_objects = Bulletin.objects.all().order_by('-upvotes')
 
     paginator = Paginator(post_objects, 3)
@@ -130,7 +116,7 @@ def explore_photos(request):
     
     return render(
         request, 
-        'views/frontpage/explore_photos.html',
+        'views/frontpage/frontpage.html',
         context
     )
 

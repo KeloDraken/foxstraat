@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Foxstraat - Top Music Charts{% endblock %}
+{% block title %}Foxstraat - Music deep dive{% endblock %}
 
 {% block styles %}
 <style>
@@ -45,6 +45,29 @@
         padding: 2px 5px;
     }
 </style>
+<style>
+    .subheading {
+        font-size: 2em !important;
+        font-weight: 400;
+        margin-top: -1em;
+    }
+    .section-heading {
+        text-transform: uppercase;
+    }
+    .about {
+        border-top: 2px solid #212121;
+        height: 40vh;
+        padding-top: 2rem;
+    }
+    .footer-link {
+        color: #000000;
+        text-decoration: underline;
+    }
+    .text {
+        font-size: 1.2em;
+        color: #000000;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
@@ -52,7 +75,7 @@
 <h3 class="center page-heading">{{heading}}</h3>
 
 <div class="topic-scroll center">
-    <a href="{% url 'music:explore-music' %}" class="topic-pill">Ten for today</a>
+    <a href="{% url 'music:explore-music' %}" class="topic-pill">Hot 100 list</a>
     <a href="{% url 'music:new-music' %}" class="topic-pill">New</a>
     <a href="{% url 'music:hot-music' %}" class="topic-pill">Hot</a>
     <a href="{% url 'music:all-time-music' %}" class="topic-pill">All time</a>
@@ -65,4 +88,6 @@
 <div class="container">
     {% include 'components/infinite_scroll_fetch.html' %}
 </div>
+{% include 'components/footer.html' %}
+
 {% endblock %}

@@ -3,7 +3,7 @@
         <img class="cover-art" src="{{ song.cover_art.url }}" alt="song cover art">
     </div>
     <div class="col s9">
-        {{forloop.counter}} <a href="{% url 'music:get-song' song_id=song.object_id %}" class="song-title">
+        {{forloop.counter }} <a href="{% url 'music:get-song' song_id=song.object_id %}" class="song-title">
             {{ song.title }}</a> <br>
         <a href="{% url 'get-user-songs' username=song.user.username %}" class="song-artists">{{ song.artists }}</a>
         <br>
