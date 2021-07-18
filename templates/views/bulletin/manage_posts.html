@@ -54,6 +54,29 @@
         margin-top: 2rem;
     }
 </style>
+<style>
+    .subheading {
+        font-size: 2em !important;
+        font-weight: 400;
+        margin-top: -1em;
+    }
+    .section-heading {
+        text-transform: uppercase;
+    }
+    .about {
+        border-top: 2px solid #212121;
+        height: 40vh;
+        padding-top: 2rem;
+    }
+    .footer-link {
+        color: #000000;
+        text-decoration: underline;
+    }
+    .text {
+        font-size: 1.2em;
+        color: #000000;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
@@ -99,7 +122,7 @@
     </div>
 
 </div>
-
+{% include 'components/footer.html' %}
 {% endblock %}
 
 {% block scripts %}
