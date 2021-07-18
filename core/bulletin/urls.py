@@ -5,7 +5,8 @@ from core.bulletin.views import (
     delete_post,
     frontpage,
     get_bulletin,
-    manage_posts
+    manage_posts,
+    cast_vote,
 )
 
 
@@ -16,6 +17,8 @@ urlpatterns = [
     path('photo/<bulletin_id>/', get_bulletin, name='get-bulletin'),
 
     path('add/', create_bulletin, name='create-bulletin'),
+    path('vote/<bulletin_id>/', cast_vote, name='cast-vote'),
+    
     path('manage/', manage_posts, name='manage-posts'),
     path('delete/<bulletin_id>', delete_post, name='delete-post'),
 

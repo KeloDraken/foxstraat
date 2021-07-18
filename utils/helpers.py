@@ -28,7 +28,6 @@ def ref_from_url(request):
         return ref
         
 
-
 def object_id_generator(size, model, chars=string.ascii_letters + string.digits):
     """
     Generates and returns base64 call id

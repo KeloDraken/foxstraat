@@ -83,18 +83,22 @@
         font-weight: 400;
         margin-top: -1em;
     }
+
     .section-heading {
         text-transform: uppercase;
     }
+
     .about {
         border-top: 2px solid #212121;
         height: 40vh;
         padding-top: 2rem;
     }
+
     .footer-link {
         color: #000000;
         text-decoration: underline;
     }
+
     .text {
         font-size: 1.2em;
         color: #000000;
@@ -121,8 +125,17 @@
                 [deleted]
             </a>
             {% endif %}
+
+            <div class="vote" data-what-type="bulletin" data-what-id="{{ post.id }}">
+
+                <span class="{% if has_voted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">thumb_up</span>
+                <span class="material-icons-outlined">thumb_down</span>
+
+            </div>
+
             <p class="post-genre">
-                <span class="song-genre">{{post.datetime_created|naturaltime}}</span>
+                <span class="song-genre">{{upvotes|shrink_num}} score</span>
+                <!-- <span class="song-genre">{{upvotes|shrink_num}} upvote{{upvotes|pluralize}}</span> -->
             </p>
             <pre class="post-caption">{{post.caption}}</pre>
             <!-- More from user -->
@@ -151,4 +164,7 @@
     </div>
 </div>
 {% include 'components/footer.html' %}
+{% endblock %}
+
+{% block scripts %}
 {% endblock %}

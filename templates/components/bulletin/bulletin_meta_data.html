@@ -4,7 +4,7 @@
     <h4 class="post-title">{{ post.title }}</h4>
     <div class="row votes">
         <div class="col s12 price">
-            {{post.displayed_upvotes|shrink_num}} score
+            {{post.score|shrink_num}} score
         </div>
     </div>
     {% if post.user.is_active %}

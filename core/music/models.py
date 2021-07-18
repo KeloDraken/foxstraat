@@ -71,7 +71,7 @@ class Song(models.Model):
     soundcloud = models.URLField(max_length=200, null=True, blank=True)
     youtube = models.URLField(max_length=200, null=True, blank=True)
     
-    displayed_upvotes = models.PositiveIntegerField(default=0)
+    score = models.PositiveIntegerField(default=0)
     upvotes = models.PositiveIntegerField(default=0)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)

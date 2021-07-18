@@ -8,7 +8,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=1000, null=True, blank=True)
     body = models.TextField(null=False, blank=False)
         
-    displayed_upvotes = models.PositiveIntegerField(default=0)
+    score = models.PositiveIntegerField(default=0)
     upvotes = models.PositiveIntegerField(default=0)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)

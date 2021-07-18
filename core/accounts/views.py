@@ -20,7 +20,7 @@ from core.music.models import Song
 
 
 def explore_users(request):
-    user_objects = User.objects.all().order_by('-datetime_joined')
+    user_objects = User.objects.all().exclude(username=request.user.username).order_by('-datetime_joined')
     paginator = Paginator(user_objects, 20)
     
     try:

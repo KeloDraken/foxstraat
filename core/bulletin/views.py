@@ -1,4 +1,5 @@
 import calendar
+import random
 from datetime import date
 
 from django.contrib import messages
@@ -6,7 +7,12 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator
 
-from django.http.response import Http404
+from django.http.response import (
+    Http404,
+    HttpResponseBadRequest, 
+    HttpResponseForbidden, 
+    JsonResponse
+)
 from django.shortcuts import get_object_or_404, redirect, render
 
 from utils.helpers import (
@@ -18,8 +24,94 @@ from utils.helpers import (
 from core.forms import FormWithCaptcha
 
 from core.bulletin.forms import CreateBulletinForm
-from core.bulletin.models import Bulletin
+from core.bulletin.models import Bulletin, Vote
 
+
+def check_has_user_voted(user, bulletin):
+    try:
+        Vote.objects.get(user=user, bulletin=bulletin)
+        return True
+
+    except Vote.DoesNotExist:
+        return False
+
+def _cast_vote(bulletin, vote_value, vote):
+    vote.has_voted = True
+    # Upvote
+    if vote_value == 1:
+        vote.value = vote_value
+        bulletin.upvotes = bulletin.upvotes + 1
+        bulletin.score = bulletin.score + 1
+        bulletin.save()
+        vote.save()
+    # Downvote
+    elif vote_value == -1:
+        vote.value = vote_value
+        bulletin.downvotes = bulletin.downvotes + 1
+        bulletin.score = bulletin.score - 1
+        bulletin.save()
+        vote.save()
+    # Cancel vote
+    elif vote_value == 0:
+        # If user previously downvoted the post
+        if vote.value == -1:
+            vote.value = 0
+            bulletin.downvotes = bulletin.downvotes - 1
+            bulletin.score = bulletin.score + 1
+            bulletin.save()
+            vote.save()  
+
+        # If user previously upvoted the post
+        elif vote.value == 1:
+            vote.value = 0
+            bulletin.upvotes = bulletin.upvotes - 1
+            bulletin.score = bulletin.score - 1
+            bulletin.save()
+            vote.save()  
+        elif vote.value == 0:
+            pass
+
+    else:
+        return HttpResponseBadRequest()
+
+
+def cast_vote(request, bulletin_id):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+    else:
+        bulletin = get_object_or_404(Bulletin, object_id=bulletin_id)
+        
+        try:
+            vote_value = int(request.GET.get('vote_value'))
+        except:
+            vote_value = 0
+
+        has_user_voted = check_has_user_voted(request.user, bulletin)
+
+        if has_user_voted == True:
+            vote = Vote.objects.get(
+                user=request.user,
+                bulletin=bulletin
+            )
+            if vote.value == -1 or vote.value == 1:
+                _cast_vote(bulletin=bulletin, vote_value=0, vote=vote)
+            elif vote.value == 0:
+                _cast_vote(bulletin=bulletin, vote_value=vote_value, vote=vote)  
+
+            return JsonResponse({
+                'score': bulletin.score,
+                'has_voted': True
+            })
+        elif has_user_voted == False:
+            vote = Vote.objects.create(
+                    user=request.user,
+                    bulletin=bulletin
+            )
+            _cast_vote(bulletin, vote_value, vote)
+            return JsonResponse({
+                    'score': bulletin.score,
+                    'has_voted': True
+                })
 
 @login_required
 def create_bulletin(request):
@@ -80,21 +172,20 @@ def create_bulletin(request):
         context
     )
 
+
+
 def get_bulletin(request, bulletin_id):
     post = get_object_or_404(Bulletin, object_id=bulletin_id)
-
-    if request.user.is_authenticated:
-        post.upvotes += 1
-        post.user.upvotes += 1
-        post.save()
-        post.user.save()
 
     more_from_user = Bulletin.objects.filter(
         user=post.user
     ).order_by('?')[:4]
 
+    # upvotes = post.upvotes / random.randint(1,20)
     context = {
+        'has_voted': check_has_user_voted(request.user, post),
         'post': post,
+        'upvotes': post.score,
         'more_from_user': more_from_user
     }
     return render(

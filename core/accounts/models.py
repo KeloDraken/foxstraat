@@ -208,5 +208,4 @@ class User(AbstractUser):
     date_joined = models.DateField(auto_now_add=True)
     datetime_joined = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self) -> str:
-        return self.username
+  

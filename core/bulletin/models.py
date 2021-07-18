@@ -18,12 +18,23 @@ class Bulletin(models.Model):
         options={'quality': 90},
         null=True
     )
-    displayed_upvotes = models.PositiveIntegerField(default=0)
+    score = models.IntegerField(default=0)
     upvotes = models.PositiveIntegerField(default=0)
+    downvotes = models.PositiveIntegerField(default=0)
     caption = models.TextField(null=True, blank=True)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+
+    def __str__(self):
+        return f'<Bulletin:{self.id}>'
+    
+class Vote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+    bulletin = models.ForeignKey(Bulletin, on_delete=models.CASCADE)
+    value = models.IntegerField(default=0)
+    has_voted = models.BooleanField(default=False)
+    
 
 class Tag(models.Model):
     object_id = models.CharField(max_length=11, null=True, blank=True)
