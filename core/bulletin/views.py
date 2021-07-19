@@ -179,11 +179,11 @@ def get_bulletin(request, bulletin_id):
         user=post.user
     ).order_by('?')[:4]
 
-    if not request.user.is_authenticated:
-        has_voted = False
-        has_downvoted = False
-        has_upvoted = False
-    else:
+    has_voted = False
+    has_downvoted = False
+    has_upvoted = False
+
+    if request.user.is_authenticated:
         has_voted = check_has_user_voted(request.user, post)
 
         if has_voted:
@@ -213,7 +213,7 @@ def get_bulletin(request, bulletin_id):
     )
 
 def frontpage(request):
-    post_objects = Bulletin.objects.all().order_by('-upvotes')
+    post_objects = Bulletin.objects.all().order_by('-score')
 
     paginator = Paginator(post_objects, 20)
     

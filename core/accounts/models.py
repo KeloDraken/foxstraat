@@ -27,7 +27,7 @@ class User(AbstractUser):
     is_verified = models.BooleanField(default=False)
     is_artist = models.BooleanField(default=False)
     is_blogger = models.BooleanField(default=False)
-    gelt = models.IntegerField(default=1000)
+    gelt = models.IntegerField(default=0)
     num_posts = models.PositiveIntegerField(default=0)
     username = LowercaseCharField(
         # Copying this from AbstractUser code
