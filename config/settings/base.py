@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'core.blog',
     'core.bulletin',
     'core.forums',
+    'core.linkoff',
     'core.marketplace',
     'core.music',
     'core.search',

@@ -155,7 +155,7 @@ def top_music_chart(request):
 
     context = {
         'page_obj': page_obj,
-        'heading': f'Foxstraat {weekday} Hot 100',
+        'heading': f'Foxstraat {weekday} 100',
     }
     return render(
         request, 
@@ -257,19 +257,23 @@ def get_genre(request, genre):
 @login_required
 def manage_songs(request):
     posts = Song.objects.filter(user=request.user).order_by('-datetime_created')
-    if not posts:
-        messages.error(request, 'You don\'t have any songs yet. Add your first song')
-        return redirect('music:add-song')
+    
+    if request.user.is_artist:
+        if not posts:
+            messages.error(request, 'You don\'t have any songs yet. Add your first song')
+            return redirect('music:add-song')
+        else:
+            context = {
+                'posts': posts
+            }
+            
+            return render(
+                request, 
+                'views/music/manage_songs.html',
+                context
+            )
     else:
-        context = {
-            'posts': posts
-        }
-        
-        return render(
-            request, 
-            'views/music/manage_songs.html',
-            context
-        )
+        return redirect('music:add-song')
 
 @login_required
 def delete_song(request, song_id):
