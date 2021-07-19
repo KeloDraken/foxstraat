@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator
+from django.http.response import HttpResponseBadRequest, HttpResponseForbidden
 
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -232,7 +233,7 @@ def alltime_music_chart(request):
         context
     )
 
-def get_genre(request, genre):    
+def get_genre(request, genre):
     songs = Song.objects.filter(genre__icontains=genre).order_by('-upvotes')
     paginator = Paginator(songs, 10)
     
@@ -252,3 +253,35 @@ def get_genre(request, genre):
         'views/music/view_genre.html', 
         context
     )
+
+@login_required
+def manage_songs(request):
+    posts = Song.objects.filter(user=request.user).order_by('-datetime_created')
+    if not posts:
+        messages.error(request, 'You don\'t have any songs yet. Add your first song')
+        return redirect('music:add-song')
+    else:
+        context = {
+            'posts': posts
+        }
+        
+        return render(
+            request, 
+            'views/music/manage_songs.html',
+            context
+        )
+
+@login_required
+def delete_song(request, song_id):
+    try:
+        bulletin = Song.objects.get(object_id=song_id)
+    except:
+        return HttpResponseBadRequest()
+    
+    if not bulletin.user == request.user:
+        raise HttpResponseForbidden()
+
+    else:
+        bulletin.delete()
+        messages.success(request, 'Your song has been deleted')
+        return redirect('music:manage-songs')

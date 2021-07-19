@@ -1,0 +1,9 @@
+{% if request.user.is_artist %}
+<div class="card z-depth-0">
+    <div class="pink lighten-3 card-action">
+        <a class="black-text" style="text-decoration: underline;"
+            href="{% url 'music:manage-songs' %}">Manage songs</a>
+        </a>
+    </div>
+</div>
+{% endif %}

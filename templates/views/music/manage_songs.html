@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Foxstraat - Manage Posts{% endblock %}
+{% block title %}Foxstraat - Manage Songs{% endblock %}
 
 {% block styles %}
 <style>
@@ -96,7 +96,7 @@
 <br>
 {% endif %}
 <div class="container explore">
-    <h3 class="center">Manage posts</h3>
+    <h3 class="center">Manage songs</h3>
     <div class="grid">
         <!-- columns -->
         <div class="grid-col grid-col--1"></div>
@@ -108,15 +108,15 @@
         <div class="grid-item">
             <div class="content">
                 <a class="white-text" title="{{ post.title }}"
-                    href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
-                    <h4 class="post-author">view post</h4>
+                    href="{% url 'music:get-song' song_id=post.object_id %}">
+                    <h4 class="post-author">view song</h4>
                 </a>
                 <a class="white-text" title="The post will be permanently removed from Foxstraat"
-                    href="{% url 'bulletin:delete-post' bulletin_id=post.object_id %}">
-                    <h4 class="post-author">delete post</h4>
+                    href="{% url 'music:delete-song' song_id=post.object_id %}">
+                    <h4 class="post-author">delete song</h4>
                 </a>
             </div>
-            <img class="post-image" src="{{ post.image.url }}" alt="Post cover image" />
+            <img class="post-image" src="{{ post.cover_art.url }}" alt="Song cover art" />
         </div>
         {% endfor %}
     </div>

@@ -240,7 +240,7 @@ def frontpage(request):
 
 @login_required
 def manage_posts(request):
-    posts = Bulletin.objects.filter(user=request.user).order_by('-upvotes')
+    posts = Bulletin.objects.filter(user=request.user).order_by('-datetime_created')
     if not posts:
         messages.error(request, 'You don\'t have any posts yet. Create your post')
         return redirect('bulletin:create-bulletin')
