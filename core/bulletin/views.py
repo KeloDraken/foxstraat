@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 
 from django.http.response import (
     Http404,
+    HttpResponse,
     HttpResponseBadRequest, 
     HttpResponseForbidden, 
     JsonResponse
@@ -107,7 +108,7 @@ def cast_vote(request, bulletin_id):
                     bulletin=bulletin
             )
             _cast_vote(bulletin, vote_value, vote)
-            return JsonResponse({
+            return JsonResponse(data={
                     'score': bulletin.score,
                     'has_voted': True
                 })
@@ -178,19 +179,24 @@ def get_bulletin(request, bulletin_id):
         user=post.user
     ).order_by('?')[:4]
 
-    has_voted = check_has_user_voted(request.user, post)
+    if not request.user.is_authenticated:
+        has_voted = False
+        has_downvoted = False
+        has_upvoted = False
+    else:
+        has_voted = check_has_user_voted(request.user, post)
 
-    if has_voted:
-        vote = Vote.objects.get(user=request.user, bulletin=post)
-        if vote.value == -1:
-            has_downvoted = True
-            has_upvoted = False
-        elif vote.value == 1:
-            has_downvoted = False
-            has_upvoted = True
-        else:
-            has_downvoted = False
-            has_upvoted = False
+        if has_voted:
+            vote = Vote.objects.get(user=request.user, bulletin=post)
+            if vote.value == -1:
+                has_downvoted = True
+                has_upvoted = False
+            elif vote.value == 1:
+                has_downvoted = False
+                has_upvoted = True
+            else:
+                has_downvoted = False
+                has_upvoted = False
 
 
     context = {

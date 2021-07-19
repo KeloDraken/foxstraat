@@ -126,15 +126,25 @@
             </a>
             {% endif %}
 
-            <div class="vote" data-what-type="bulletin" data-what-id="{{ post.id }}">
-
-                <span class="{% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">thumb_up</span>
-                <span class="{% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">thumb_down</span>
-
+            <div class="vote">
+                <button id="upvote"
+                    data-upvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=1"
+                    onclick="handleUpvote()"
+                    class="btn-flat white {% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
+                    thumb_up
+                </button>
+                <button
+                    id="downvote"
+                    onclick="handleDownvote()"
+                    data-downvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=-1"
+                    class="btn-flat white {% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
+                    thumb_down
+                </button>
             </div>
 
             <p class="post-genre">
-                <span class="song-genre">{{upvotes|shrink_num}} score</span>
+                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{upvotes|shrink_num}}
+                    score</span>
                 <!-- <span class="song-genre">{{upvotes|shrink_num}} upvote{{upvotes|pluralize}}</span> -->
             </p>
             <pre class="post-caption">{{post.caption}}</pre>
@@ -167,4 +177,64 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+    const scoreElement = document.getElementById('score')
+    var score = scoreElement.dataset.bulletinScore;
+    var originalScore = parseInt(score)
+
+
+    const handleUpvote = () => {
+        const upvoteBtn = document.getElementById('upvote')
+        const upvoteURL = upvoteBtn.dataset.upvoteUrl;
+
+        var upvoteClasses = upvoteBtn.classList
+        var downvoteClasses = upvoteBtn.classList
+
+        fetch(upvoteURL).then(
+            response => {
+                if (response.status === 200) {
+                    const bulletinScoreURL = upvoteBtn.dataset.scoreUrl;
+                    if (upvoteClasses.contains('black-text')) {
+                        upvoteClasses.remove('black-text')
+                        upvoteClasses.add('grey-text')
+                        const newScore = originalScore + 1
+                        scoreElement.innerHTML = newScore.toString() + ' score'
+                    } else if (upvoteClasses.contains('grey-text')) {
+                        upvoteClasses.remove('grey-text')
+                        upvoteClasses.add('black-text')
+                        const newScore = originalScore - 1
+                        scoreElement.innerHTML = newScore.toString()  + ' score'
+                    }
+                } else {
+                    return
+                }
+            }
+        )
+    }
+
+    const handleDownvote = () => {
+        const downvoteBtn = document.getElementById('downvote')
+        const downvoteURL = downvoteBtn.dataset.downvoteUrl;
+        fetch(downvoteURL).then(
+            response => {
+                if (response.status === 200) {
+                    const bulletinScoreURL = downvoteBtn.dataset.scoreUrl;
+                    if (downvoteBtn.classList.contains('black-text')) {
+                        downvoteBtn.classList.remove('black-text')
+                        downvoteBtn.classList.add('grey-text')
+                        const newScore = originalScore - 1
+                        scoreElement.innerHTML = newScore.toString() + ' score'
+                    } else if (downvoteBtn.classList.contains('grey-text')) {
+                        downvoteBtn.classList.remove('grey-text')
+                        downvoteBtn.classList.add('black-text')
+                        const newScore = originalScore + 1
+                        scoreElement.innerHTML = newScore.toString()  + ' score'
+                    }
+                } else {
+                    return
+                }
+            }
+        )
+    }
+</script>
 {% endblock %}
