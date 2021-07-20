@@ -16,7 +16,7 @@ class Link(models.Model):
 
 class LinkVote(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
-    link = models.ForeignKey(Link, on_delete=models.CASCADE)
+    biltins = models.ForeignKey(Link, on_delete=models.CASCADE)
     value = models.IntegerField(default=0)
     has_voted = models.BooleanField(default=False)
     

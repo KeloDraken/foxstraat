@@ -76,3 +76,11 @@ class Song(models.Model):
     upvotes = models.PositiveIntegerField(default=0)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+
+class VoteSong(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
+    bulletin = models.ForeignKey(Song, on_delete=models.CASCADE)
+    value = models.IntegerField(default=0)
+    has_voted = models.BooleanField(default=False)
+   

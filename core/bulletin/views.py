@@ -1,7 +1,6 @@
 import calendar
 import random
-from datetime import date, datetime, timedelta
-from math import log
+from datetime import date
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,12 +9,12 @@ from django.core.paginator import Paginator
 
 from django.http.response import (
     Http404,
-    HttpResponseBadRequest, 
     HttpResponseForbidden, 
     JsonResponse
 )
 from django.shortcuts import get_object_or_404, redirect, render
 
+from utils.db import cast_vote, check_has_user_voted
 from utils.helpers import (
     extract_hashtags,
     link_tags_to_post, 
@@ -29,90 +28,8 @@ from core.bulletin.models import Bulletin, Vote
 
 
 
-def epoch_seconds(date):
-    epoch = datetime(1970, 1, 1)
-    min_time = datetime.min.time()
-    td = datetime.combine(date, min_time) - epoch
-    return td.days * 86400 + td.seconds + (float(td.microseconds)/1000000)
 
-def score(ups, downs):
-    return ups + downs
-
-def hot(ups, downs, date):
-    s = score(ups, downs)
-    order = log(max(abs(s), 1), 10)
-    sign = 1 if s > 0 else -1 if s < 0 else 0
-    seconds = epoch_seconds(date) - 1134028003
-    return round(sign * order + seconds / 45000, 7)
-    
-def check_has_user_voted(user, bulletin):
-    try:
-        Vote.objects.get(user=user, bulletin=bulletin)
-        return True
-
-    except Vote.DoesNotExist:
-        return False
-
-def _cast_vote(bulletin, vote_value, vote):
-    gravity = 2
-    vote.has_voted = True
-    # Upvote
-    if vote_value == 1:
-        vote.value = vote_value
-        bulletin.upvotes = bulletin.upvotes + 1
-
-        # Calculate score
-        age = bulletin.date_created
-        score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
-        bulletin.score = bulletin.score + score
-        bulletin.save()
-        vote.save()
-    # Downvote
-    elif vote_value == -1:
-        vote.value = vote_value
-        bulletin.downvotes = bulletin.downvotes + 1
-
-        # Calculate score
-        age = bulletin.date_created
-        score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
-        bulletin.score = bulletin.score - score
-
-        bulletin.save()
-        vote.save()
-    # Cancel vote
-    elif vote_value == 0:
-        # If user previously downvoted the post
-        if vote.value == -1:
-            vote.value = 0
-            bulletin.downvotes = bulletin.downvotes - 1
-
-            # Calculate score
-            age = bulletin.date_created
-            score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
-            bulletin.score = bulletin.score - score
-
-            bulletin.save()
-            vote.save()  
-
-        # If user previously upvoted the post
-        elif vote.value == 1:
-            vote.value = 0
-            bulletin.upvotes = bulletin.upvotes - 1
-            
-            # Calculate score
-            age = bulletin.date_created
-            score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
-            bulletin.score =  bulletin.score - score
-
-            bulletin.save()
-            vote.save()  
-        elif vote.value == 0:
-            pass
-
-    else:
-        return HttpResponseBadRequest()
-
-def cast_vote(request, bulletin_id):
+def user_cast_vote(request, bulletin_id):
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
     else:
@@ -123,7 +40,7 @@ def cast_vote(request, bulletin_id):
         except:
             vote_value = 0
 
-        has_user_voted = check_has_user_voted(request.user, bulletin)
+        has_user_voted = check_has_user_voted(Vote, request.user, bulletin)
 
         if has_user_voted == True:
             vote = Vote.objects.get(
@@ -131,9 +48,9 @@ def cast_vote(request, bulletin_id):
                 bulletin=bulletin
             )
             if vote.value == -1 or vote.value == 1:
-                _cast_vote(bulletin=bulletin, vote_value=0, vote=vote)
+                cast_vote(bulletin=bulletin, vote_value=0, vote=vote)
             elif vote.value == 0:
-                _cast_vote(bulletin=bulletin, vote_value=vote_value, vote=vote)  
+                cast_vote(bulletin=bulletin, vote_value=vote_value, vote=vote)  
 
             return JsonResponse({
                 'score': bulletin.score,
@@ -144,7 +61,7 @@ def cast_vote(request, bulletin_id):
                     user=request.user,
                     bulletin=bulletin
             )
-            _cast_vote(bulletin, vote_value, vote)
+            cast_vote(bulletin, vote_value, vote)
             return JsonResponse(data={
                     'score': bulletin.score,
                     'has_voted': True
@@ -221,7 +138,7 @@ def get_bulletin(request, bulletin_id):
     has_upvoted = False
 
     if request.user.is_authenticated:
-        has_voted = check_has_user_voted(request.user, post)
+        has_voted = check_has_user_voted(Vote, request.user, post)
 
         if has_voted:
             vote = Vote.objects.get(user=request.user, bulletin=post)

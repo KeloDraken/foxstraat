@@ -134,14 +134,16 @@
             
             <div class="vote">
                 <button id="upvote"
-                    data-upvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=1"
+                    data-upvote-url="{% url 'music:cast-vote' song_id=post.object_id %}?vote_value=1"
                     onclick="handleUpvote()"
                     class="btn-flat white {% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
                     thumb_up
                 </button>
-                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.score|shrink_num}}</span>
+                
+                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.upvotes}}</span> | 
+                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.score}}</span>
                 <button id="downvote" onclick="handleDownvote()"
-                    data-downvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=-1"
+                    data-downvote-url="{% url 'music:cast-vote' song_id=post.object_id %}?vote_value=-1"
                     class="btn-flat white {% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
                     thumb_down
                 </button>
@@ -186,4 +188,54 @@
     </div>
 </div>
 {% include 'components/footer.html' %}
+{% endblock %}
+{% block scripts %}
+<script>
+    const handleUpvote = () => {
+        const upvoteBtn = document.getElementById('upvote')
+        const upvoteURL = upvoteBtn.dataset.upvoteUrl;
+
+        var upvoteClasses = upvoteBtn.classList
+        var downvoteClasses = upvoteBtn.classList
+
+        fetch(upvoteURL).then(
+            response => {
+                if (response.status === 200) {
+                    const bulletinScoreURL = upvoteBtn.dataset.scoreUrl;
+                    if (upvoteClasses.contains('black-text')) {
+                        upvoteClasses.remove('black-text')
+                        upvoteClasses.add('grey-text')
+                    } else if (upvoteClasses.contains('grey-text')) {
+                        upvoteClasses.remove('grey-text')
+                        upvoteClasses.add('black-text')
+                    }
+                } else {
+                    return
+                }
+            }
+        )
+    }
+
+    const handleDownvote = () => {
+        const downvoteBtn = document.getElementById('downvote')
+        const downvoteURL = downvoteBtn.dataset.downvoteUrl;
+        fetch(downvoteURL).then(
+            response => {
+                if (response.status === 200) {
+                    const bulletinScoreURL = downvoteBtn.dataset.scoreUrl;
+                    if (downvoteBtn.classList.contains('black-text')) {
+                        downvoteBtn.classList.remove('black-text')
+                        downvoteBtn.classList.add('grey-text')
+                        scoreElement.innerHTML = newScore.toString() + ' score'
+                    } else if (downvoteBtn.classList.contains('grey-text')) {
+                        downvoteBtn.classList.remove('grey-text')
+                        downvoteBtn.classList.add('black-text')
+                    }
+                } else {
+                    return
+                }
+            }
+        )
+    }
+</script>
 {% endblock %}

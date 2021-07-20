@@ -1,13 +1,15 @@
 import calendar
 from datetime import date, datetime
 from math import log
+from utils.db import cast_vote, check_has_user_voted
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http.response import (
     HttpResponseBadRequest, 
-    HttpResponseForbidden
+    HttpResponseForbidden,
+    JsonResponse
 )
 
 from django.shortcuts import (
@@ -20,29 +22,46 @@ from utils.helpers import object_id_generator
 
 from core.forms import FormWithCaptcha
 from core.music.forms import AddSongForm
-from core.music.models import Song
+from core.music.models import Song, VoteSong
 
 
+def user_cast_vote(request, song_id):
+    if not request.user.is_authenticated:
+        return HttpResponseForbidden()
+    else:
+        bulletin = get_object_or_404(Song, object_id=song_id)
+        
+        try:
+            vote_value = int(request.GET.get('vote_value'))
+        except:
+            vote_value = 0
 
-# Reddit hot
-epoch = datetime(1970, 1, 1)
+        has_user_voted = check_has_user_voted(VoteSong, request.user, bulletin)
 
-def epoch_seconds(date):
-    td= date - epoch
-    return td.days * 86400 + td.seconds + (float(td.microseconds)/1000000)
+        if has_user_voted == True:
+            vote = VoteSong.objects.get(
+                user=request.user,
+                bulletin=bulletin
+            )
+            if vote.value == -1 or vote.value == 1:
+                cast_vote(bulletin=bulletin, vote_value=0, vote=vote)
+            elif vote.value == 0:
+                cast_vote(bulletin=bulletin, vote_value=vote_value, vote=vote)  
 
-def score(ups, downs):
-    return ups - downs
-
-def hot(ups, downs, date):
-    s = score(ups, downs)
-    order = log(max(abs(s), 1), 10)
-    sign = 1 if s > 0 else -1 if s < 0 else 0
-    seconds = epoch_seconds(date) - 1134028003
-    return round(sign * order + seconds / 45000, 7) 
-
-    # 
-# Reddit hot
+            return JsonResponse({
+                'score': bulletin.score,
+                'has_voted': True
+            })
+        elif has_user_voted == False:
+            vote = VoteSong.objects.create(
+                    user=request.user,
+                    bulletin=bulletin
+            )
+            cast_vote(bulletin, vote_value, vote)
+            return JsonResponse(data={
+                    'score': bulletin.score,
+                    'has_voted': True
+                })
 
 @login_required
 def add_song(request):
@@ -147,17 +166,33 @@ def add_song(request):
 
 def get_song(request, song_id):
     post = get_object_or_404(Song, object_id=song_id)
-
-    if request.user.is_authenticated:
-        post.upvotes += 1
-        post.score += 1
-        post.save()
-
+    
     more_from_user = Song.objects.filter(
         user=post.user
     ).order_by('?')[:4]
 
+    has_voted = False
+    has_downvoted = False
+    has_upvoted = False
+
+    if request.user.is_authenticated:
+        has_voted = check_has_user_voted(VoteSong, request.user, post)
+
+        if has_voted:
+            vote = VoteSong.objects.get(user=request.user, bulletin=post)
+            if vote.value == -1:
+                has_downvoted = True
+                has_upvoted = False
+            elif vote.value == 1:
+                has_downvoted = False
+                has_upvoted = True
+            else:
+                has_downvoted = False
+                has_upvoted = False
+
     context = {
+        'has_upvoted': has_upvoted,
+        'has_downvoted': has_downvoted,
         'post': post,
         'more_from_user': more_from_user
     }
@@ -244,7 +279,7 @@ def hot_music_chart(request):
     )
 
 def alltime_music_chart(request):
-    songs = Song.objects.all().order_by('-score', '-upvotes')
+    songs = Song.objects.all().order_by('-upvotes')
     paginator = Paginator(songs, 10)
     
     try:
