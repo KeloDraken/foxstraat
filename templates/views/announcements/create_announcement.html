@@ -51,7 +51,7 @@
     </div>
     <br>
     {% endif %}
-    <form id="post_form" method="post" action="{% url 'announcements:create-announcement' %}" enctype="multipart/form-data">
+    <form id="post_form" method="post" action="{% if page == 'product' %}{% url 'announcements:create-product-announcement' %}{% else %}{% url 'announcements:create-announcement' %}{% endif %}">
         {% csrf_token %}
         {% for field in form %}
         {{ field }} <br />

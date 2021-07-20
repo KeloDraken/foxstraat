@@ -14,7 +14,7 @@ from core.accounts.forms import (
     UserRegistrationForm
 )
 from core.accounts.models import User
-from core.announcements.models import Announcement
+from core.announcements.models import Announcement, ProductAnnouncement
 from core.bulletin.models import Bulletin
 from core.music.models import Song
 
@@ -99,9 +99,11 @@ def user_logout(request):
 @login_required
 def user_dashboard(request):
     announcements = Announcement.objects.all().order_by('-datetime_created')
+    product_announcements = ProductAnnouncement.objects.all().order_by('-datetime_created')
     posts = Bulletin.objects.all().exclude(user=request.user).order_by('?')[:3]
     context = {
         'posts': posts,
+        'product_announcements':product_announcements,
         'announcements': announcements,
     }
     return render(request, 'views/dashboard/dashboard.html', context)
