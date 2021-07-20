@@ -196,6 +196,7 @@ def get_song(request, song_id):
         'has_upvoted': has_upvoted,
         'has_downvoted': has_downvoted,
         'post': post,
+        'page': 'song',
         'upvotes': upvotes,
         'more_from_user': more_from_user
     }
