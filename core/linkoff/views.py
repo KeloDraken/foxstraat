@@ -1,6 +1,6 @@
 import calendar
 from datetime import date
-from random import random
+import random
 
 from django.core.paginator import Paginator
 from django.shortcuts import render
