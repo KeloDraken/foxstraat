@@ -26,6 +26,12 @@
         color: #585858;
     }
 
+    .heading {
+        font-size: 4em;
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+
     .song-genre {
         font-size: 1em;
         color: #212121;
@@ -51,18 +57,22 @@
         font-weight: 400;
         margin-top: -1em;
     }
+
     .section-heading {
         text-transform: uppercase;
     }
+
     .about {
         border-top: 2px solid #212121;
         height: 40vh;
         padding-top: 2rem;
     }
+
     .footer-link {
         color: #000000;
         text-decoration: underline;
     }
+
     .text {
         font-size: 1.2em;
         color: #000000;
@@ -75,15 +85,27 @@
 <h3 class="center page-heading">{{heading}}</h3>
 
 <div class="topic-scroll center">
-    <a href="{% url 'music:explore-music' %}" class="topic-pill">Hot 100 list</a>
+    <a href="{% url 'music:explore-music' %}" class="topic-pill">FoxChart</a>
     <a href="{% url 'music:new-music' %}" class="topic-pill">New</a>
     <a href="{% url 'music:hot-music' %}" class="topic-pill">Hot</a>
     <a href="{% url 'music:all-time-music' %}" class="topic-pill">All time</a>
 </div>
 <div class="music-container container">
-    {% for song in page_obj %}
-    {% include 'components/music/song_preview.html' %}
-    {% endfor %}
+    {% if page_obj %}
+        <!-- New songs route -->
+        {% if page == 'new' %}
+            {% for song in page_obj %}
+                {% include 'components/music/song_preview.html' %}
+            {% endfor %}
+        {% else %}
+        <!-- New songs route -->
+            {% for song in page_obj|dictsortreversed:"score" %}
+                {% include 'components/music/song_preview.html' %}
+            {% endfor %}
+        {% endif %}
+    {% else %}
+    <span class="heading">No songs were posted today</span>
+    {% endif %}
 </div>
 <div class="container">
     {% include 'components/infinite_scroll_fetch.html' %}

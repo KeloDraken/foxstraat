@@ -22,6 +22,11 @@
         font-size: 0.9em;
         color: #585858;
     }
+    .heading {
+        font-size: 4em;
+        margin-top: 2rem !important;
+        margin-bottom: 1rem !important;
+    }
     .song-genre{
         font-size: 1em;
         color: #212121;
@@ -44,7 +49,7 @@
     }
     .about {
         border-top: 2px solid #212121;
-        height: 40vh;
+        height: 46vh;
         padding-top: 2rem;
     }
     .footer-link {
@@ -62,9 +67,13 @@
 {% include 'components/navbar.html' %}
 <h3 class="center page-heading">{{genre}}</h3>
 <div class="music-container container">
-    {% for song in page_obj %}
-    {% include 'components/music/song_preview.html' %}
-    {% endfor %}
+    {% if page_obj %}
+        {% for song in page_obj %}
+        {% include 'components/music/song_preview.html' %}
+        {% endfor %}
+    {% else %}
+    <span class="heading">No songs were posted today</span>
+    {% endif %}
 </div>
 <div class="container">
     {% include 'components/infinite_scroll_fetch.html' %}

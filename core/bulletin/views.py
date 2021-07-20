@@ -1,5 +1,6 @@
 import calendar
-import random
+from itertools import chain
+from core.music.models import Song
 from datetime import date
 
 from django.contrib import messages
@@ -9,7 +10,6 @@ from django.core.paginator import Paginator
 
 from django.http.response import (
     Http404,
-    HttpResponse,
     HttpResponseBadRequest, 
     HttpResponseForbidden, 
     JsonResponse
@@ -213,9 +213,9 @@ def get_bulletin(request, bulletin_id):
     )
 
 def frontpage(request):
-    post_objects = Bulletin.objects.all().order_by('-score')
-
-    paginator = Paginator(post_objects, 20)
+    qs = Bulletin.objects.all().order_by('-datetime_created')
+    
+    paginator = Paginator(qs, 20)
     
     try:
         page_number = int(request.GET.get('sida'))

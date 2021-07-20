@@ -1,13 +1,21 @@
 import calendar
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
+from typing import final
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 from django.core.paginator import Paginator
-from django.http.response import HttpResponseBadRequest, HttpResponseForbidden
+from django.db.models import Q
+from django.http.response import (
+    HttpResponseBadRequest, 
+    HttpResponseForbidden
+)
 
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import (
+    get_object_or_404, 
+    redirect, 
+    render
+)
 
 from utils.helpers import object_id_generator
 
@@ -123,6 +131,7 @@ def get_song(request, song_id):
 
     if request.user.is_authenticated:
         post.upvotes += 1
+        post.score += 1
         post.save()
 
     more_from_user = Song.objects.filter(
@@ -140,8 +149,9 @@ def get_song(request, song_id):
     )
 
 def top_music_chart(request):
-    songs = Song.objects.all().order_by('-upvotes')
-    paginator = Paginator(songs, 10)
+    qs = Song.objects.all().order_by('-datetime_created')
+    
+    paginator = Paginator(qs, 10)
 
     try:
         page_number = int(request.GET.get('sida'))
@@ -155,7 +165,7 @@ def top_music_chart(request):
 
     context = {
         'page_obj': page_obj,
-        'heading': f'Foxstraat {weekday} 100',
+        'heading': f'Foxstraat {weekday} chart',
     }
     return render(
         request, 
@@ -180,6 +190,7 @@ def new_music_chart(request):
         add_10 = False
     
     context = {
+        'page': 'new',
         'add_10': add_10,
         'page_obj': page_obj,
         'heading': 'Recent submissions',
@@ -213,7 +224,7 @@ def hot_music_chart(request):
     )
 
 def alltime_music_chart(request):
-    songs = Song.objects.all().order_by('-upvotes')
+    songs = Song.objects.all().order_by('-score', '-upvotes')
     paginator = Paginator(songs, 10)
     
     try:
@@ -234,7 +245,7 @@ def alltime_music_chart(request):
     )
 
 def get_genre(request, genre):
-    songs = Song.objects.filter(genre__icontains=genre).order_by('-upvotes')
+    songs = Song.objects.filter(genre__icontains=genre).order_by('-score')
     paginator = Paginator(songs, 10)
     
     try:
