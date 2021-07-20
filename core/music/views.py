@@ -1,11 +1,10 @@
 import calendar
-from datetime import date, datetime, timedelta, timezone
-from typing import final
+from datetime import date, datetime
+from math import log
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Q
 from django.http.response import (
     HttpResponseBadRequest, 
     HttpResponseForbidden
@@ -20,10 +19,30 @@ from django.shortcuts import (
 from utils.helpers import object_id_generator
 
 from core.forms import FormWithCaptcha
-
 from core.music.forms import AddSongForm
 from core.music.models import Song
 
+
+
+# Reddit hot
+epoch = datetime(1970, 1, 1)
+
+def epoch_seconds(date):
+    td= date - epoch
+    return td.days * 86400 + td.seconds + (float(td.microseconds)/1000000)
+
+def score(ups, downs):
+    return ups - downs
+
+def hot(ups, downs, date):
+    s = score(ups, downs)
+    order = log(max(abs(s), 1), 10)
+    sign = 1 if s > 0 else -1 if s < 0 else 0
+    seconds = epoch_seconds(date) - 1134028003
+    return round(sign * order + seconds / 45000, 7) 
+
+    # 
+# Reddit hot
 
 @login_required
 def add_song(request):
@@ -202,7 +221,8 @@ def new_music_chart(request):
     )
 
 def hot_music_chart(request):
-    songs = Song.objects.all().order_by('-upvotes')
+    songs = Song.objects.all().order_by('-score')
+
     paginator = Paginator(songs, 10)
     
     try:

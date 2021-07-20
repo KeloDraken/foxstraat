@@ -1,7 +1,7 @@
 import calendar
-from itertools import chain
-from core.music.models import Song
-from datetime import date
+import random
+from datetime import date, datetime, timedelta
+from math import log
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -28,6 +28,23 @@ from core.bulletin.forms import CreateBulletinForm
 from core.bulletin.models import Bulletin, Vote
 
 
+
+def epoch_seconds(date):
+    epoch = datetime(1970, 1, 1)
+    min_time = datetime.min.time()
+    td = datetime.combine(date, min_time) - epoch
+    return td.days * 86400 + td.seconds + (float(td.microseconds)/1000000)
+
+def score(ups, downs):
+    return ups + downs
+
+def hot(ups, downs, date):
+    s = score(ups, downs)
+    order = log(max(abs(s), 1), 10)
+    sign = 1 if s > 0 else -1 if s < 0 else 0
+    seconds = epoch_seconds(date) - 1134028003
+    return round(sign * order + seconds / 45000, 7)
+    
 def check_has_user_voted(user, bulletin):
     try:
         Vote.objects.get(user=user, bulletin=bulletin)
@@ -37,19 +54,29 @@ def check_has_user_voted(user, bulletin):
         return False
 
 def _cast_vote(bulletin, vote_value, vote):
+    gravity = 2
     vote.has_voted = True
     # Upvote
     if vote_value == 1:
         vote.value = vote_value
         bulletin.upvotes = bulletin.upvotes + 1
-        bulletin.score = bulletin.score + 1
+
+        # Calculate score
+        age = bulletin.date_created
+        score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
+        bulletin.score = bulletin.score + score
         bulletin.save()
         vote.save()
     # Downvote
     elif vote_value == -1:
         vote.value = vote_value
         bulletin.downvotes = bulletin.downvotes + 1
-        bulletin.score = bulletin.score - 1
+
+        # Calculate score
+        age = bulletin.date_created
+        score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
+        bulletin.score = bulletin.score - score
+
         bulletin.save()
         vote.save()
     # Cancel vote
@@ -58,7 +85,12 @@ def _cast_vote(bulletin, vote_value, vote):
         if vote.value == -1:
             vote.value = 0
             bulletin.downvotes = bulletin.downvotes - 1
-            bulletin.score = bulletin.score + 1
+
+            # Calculate score
+            age = bulletin.date_created
+            score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
+            bulletin.score = bulletin.score - score
+
             bulletin.save()
             vote.save()  
 
@@ -66,7 +98,12 @@ def _cast_vote(bulletin, vote_value, vote):
         elif vote.value == 1:
             vote.value = 0
             bulletin.upvotes = bulletin.upvotes - 1
-            bulletin.score = bulletin.score - 1
+            
+            # Calculate score
+            age = bulletin.date_created
+            score = hot(ups=bulletin.upvotes, downs=bulletin.downvotes, date=age)
+            bulletin.score =  bulletin.score - score
+
             bulletin.save()
             vote.save()  
         elif vote.value == 0:
@@ -226,8 +263,9 @@ def frontpage(request):
 
     current_date = date.today()
     weekday = calendar.day_name[current_date.weekday()]
-
+    score = round(random.randint(-1000,1000)/55)
     context = {
+        'score': score,
         'heading': f'Explore {weekday}\'s photos',
         'page_obj': page_obj
     }
