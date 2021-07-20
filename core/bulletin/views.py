@@ -27,8 +27,6 @@ from core.bulletin.forms import CreateBulletinForm
 from core.bulletin.models import Bulletin, Vote
 
 
-
-
 def user_cast_vote(request, bulletin_id):
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
@@ -152,12 +150,12 @@ def get_bulletin(request, bulletin_id):
                 has_downvoted = False
                 has_upvoted = False
 
-
+    upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
     context = {
         'has_upvoted': has_upvoted,
         'has_downvoted': has_downvoted,
         'post': post,
-        'upvotes': post.score,
+        'upvotes': upvotes,
         'more_from_user': more_from_user
     }
     return render(

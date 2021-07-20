@@ -1,7 +1,6 @@
 import calendar
-from datetime import date, datetime
-from math import log
-from utils.db import cast_vote, check_has_user_voted
+from datetime import date
+import random
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -18,6 +17,7 @@ from django.shortcuts import (
     render
 )
 
+from utils.db import cast_vote, check_has_user_voted
 from utils.helpers import object_id_generator
 
 from core.forms import FormWithCaptcha
@@ -189,11 +189,14 @@ def get_song(request, song_id):
             else:
                 has_downvoted = False
                 has_upvoted = False
+                
+    upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
 
     context = {
         'has_upvoted': has_upvoted,
         'has_downvoted': has_downvoted,
         'post': post,
+        'upvotes': upvotes,
         'more_from_user': more_from_user
     }
     return render(

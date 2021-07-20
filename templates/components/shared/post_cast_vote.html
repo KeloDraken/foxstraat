@@ -5,8 +5,7 @@
         class="btn-flat white {% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
         thumb_up
     </button>
-    <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.upvotes}}</span> | 
-    <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.score}}</span>
+    <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{upvotes}}</span>
     <button id="downvote" onclick="handleDownvote()"
         data-downvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=-1"
         class="btn-flat white {% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
