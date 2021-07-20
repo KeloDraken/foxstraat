@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% load url_target_blank %}
 
 {% block title %}{{post.user.display_name}} - {{ post.title }}{% endblock %}
@@ -47,6 +48,7 @@
 
     .post-genre {
         margin-top: 0px !important;
+        margin-bottom: 0px !important;
     }
 
     .song-genre {
@@ -74,6 +76,9 @@
 
     .links {
         margin-top: 1rem;
+    }
+    .time {
+        font-size: 1.2em;
     }
 </style>
 <style>
@@ -114,17 +119,35 @@
             {% if post.user.is_active %}
             <a title="{{ post.user.display_name }}" class="post-author"
                 href="{% url 'get-user-songs' username=post.user.username %}">
-                {{ post.artists }}
+                {{ post.artists }} | 
             </a>
             {% else %}
             <a class="post-author">
-                [deleted]
+                [deleted] | 
             </a>
             {% endif %}
+            <span class="time">{{post.datetime_created|naturaltime}}</span>
             <p class="post-genre">
                 <a href="{% url 'music:get-genre' genre=post.genre %}" class="song-genre">{{ post.genre }}</a>
             </p>
 
+            
+            <div class="vote">
+                <button id="upvote"
+                    data-upvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=1"
+                    onclick="handleUpvote()"
+                    class="btn-flat white {% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
+                    thumb_up
+                </button>
+                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.score|shrink_num}}</span>
+                <button id="downvote" onclick="handleDownvote()"
+                    data-downvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=-1"
+                    class="btn-flat white {% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
+                    thumb_down
+                </button>
+                <br>
+            </div>
+            
             <div class="links">
                 {% if post.spotify %}
                 <a href="{{ post.spotify }}" target="_blank" class="btn btn-medium black green-text">Spotify</a>

@@ -37,7 +37,7 @@
 
     .section-images {
         object-fit: cover;
-        width: 180px;
+        width: 190px;
         height: 140px;
     }
 
@@ -75,6 +75,9 @@
 
     .links {
         margin-top: 1rem;
+    }
+    .time {
+        font-size: 1.1em;
     }
 </style>
 <style>
@@ -118,14 +121,15 @@
             {% if post.user.is_active %}
             <a title="{{ post.user.display_name }}" class="post-author"
                 href="{% url 'get-user-profile' username=post.user.username %}">
-                {{ post.user.display_name }}
+                {{ post.user.display_name }} | 
             </a>
             {% else %}
             <a class="post-author">
-                [deleted]
+                [deleted] | 
             </a>
             {% endif %}
 
+            <span class="time">{{post.datetime_created|naturaltime}}</span>
             <div class="vote">
                 <button id="upvote"
                     data-upvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=1"
@@ -133,15 +137,13 @@
                     class="btn-flat white {% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
                     thumb_up
                 </button>
-                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.score|shrink_num}} s</span>
-                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.upvotes|shrink_num}} uv</span>
-                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.downvotes|shrink_num}} dv</span>
-                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.datetime_created|timesince}}</span>
+                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.score|shrink_num}}</span>
                 <button id="downvote" onclick="handleDownvote()"
                     data-downvote-url="{% url 'bulletin:cast-vote' bulletin_id=post.object_id %}?vote_value=-1"
                     class="btn-flat white {% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
                     thumb_down
                 </button>
+                <br>
             </div>
             <pre class="post-caption">{{post.caption}}</pre>
             <!-- More from user -->
