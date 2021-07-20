@@ -101,8 +101,8 @@
     </form>
 
     <div class="result">
-        {% if not results|length == 0 %}
-        {% for result in results %}
+        {% if not page_obj|length == 0 %}
+        {% for result in page_obj %}
         <a class="user-link"
             href="{% url 'get-user-profile' username=result.username %}">https://foxstraat.com >
             {{result.username}}</a><br>
@@ -115,6 +115,8 @@
         {% endif %}
     </div>
     
+    {% include 'components/infinite_scroll_fetch.html' %}
+
 </div>
 {% include 'components/footer.html' %}
 {% endblock %}
