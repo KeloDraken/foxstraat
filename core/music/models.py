@@ -36,6 +36,7 @@ class Song(models.Model):
         # Dance
         ('Dance','Dance'),
         ('House music','House music'),
+        ('Deep house','Deep house'),
         
         # Classical
         ('Opera','Opera'),

@@ -131,24 +131,7 @@
                 <a href="{% url 'music:get-genre' genre=post.genre %}" class="song-genre">{{ post.genre }}</a>
             </p>
 
-            
-            <div class="vote">
-                <button id="upvote"
-                    data-upvote-url="{% url 'music:cast-vote' song_id=post.object_id %}?vote_value=1"
-                    onclick="handleUpvote()"
-                    class="btn-flat white {% if has_upvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
-                    thumb_up
-                </button>
-                
-                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.upvotes}}</span> | 
-                <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{post.score}}</span>
-                <button id="downvote" onclick="handleDownvote()"
-                    data-downvote-url="{% url 'music:cast-vote' song_id=post.object_id %}?vote_value=-1"
-                    class="btn-flat white {% if has_downvoted %}grey-text{% else %}black-text{% endif %} material-icons-outlined">
-                    thumb_down
-                </button>
-                <br>
-            </div>
+            {% include 'components/shared/post_cast_vote.html' %}
             
             <div class="links">
                 {% if post.spotify %}
