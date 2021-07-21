@@ -55,9 +55,6 @@ urlpatterns = [
     # Topics urls
     path('b/', include('core.forums.urls', namespace='forums')),
 
-    # Links urls
-    path('l/', include('core.linkoff.urls', namespace='links')),
-
     # Announcements urls
     path('n/', include('core.announcements.urls', namespace='announcements')),
 
