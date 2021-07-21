@@ -42,7 +42,7 @@ def about(request):
 def terms(request):
     news_ = Terms.objects.all()
     context = {
-        'heading': 'Foxstraat News',
+        'heading': 'Terms of Service',
         'news': news_
     }
     return render(request, 'views/blog/news.html', context)
@@ -50,7 +50,7 @@ def terms(request):
 def privacy(request):
     news_ = Privacy.objects.all()
     context = {
-        'heading': 'Foxstraat News',
+        'heading': 'Privacy Policy',
         'news': news_
     }
     return render(request, 'views/blog/news.html', context)
@@ -58,7 +58,7 @@ def privacy(request):
 def rules(request):
     news_ = Rules.objects.all()
     context = {
-        'heading': 'Foxstraat News',
+        'heading': 'Foxstraat Rules',
         'news': news_
     }
     return render(request, 'views/blog/news.html', context)
