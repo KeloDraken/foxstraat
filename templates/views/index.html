@@ -13,6 +13,10 @@
         color: rgb(24, 24, 24) !important;
     }
 
+    body {
+        background-image: linear-gradient(to bottom, #fff, #2296F3, #2296F3, #2296F3, #2296F3);
+    }
+
     nav {
         border-bottom: 2px solid #212121;
     }
@@ -41,9 +45,12 @@
     }
 
     .about {
-        border-top: 2px solid #212121;
         height: 72vh;
         padding-top: 2rem;
+    }
+
+    .bt {
+        border-top: 2px solid #212121;
     }
 
     .join {
@@ -59,6 +66,9 @@
     .text {
         font-size: 2em;
         color: #000000;
+    }
+    .yellow-text {
+        color: rgb(255, 251, 0) !important;
     }
 
     .form-input {
@@ -111,7 +121,7 @@
 
 <!-- banner begins -->
 <section class="container center banner">
-    <h1 class=" black-text heading">Build a custom profile and share your art</h1>
+    <h1 class="black-text heading">Build a custom profile and share your art</h1>
     <p class="subheading black-text">A platform for small bands and artists to find a new audience</p>
     {% if not request.user.is_authenticated %}
     <a href="{% url 'accounts:user-register' %}" class="btn btn-large waves-effect waves-light black join">Get
@@ -139,9 +149,9 @@
     </div>
 </section>
 
-<section id="feedback_" class="yellow about">
+<section id="feedback_" class="purple darken-3 bt about">
     <div class="container">
-        <p class="text center section-heading">
+        <p class="yellow-text text center section-heading">
             Give us feedback or suggestions
         </p>
         <form method="post" action="{% url 'about' %}" class="center">
