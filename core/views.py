@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from utils.helpers import object_id_generator, ref_from_url
-from core.models import Feedback, News
+from core.models import Feedback, News, Privacy, Rules, Terms
 
 
 def add_feedback(request):
@@ -30,6 +30,7 @@ def index(request):
 def news(request):
     news_ = News.objects.all().order_by('-datetime_created')
     context = {
+        'heading': 'Foxstraat News',
         'news': news_
     }
     return render(request, 'views/blog/news.html', context)
@@ -37,3 +38,27 @@ def news(request):
 def about(request):
     add_feedback(request)
     return render(request, 'views/index.html')
+
+def terms(request):
+    news_ = Terms.objects.all()
+    context = {
+        'heading': 'Foxstraat News',
+        'news': news_
+    }
+    return render(request, 'views/blog/news.html', context)
+
+def privacy(request):
+    news_ = Privacy.objects.all()
+    context = {
+        'heading': 'Foxstraat News',
+        'news': news_
+    }
+    return render(request, 'views/blog/news.html', context)
+
+def rules(request):
+    news_ = Rules.objects.all()
+    context = {
+        'heading': 'Foxstraat News',
+        'news': news_
+    }
+    return render(request, 'views/blog/news.html', context)

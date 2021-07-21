@@ -27,7 +27,14 @@ from core.accounts.views import (
     get_user_songs,
 )
 
-from core.views import about, index, news
+from core.views import (
+    about, 
+    index, 
+    news, 
+    privacy, 
+    rules, 
+    terms
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -35,10 +42,16 @@ urlpatterns = [
     path('', index, name='index'),
     path('about/', about, name='about'),
     path('news/', news, name='news'),
+    
     path('robots.txt', TemplateView.as_view(
         template_name='robots.txt',
         content_type='text/plain'
     )),
+
+    # Legal
+    path('privacy/', privacy, name='privacy'),
+    path('rules/', rules, name='rules'),
+    path('terms/', terms, name='terms'),
 
     # Blogs urls
     path('blog/', include('core.blog.urls', namespace='blog')),
