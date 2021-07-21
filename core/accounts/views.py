@@ -120,7 +120,7 @@ def get_user_profile(request, username):
         except:
             page_number = 1
 
-        paginator = Paginator(posts, 3)
+        paginator = Paginator(posts, 15)
         page_obj = paginator.get_page(page_number)
 
         context = {
@@ -142,7 +142,7 @@ def get_user_songs(request, username):
             except:
                 page_number = 1
 
-            paginator = Paginator(songs, 3)
+            paginator = Paginator(songs, 15)
             page_obj = paginator.get_page(page_number)
             
             context = {
