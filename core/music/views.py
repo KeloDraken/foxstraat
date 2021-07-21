@@ -207,7 +207,7 @@ def get_song(request, song_id):
     )
 
 def top_music_chart(request):
-    qs = Song.objects.all().order_by('-datetime_created')
+    qs = Song.objects.all().order_by('-score')
     
     paginator = Paginator(qs, 10)
 
@@ -223,6 +223,7 @@ def top_music_chart(request):
 
     context = {
         'page_obj': page_obj,
+        'page': 'top',
         'heading': f'Foxstraat {weekday} chart',
     }
     return render(
@@ -260,7 +261,7 @@ def new_music_chart(request):
     )
 
 def hot_music_chart(request):
-    songs = Song.objects.all().order_by('-score')
+    songs = Song.objects.all().order_by('-datetime_created')
 
     paginator = Paginator(songs, 10)
     
