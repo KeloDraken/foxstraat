@@ -1,3 +1,5 @@
+{% load url_target_blank %}
+
 {% if request.user.is_authenticated %}
 <div class="vote">
     <button id="upvote"
@@ -19,7 +21,7 @@
     <a href="{% url 'accounts:user-register' %}"  class="btn-flat white black-text material-icons-outlined">
         thumb_up
     </a>
-    <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{upvotes}}</span>
+    <span data-bulletin-score="{{upvotes}}" id="score" class="song-genre">{{upvotes|shrink_num}}</span>
     <a href="{% url 'accounts:user-register' %}" class="btn-flat white black-text material-icons-outlined">
         thumb_down
     </a>
