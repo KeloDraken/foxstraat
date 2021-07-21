@@ -7,6 +7,7 @@ from django.http.response import Http404
 
 from django.shortcuts import get_object_or_404, redirect, render
 
+from utils.helpers import forbidden_attributes
 from core.forms import FormWithCaptcha
 
 from core.accounts.forms import (
@@ -137,88 +138,92 @@ def get_user_songs(request, username):
     else:
         return redirect('get-user-profile', username=username)
 
+def save_profile(request, custom_styles):
+    """
+    Continues to save other fields in Edit Profile
+    """
+    user = request.user
+
+    if request.FILES.get('profile_pic'):
+        user.profile_pic = request.FILES.get('profile_pic')
+        
+    bio = request.POST['about_me']
+
+    if len(bio) > 220:
+        messages.error(
+                request, 
+                'Your bio is too long. Please keep it at 220 characters of less'
+            )
+    else:
+        user.bio = bio
+
+    is_artist = request.POST.get('is_artist')
+    if is_artist == 'on':
+        user.is_artist = True
+    else:
+        pass
+
+    is_blogger = request.POST.get('is_blogger')
+    if is_blogger == 'on':
+        user.is_blogger = True
+    else:
+        pass
+        
+    display_name = request.POST['display_name']
+    if not len(display_name) <= 0 and not display_name == None:
+        user.display_name = display_name
+    else:
+        pass
+
+    instagram = request.POST['instagram']
+    if not len(instagram) <= 0 and not instagram == None:
+        user.instagram = instagram
+    else:
+        user.instagram = None
+
+    twitter = request.POST['twitter']
+    if not len(twitter) <= 0 and not twitter == None:
+        user.twitter = twitter
+    else:
+        user.twitter = None
+
+    website = request.POST['website']
+    if not len(website) <= 0 and not website == None:
+        user.website = website
+    else:
+        user.website = None
+
+    if not len(custom_styles) <= 0 and not custom_styles == None:
+        user.custom_styles = custom_styles
+    else:
+        user.custom_styles = None
+
+    user.save()
+    messages.success(request, 'Profile successfully updated')
+
 @login_required
 def edit_user_profile(request):
     if request.method == 'POST':
         custom_styles = request.POST['custom_styles']
         
-        if '<script>' in custom_styles \
-        or '</script>' in custom_styles \
-        or '<SCRIPT>' in custom_styles \
-        or '</SCRIPT>' in custom_styles :
-            context = {
-                'user': request.user,
-            }
-            messages.error(
-                request, 
-                '''
-                Only css is allowed.
-                Your account has been placed on a watchlist. 
-                Continued use of non-css code will result in a 
-                permanent ban from Foxstraat.
-                '''
-            )
-            return render(request, 'views/accounts/edit_profile.html', context)
-        else:
-            user = request.user
-
-            if request.FILES.get('profile_pic'):
-                user.profile_pic = request.FILES.get('profile_pic')
-            
-            bio = request.POST['about_me']
-
-            if len(bio) > 220:
+        forbidden = forbidden_attributes()
+        for i in forbidden:
+            if i in custom_styles.lower():
+                context = {
+                    'user': request.user,
+                }
                 messages.error(
                     request, 
-                    'Your bio is too long. Please keep it at 220 characters of less'
+                    '''
+                    Only css is allowed.
+                    Continued use of non-css code could result 
+                    in a permanent ban from Foxstraat.
+                    '''
                 )
-            else:
-                user.bio = bio
-
-            is_artist = request.POST.get('is_artist')
-            if is_artist == 'on':
-                user.is_artist = True
-            else:
-                pass
-
-            is_blogger = request.POST.get('is_blogger')
-            if is_blogger == 'on':
-                user.is_blogger = True
-            else:
-                pass
-            
-            display_name = request.POST['display_name']
-            if not len(display_name) <= 0 and not display_name == None:
-                user.display_name = display_name
-            else:
-                pass
-
-            instagram = request.POST['instagram']
-            if not len(instagram) <= 0 and not instagram == None:
-                user.instagram = instagram
-            else:
-                user.instagram = None
-
-            twitter = request.POST['twitter']
-            if not len(twitter) <= 0 and not twitter == None:
-                user.twitter = twitter
-            else:
-                user.twitter = None
-
-            website = request.POST['website']
-            if not len(website) <= 0 and not website == None:
-                user.website = website
-            else:
-                user.website = None
-
-            if not len(custom_styles) <= 0 and not custom_styles == None:
-                user.custom_styles = custom_styles
-            else:
-                user.custom_styles = None
-
-            user.save()
-            messages.success(request, 'Profile successfully updated')
-        
+                return render(request, 'views/accounts/edit_profile.html', context)
+    
+        save_profile(request, custom_styles)
+    
     context = {
         'user': request.user,
     }

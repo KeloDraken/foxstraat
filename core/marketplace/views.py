@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import Http404
 from django.shortcuts import redirect, render
 
-from utils.helpers import object_id_generator
+from utils.helpers import forbidden_attributes, object_id_generator
 
 from core.accounts.models import User
 from core.marketplace.models import Template
@@ -64,21 +64,26 @@ def add_listing(request):
             return redirect('marketplace:add-listing')
         
         try:
-            template = request.POST.get('template')         
-            if '<script>' in template \
-            or '</script>' in template \
-            or '<SCRIPT>' in template \
-            or '</SCRIPT>' in template :
-                messages.error(
-                    request, 
-                    '''
-                    Only css is allowed.
-                    Continued use of non-css code will result in a 
-                    permanent ban from Foxstraat.
-                    '''
-                )
+            template = request.POST.get('template')
+
+            if not template == None and not len(template) <= 0:         
+                forbidden = forbidden_attributes()
+                for i in forbidden:
+                    if i in template.lower():
+                        messages.error(
+                            request, 
+                            '''
+                            Only css is allowed.
+                            Continued use of non-css code will result in a 
+                            permanent ban from Foxstraat.
+                            '''
+                        )
+                        return redirect('marketplace:add-listing')
+            else:
+                messages.error(request,    
+                'Couldn\'t add listing because of a CSS error')
                 return redirect('marketplace:add-listing')
-            
+
         except:
             messages.error(request,    
                 'Couldn\'t add listing because of a CSS error')
@@ -163,16 +168,29 @@ def view_listing(request, listing_id):
 @login_required
 def buy_template(request, listing_id):
     if request.method == 'POST':
-        try:
-            styles = request.POST.get('template')
-        except:
+        styles = request.POST.get('template')
+        if not styles == None and not len(styles) == 0:
+            forbidden = forbidden_attributes()
+            for i in forbidden:
+                if i in styles.lower():
+                    messages.error(
+                        request, 
+                        '''
+                        This template may contain some malicious code. As such, 
+                        we have prevented the styles from being applied to your
+                        profile.
+                        '''
+                    )
+                    return redirect('accounts:user-dashboard')
+        
+            request.user.custom_styles = styles
+            request.user.save()
+            messages.success(request, 'Template has been applied to your profile')
+            return redirect('get-user-profile', username=request.user.username)
+        else:
             messages.error(request, 'Couldn\'t apply styles')
-
-        request.user.custom_styles = styles
-        request.user.save()
-        messages.success(request, 'Template has been applied to your profile')
-        return redirect('get-user-profile', username=request.user.username)
-    
+            return redirect('accounts:user-dashboard')
+        
     else:
         try:
             template = Template.objects.get(object_id=listing_id)
