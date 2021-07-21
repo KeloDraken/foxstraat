@@ -114,9 +114,17 @@ def get_user_profile(request, username):
 
     if user.is_active:
         posts = Bulletin.objects.filter(user=user).order_by('-datetime_created')
+        
+        try:
+            page_number = int(request.GET.get('sida'))
+        except:
+            page_number = 1
+
+        paginator = Paginator(posts, 3)
+        page_obj = paginator.get_page(page_number)
 
         context = {
-            'posts': posts,
+            'page_obj': page_obj,
             'user': user
         }
         return render(request, 'views/accounts/user_profile.html', context)
@@ -128,9 +136,18 @@ def get_user_songs(request, username):
     if user.is_artist:
         if user.is_active:
             songs = Song.objects.filter(user=user).order_by('-datetime_created')
+            
+            try:
+                page_number = int(request.GET.get('sida'))
+            except:
+                page_number = 1
+
+            paginator = Paginator(songs, 3)
+            page_obj = paginator.get_page(page_number)
+            
             context = {
                 'page': 'songs',
-                'posts': songs,
+                'page_obj': page_obj,
                 'user': user
             }
             return render(request, 'views/accounts/user_profile.html', context)

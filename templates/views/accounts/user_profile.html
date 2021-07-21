@@ -93,14 +93,14 @@
                     {% include 'components/accounts/user_advanced_details.html' %}
                 </div>
             </div>
-            {% if posts %}
+            {% if page_obj %}
             <div class="col-9">
                 <div class="grid">
                     <div class="grid-col grid-col--1"></div>
                     <div class="grid-col grid-col--2"></div>
                     <div class="grid-col grid-col--3"></div>
 
-                    {% for post in posts %}
+                    {% for post in page_obj %}
                         {% if not page == 'songs' %}
                             <div class="grid-item">
                                 <a title="{{ post.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
