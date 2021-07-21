@@ -169,20 +169,17 @@ def view_listing(request, listing_id):
 def buy_template(request, listing_id):
     if request.method == 'POST':
         styles = request.POST.get('template')
-        if not styles == None and not len(styles) == 0:
+        if not styles == None and not len(styles) <= 0:
             forbidden = forbidden_attributes()
             for i in forbidden:
                 if i in styles.lower():
-                    messages.error(
-                        request, 
-                        '''
-                        This template may contain some malicious code. As such, 
-                        we have prevented the styles from being applied to your
-                        profile.
-                        '''
-                    )
+                    messages.error(request, 
+                    '''
+                        This template potentially contains malicious code. 
+                        As a safety precaution, it has not been applied to your profile.
+                    ''')
                     return redirect('accounts:user-dashboard')
-        
+                
             request.user.custom_styles = styles
             request.user.save()
             messages.success(request, 'Template has been applied to your profile')
@@ -200,8 +197,8 @@ def buy_template(request, listing_id):
         if request.user.gelt < template.price:
             messages.error(
                 request, 
-                'You don\'t have enough gelt to buy this template.\
-                    You can earn gelt by posting and browsing Foxstraat \
+                'You don\'t have enough gelt to buy this template. \
+                You can earn gelt by posting and browsing Foxstraat \
                 or by selling your own templates'
             )
             return redirect('marketplace:view-listing', listing_id=listing_id)
@@ -217,7 +214,8 @@ def buy_template(request, listing_id):
             request, 
             'You\'ve successfully bought access to this template. \
             Copy the CSS into the Customise Profile section of \
-            the edit profile page or click Apply Styles')
+            the edit profile page or click Apply Styles'
+        )
         context = {
             'template': template
         }
