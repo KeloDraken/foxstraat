@@ -129,10 +129,11 @@ def get_user_songs(request, username):
         if user.is_active:
             songs = Song.objects.filter(user=user).order_by('-datetime_created')
             context = {
+                'page': 'songs',
                 'posts': songs,
                 'user': user
             }
-            return render(request, 'views/accounts/user_songs.html', context)
+            return render(request, 'views/accounts/user_profile.html', context)
         else:
             raise Http404
     else:

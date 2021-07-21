@@ -6,7 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if page == 'songs' %}
+    <title>Foxstraat - {{user.display_name}} Music</title>
+    {% else %}
     <title>Foxstraat - {{user.display_name}}</title>
+    {% endif %}
     <!-- <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap-grid.min.css"
         integrity="sha512-LLxZHu50SXdFJdAzHmDJAoLaozhTB4BYZPoN+xdTRjiPmPhI+1mEJXdoHHiDWmd/jj/9x10pkd8mYGG9sqfPPA=="
@@ -97,12 +101,22 @@
                     <div class="grid-col grid-col--3"></div>
 
                     {% for post in posts %}
-                    <div class="grid-item">
-                        <a title="{{ post.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
-                            <img class="post-image" src="{{ post.image.url }}" alt="Post cover image">
-                        </a>
-                    </div>
+                        {% if not page == 'songs' %}
+                            <div class="grid-item">
+                                <a title="{{ post.title }}" href="{% url 'bulletin:get-bulletin' bulletin_id=post.object_id %}">
+                                    <img class="post-image" src="{{ post.image.url }}" alt="Post cover image">
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="grid-item">
+                                <a title="{{ post.title }}"
+                                    href="{% url 'music:get-song' song_id=post.object_id %}">
+                                    <img class="post-image" src="{{ post.cover_art.url }}" alt="Song cover art">
+                                </a>
+                            </div>
+                        {% endif %}
                     {% endfor %}
+                    
                 </div>
             </div>
             {% else %}
