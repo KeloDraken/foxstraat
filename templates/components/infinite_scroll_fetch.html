@@ -8,7 +8,7 @@
 
 <div class="pagination center">
     {% if page_obj.has_previous %}
-    <a class="btn-flat blue-text white material-icons-outlined" href="?sida={{ page_obj.previous_page_number }}&{% if page == 'search'%}q={{ query }}{% endif %}">
+    <a class="btn-flat blue-text white material-icons-outlined" href="?sida={{ page_obj.previous_page_number }}{% if page == 'search'%}&q={{ query }}{% endif %}">
         arrow_back_ios
     </a>
     {% else %}
@@ -24,7 +24,7 @@
     </span>
 
     {% if page_obj.has_next %}
-    <a class="btn-flat blue-text white material-icons-outlined" href="?sida={{ page_obj.next_page_number }}&{% if page == 'search'%}q={{ query }}{% endif %}">
+    <a class="btn-flat blue-text white material-icons-outlined" href="?sida={{ page_obj.next_page_number }}{% if page == 'search'%}&q={{ query }}{% endif %}">
         arrow_forward_ios
     </a>
     {% else %}
