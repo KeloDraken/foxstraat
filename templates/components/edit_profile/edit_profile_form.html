@@ -23,7 +23,7 @@
         <h5 class="black-text">Upload new profile picture</h5>
         <br>
         <input type="file" accept="image/jpeg, image/png" placeholder="Upload new profile pic" name="profile_pic"
-        id="profile_pic">
+            id="profile_pic">
         <br><br>
         {% if not request.user.is_artist %}
         <p>
@@ -46,7 +46,7 @@
         <h5 class="black-text">Display name</h5>
         <input type="text" value="{% if user.display_name %}{{ user.display_name }}{% endif %}" class="form-input"
             name="display_name" id="display_name" placeholder="Display name" />
-            <br>
+        <br>
         <h5 class="black-text">Social handles</h5>
         <input type="text" value="{% if user.instagram %}{{ user.instagram }}{% endif %}" class="form-input"
             name="instagram" id="instagram" placeholder="Instagram" maxlength="60" />
@@ -73,5 +73,7 @@
     </div>
     <!-- about me ends -->
     <br>
-    <button class="btn btn-large submit-btn waves-effect waves-light black" type="submit">Save changes</button>
+    <div class="center">
+        <button class="btn btn-large submit-btn waves-effect waves-light black" type="submit">Save changes</button>
+    </div>
 </form>
