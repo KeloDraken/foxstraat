@@ -14,7 +14,7 @@
     }
 
     body {
-        background-image: linear-gradient(to bottom, #fff, #2296F3, #2296F3, #2296F3, #2296F3);
+        background-image: linear-gradient(to bottom,rgb(30, 255, 0), #2296F3, #2296F3, #2296F3, #2296F3);
     }
 
     nav {
@@ -45,6 +45,18 @@
     }
 
     .about {
+        background-image: linear-gradient(to bottom,#2296F3 , #2296F3, #2296F3, #6D429A);
+        height: 72vh;
+        padding-top: 2rem;
+    }
+    .feedback {
+        background-image: linear-gradient(to bottom,#6D429A , #6D429A,#6D429A, #6D429A);
+        height: 72vh;
+        padding-top: 2rem;
+    }
+
+    .footer {
+        background-image: linear-gradient(to bottom,#6D429A , #cbb224,#cbb224, #cbb224);
         height: 72vh;
         padding-top: 2rem;
     }
@@ -121,7 +133,7 @@
 
 <!-- banner begins -->
 <section class="container center banner">
-    <h1 class="black-text heading">Build a custom profile and share your art</h1>
+    <h1 class="heading black-text">Build a custom profile and share your art</h1>
     <p class="subheading black-text">A platform for small bands and artists to find a new audience</p>
     {% if not request.user.is_authenticated %}
     <a href="{% url 'accounts:user-register' %}" class="btn btn-large waves-effect waves-light black join">Get
@@ -149,7 +161,7 @@
     </div>
 </section>
 
-<section id="feedback_" class="purple darken-3 about">
+<section id="feedback_" class="purple darken-3 feedback">
     <div class="container">
         <p class="yellow-text text center section-heading">
             Give us feedback or suggestions
