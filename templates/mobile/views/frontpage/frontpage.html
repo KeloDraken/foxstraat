@@ -1,7 +1,47 @@
 {% extends 'mobile/base.html' %}
-{% block title %}Foxstraat - Frontpage{% endblock %}
+{% load static %}
+
+{% block title %}Foxstraat - Explore{% endblock %}
+
+{% block styles %}
+<style>
+    .post-image {
+        width: 100%;
+        border-radius: 2px;
+        margin-bottom: 1em;
+    }
+
+    .post-author {
+        margin: 0.2em 0.5em;
+        margin-bottom: 1rem !important;
+        margin-top: -1rem !important;
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #212121;
+    }
+
+    .explore {
+        margin-top: 4.5rem;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
 {% include 'mobile/components/navbar.html' %}
-<h1>This si sthe Frontpage</h1>
+
+<div class="container explore">
+    <h3 class="center page-heading">{{heading}}</h3>
+
+    <div class="infinite-container">
+        {% for post in page_obj|dictsortreversed:"score" %}
+        <div class="grid-item infinite-item">
+            <span class="post-author">{{post.user}}</span>
+            {% if post.image %}
+            <img class="post-image" src="{{ post.image.url }}" alt="Post cover image" />
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% include 'components/infinite_scroll_fetch.html' %}
+</div>
 {% endblock %}
