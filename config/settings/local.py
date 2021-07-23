@@ -17,7 +17,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'foxstraat.com'
 ]
-
+ 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
         "default": {
