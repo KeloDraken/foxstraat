@@ -22,10 +22,8 @@ def add_feedback(request):
 
 def index(request):
     ref_from_url(request)
-
-    is_mobile_ = is_mobile(request)
     
-    if not is_mobile_:
+    if not is_mobile(request):
         if request.user.is_authenticated:
             return redirect('accounts:user-dashboard')
         else:
@@ -42,8 +40,11 @@ def news(request):
     return render(request, 'views/blog/news.html', context)
 
 def about(request):
-    add_feedback(request)
-    return render(request, 'views/index.html', context={'page': 'about'})
+    if not is_mobile(request):
+        add_feedback(request)
+        return render(request, 'views/index.html', context={'page': 'about'})
+    else:
+        return render(request, 'mobile/views/about.html')
 
 def terms(request):
     news_ = Terms.objects.all()

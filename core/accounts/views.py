@@ -7,7 +7,7 @@ from django.http.response import Http404
 
 from django.shortcuts import get_object_or_404, redirect, render
 
-from utils.helpers import forbidden_attributes
+from utils.helpers import forbidden_attributes, is_mobile
 from core.forms import FormWithCaptcha
 
 from core.accounts.forms import (
@@ -31,58 +31,64 @@ def explore_users(request):
 
     page_obj = paginator.get_page(page_number)
     
-    context = {
-        'heading': 'Cool new people',
-        'page_obj': page_obj
-    }
-    return render(request, 'views/frontpage/explore_users.html', context)
+    if not is_mobile(request):
+        context = {
+            'heading': 'Cool new people',
+            'page_obj': page_obj
+        }
+        return render(request, 'views/frontpage/explore_users.html', context)
+    else:
+        return redirect('index')
     
 def user_registration(request):
-    if request.user.is_authenticated:
-        return redirect('accounts:user-dashboard')
-    else:
-        captcha = FormWithCaptcha
-
-        if request.method =='POST':
-            registration_form = UserRegistrationForm(request.POST)
-
-            # TODO: remove this try/catch in production
-            try:
-                captcha_data = request.POST['g-recaptcha-response']
-            except:
-                captcha_data = '...'
-            
-            if not captcha_data == '':
-                if registration_form.is_valid():
-                    registration_form.save()
-
-                    username = request.POST['username']
-                    password = request.POST['password2']
-
-                    user = authenticate(username=username.lower(), password=password)
-                    
-                    if user is not None:
-                        login(request, user)
-                        messages.success(
-                            request, 
-                            'Welcome to Foxstraat. Feel free to explore.')
-                        return redirect('accounts:user-dashboard')
-                    else:
-                        pass
-            else:
-                messages.error(request, 'Please confirm that you\'re not a robot')
+    if not is_mobile(request):
+        if request.user.is_authenticated:
+            return redirect('accounts:user-dashboard')
         else:
-            registration_form = UserRegistrationForm()
+            captcha = FormWithCaptcha
 
-        context = {
-            'registration_form': registration_form,
-            'captcha': captcha,
-        }
-        return render(
-            request, 
-            'views/auth/registration_form.html', 
-            context
-        )
+            if request.method =='POST':
+                registration_form = UserRegistrationForm(request.POST)
+
+                # TODO: remove this try/catch in production
+                try:
+                    captcha_data = request.POST['g-recaptcha-response']
+                except:
+                    captcha_data = '...'
+                
+                if not captcha_data == '':
+                    if registration_form.is_valid():
+                        registration_form.save()
+
+                        username = request.POST['username']
+                        password = request.POST['password2']
+
+                        user = authenticate(username=username.lower(), password=password)
+                        
+                        if user is not None:
+                            login(request, user)
+                            messages.success(
+                                request, 
+                                'Welcome to Foxstraat. Feel free to explore.')
+                            return redirect('accounts:user-dashboard')
+                        else:
+                            pass
+                else:
+                    messages.error(request, 'Please confirm that you\'re not a robot')
+            else:
+                registration_form = UserRegistrationForm()
+
+            context = {
+                'registration_form': registration_form,
+                'captcha': captcha,
+            }
+            return render(
+                request, 
+                'views/auth/registration_form.html', 
+                context
+            )
+    else:
+        return redirect('index')
 
 
 class UserLoginView(LoginView):
@@ -99,54 +105,35 @@ def user_logout(request):
 
 @login_required
 def user_dashboard(request):
-    announcements = Announcement.objects.all().order_by('-datetime_created')
-    product_announcements = ProductAnnouncement.objects.all().order_by('-datetime_created')
-    posts = Bulletin.objects.all().exclude(user=request.user).order_by('?')[:3]
-    context = {
-        'posts': posts,
-        'product_announcements':product_announcements,
-        'announcements': announcements,
-    }
-    return render(request, 'views/dashboard/dashboard.html', context)
+    if not is_mobile(request):
+        announcements = Announcement.objects.all().order_by('-datetime_created')
+        product_announcements = ProductAnnouncement.objects.all().order_by('-datetime_created')
+        posts = Bulletin.objects.all().exclude(user=request.user).order_by('?')[:3]
+        context = {
+            'posts': posts,
+            'product_announcements':product_announcements,
+            'announcements': announcements,
+        }
+        return render(request, 'views/dashboard/dashboard.html', context)
+    else:
+        return redirect('index')
 
 def get_user_profile(request, username):
-    user = get_object_or_404(User, username=username)
+    if not is_mobile(request):
+        user = get_object_or_404(User, username=username)
 
-    if user.is_active:
-        posts = Bulletin.objects.filter(user=user).order_by('-datetime_created')
-        
-        try:
-            page_number = int(request.GET.get('sida'))
-        except:
-            page_number = 1
-
-        paginator = Paginator(posts, 15)
-        page_obj = paginator.get_page(page_number)
-
-        context = {
-            'page_obj': page_obj,
-            'user': user
-        }
-        return render(request, 'views/accounts/user_profile.html', context)
-    else:
-        raise Http404
-
-def get_user_songs(request, username):
-    user = User.objects.get(username=username)
-    if user.is_artist:
         if user.is_active:
-            songs = Song.objects.filter(user=user).order_by('-datetime_created')
+            posts = Bulletin.objects.filter(user=user).order_by('-datetime_created')
             
             try:
                 page_number = int(request.GET.get('sida'))
             except:
                 page_number = 1
 
-            paginator = Paginator(songs, 15)
+            paginator = Paginator(posts, 15)
             page_obj = paginator.get_page(page_number)
-            
+
             context = {
-                'page': 'songs',
                 'page_obj': page_obj,
                 'user': user
             }
@@ -154,7 +141,35 @@ def get_user_songs(request, username):
         else:
             raise Http404
     else:
-        return redirect('get-user-profile', username=username)
+        return redirect('index')
+
+def get_user_songs(request, username):
+    if not is_mobile(request):
+        user = User.objects.get(username=username)
+        if user.is_artist:
+            if user.is_active:
+                songs = Song.objects.filter(user=user).order_by('-datetime_created')
+                
+                try:
+                    page_number = int(request.GET.get('sida'))
+                except:
+                    page_number = 1
+
+                paginator = Paginator(songs, 15)
+                page_obj = paginator.get_page(page_number)
+                
+                context = {
+                    'page': 'songs',
+                    'page_obj': page_obj,
+                    'user': user
+                }
+                return render(request, 'views/accounts/user_profile.html', context)
+            else:
+                raise Http404
+        else:
+            return redirect('get-user-profile', username=username)
+    else:
+        return redirect('index')
 
 def save_profile(request, custom_styles):
     """

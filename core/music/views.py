@@ -165,46 +165,49 @@ def add_song(request):
         )
 
 def get_song(request, song_id):
-    post = get_object_or_404(Song, object_id=song_id)
-    
-    more_from_user = Song.objects.filter(
-        user=post.user
-    ).order_by('?')[:4]
+    if not is_mobile(request): 
+        post = get_object_or_404(Song, object_id=song_id)
+        
+        more_from_user = Song.objects.filter(
+            user=post.user
+        ).order_by('?')[:4]
 
-    has_voted = False
-    has_downvoted = False
-    has_upvoted = False
+        has_voted = False
+        has_downvoted = False
+        has_upvoted = False
 
-    if request.user.is_authenticated:
-        has_voted = check_has_user_voted(VoteSong, request.user, post)
+        if request.user.is_authenticated:
+            has_voted = check_has_user_voted(VoteSong, request.user, post)
 
-        if has_voted:
-            vote = VoteSong.objects.get(user=request.user, bulletin=post)
-            if vote.value == -1:
-                has_downvoted = True
-                has_upvoted = False
-            elif vote.value == 1:
-                has_downvoted = False
-                has_upvoted = True
-            else:
-                has_downvoted = False
-                has_upvoted = False
-                
-    upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
+            if has_voted:
+                vote = VoteSong.objects.get(user=request.user, bulletin=post)
+                if vote.value == -1:
+                    has_downvoted = True
+                    has_upvoted = False
+                elif vote.value == 1:
+                    has_downvoted = False
+                    has_upvoted = True
+                else:
+                    has_downvoted = False
+                    has_upvoted = False
+                    
+        upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
 
-    context = {
-        'has_upvoted': has_upvoted,
-        'has_downvoted': has_downvoted,
-        'post': post,
-        'page': 'song',
-        'upvotes': upvotes,
-        'more_from_user': more_from_user
-    }
-    return render(
-        request, 
-        'views/music/view_song.html', 
-        context
-    )
+        context = {
+            'has_upvoted': has_upvoted,
+            'has_downvoted': has_downvoted,
+            'post': post,
+            'page': 'song',
+            'upvotes': upvotes,
+            'more_from_user': more_from_user
+        }
+        return render(
+            request, 
+            'views/music/view_song.html', 
+            context
+        )
+    else:
+        return redirect('index')
 
 def top_music_chart(request):
     qs = Song.objects.all().order_by('-score')
@@ -240,7 +243,6 @@ def top_music_chart(request):
             'mobile/views/music/charts.html', 
             context
         )
-
 
 def new_music_chart(request):
     songs = Song.objects.all().order_by('-datetime_created')
@@ -342,25 +344,28 @@ def alltime_music_chart(request):
         )
 
 def get_genre(request, genre):
-    songs = Song.objects.filter(genre__icontains=genre).order_by('-score')
-    paginator = Paginator(songs, 10)
-    
-    try:
-        page_number = int(request.GET.get('sida'))
-    except:
-        page_number = 1
+    if not is_mobile(request):
+        songs = Song.objects.filter(genre__icontains=genre).order_by('-score')
+        paginator = Paginator(songs, 10)
+        
+        try:
+            page_number = int(request.GET.get('sida'))
+        except:
+            page_number = 1
 
-    page_obj = paginator.get_page(page_number)
+        page_obj = paginator.get_page(page_number)
 
-    context = {
-        'genre': genre,
-        'page_obj': page_obj,
-    }
-    return render(
-        request, 
-        'views/music/view_genre.html', 
-        context
-    )
+        context = {
+            'genre': genre,
+            'page_obj': page_obj,
+        }
+        return render(
+            request, 
+            'views/music/view_genre.html', 
+            context
+        )
+    else:
+        return redirect('index')
 
 @login_required
 def manage_songs(request):

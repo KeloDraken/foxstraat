@@ -126,45 +126,48 @@ def create_bulletin(request):
     )
 
 def get_bulletin(request, bulletin_id):
-    post = get_object_or_404(Bulletin, object_id=bulletin_id)
+    if not is_mobile(request):
+        post = get_object_or_404(Bulletin, object_id=bulletin_id)
 
-    more_from_user = Bulletin.objects.filter(
-        user=post.user
-    ).order_by('?')[:4]
+        more_from_user = Bulletin.objects.filter(
+            user=post.user
+        ).order_by('?')[:4]
 
-    has_voted = False
-    has_downvoted = False
-    has_upvoted = False
+        has_voted = False
+        has_downvoted = False
+        has_upvoted = False
 
-    if request.user.is_authenticated:
-        has_voted = check_has_user_voted(Vote, request.user, post)
+        if request.user.is_authenticated:
+            has_voted = check_has_user_voted(Vote, request.user, post)
 
-        if has_voted:
-            vote = Vote.objects.get(user=request.user, bulletin=post)
-            if vote.value == -1:
-                has_downvoted = True
-                has_upvoted = False
-            elif vote.value == 1:
-                has_downvoted = False
-                has_upvoted = True
-            else:
-                has_downvoted = False
-                has_upvoted = False
+            if has_voted:
+                vote = Vote.objects.get(user=request.user, bulletin=post)
+                if vote.value == -1:
+                    has_downvoted = True
+                    has_upvoted = False
+                elif vote.value == 1:
+                    has_downvoted = False
+                    has_upvoted = True
+                else:
+                    has_downvoted = False
+                    has_upvoted = False
 
-    upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
-    context = {
-        'has_upvoted': has_upvoted,
-        'has_downvoted': has_downvoted,
-        'post': post,
-        'upvotes': upvotes,
-        'more_from_user': more_from_user
-    }
-    return render(
-        request, 
-        'views/bulletin/view_bulletin.html', 
-        context
-    )
-
+        upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
+        context = {
+            'has_upvoted': has_upvoted,
+            'has_downvoted': has_downvoted,
+            'post': post,
+            'upvotes': upvotes,
+            'more_from_user': more_from_user
+        }
+        return render(
+            request, 
+            'views/bulletin/view_bulletin.html', 
+            context
+        )
+    else:
+        return redirect('index')
+        
 def frontpage(request):
     qs = Bulletin.objects.all().order_by('-datetime_created')
     

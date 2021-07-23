@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from utils.helpers import is_mobile
+from django.shortcuts import redirect, render
 
 from core.bulletin.models import PostTag, Tag
 
 
 def forum(request):
-    return render(request, 'views/page_coming_soon.html')
+    if not is_mobile(request):
+        return render(request, 'views/page_coming_soon.html')
+    else:
+        return redirect('index')
 
 def get_topic(request, topic_id):
     category = Tag.objects.get(name=topic_id)
