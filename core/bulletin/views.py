@@ -73,12 +73,12 @@ def create_bulletin(request):
     if request.method == 'POST':        
         post_form = CreateBulletinForm(request.POST)
         # TODO: remove this try/catch in production
-        try:
-            captcha_data = request.POST['g-recaptcha-response']
-        except:
-            captcha_data = '...'
+        # try:
+        captcha_data = request.POST['g-recaptcha-response']
+        # except:
+        #     captcha_data = '...'
             
-        if not captcha_data == '':
+        if not captcha_data == '' and not captcha_data == None:
             if post_form.is_valid():
                 post_form = post_form.save(commit=False)
                 post_form.user = request.user

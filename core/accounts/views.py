@@ -51,12 +51,12 @@ def user_registration(request):
                 registration_form = UserRegistrationForm(request.POST)
 
                 # TODO: remove this try/catch in production
-                try:
-                    captcha_data = request.POST['g-recaptcha-response']
-                except:
-                    captcha_data = '...'
+                # try:
+                captcha_data = request.POST['g-recaptcha-response']
+                # except:
+                #     captcha_data = '...'
                 
-                if not captcha_data == '':
+                if not captcha_data == '' and not captcha_data == None:
                     if registration_form.is_valid():
                         registration_form.save()
 

@@ -15,11 +15,11 @@
     {% endif %}
 
     <link href="{% static 'css/material-icons-rounded.css' %}" rel="stylesheet" />
-    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" /> -->
-    <!-- <link rel="stylesheet"
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap-grid.min.css"
         integrity="sha512-LLxZHu50SXdFJdAzHmDJAoLaozhTB4BYZPoN+xdTRjiPmPhI+1mEJXdoHHiDWmd/jj/9x10pkd8mYGG9sqfPPA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{% static 'js/bootstrap-grid.css' %}">
     {% if user.custom_styles|length == 0 %}
     {{ user.default_styles|safe }}
@@ -154,8 +154,8 @@
             {% endif %}
         </div>
     </div>
-    <script src="{% static 'js/colcade.js' %}"></script>
-    <!-- <script src="https://unpkg.com/colcade@0/colcade.js"></script> -->
+    <!-- <script src="{% static 'js/colcade.js' %}"></script> -->
+    <script src="https://unpkg.com/colcade@0/colcade.js"></script>
     <script>
         // selector string as first argument
         var colc = new Colcade('.grid', {
