@@ -37,7 +37,10 @@ def news(request):
         'heading': 'Foxstraat News',
         'news': news_
     }
-    return render(request, 'views/blog/news.html', context)
+    if not is_mobile(request):
+        return render(request, 'views/blog/news.html', context)
+    else:
+        return render(request, 'mobile/views/legal/news.html', context)
 
 def about(request):
     if not is_mobile(request):
@@ -52,7 +55,10 @@ def terms(request):
         'heading': 'Terms of Service',
         'news': news_
     }
-    return render(request, 'views/blog/news.html', context)
+    if not is_mobile(request):
+        return render(request, 'views/blog/news.html', context)
+    else:
+        return render(request, 'mobile/views/legal/news.html', context)
 
 def privacy(request):
     news_ = Privacy.objects.all()
@@ -60,7 +66,10 @@ def privacy(request):
         'heading': 'Privacy Policy',
         'news': news_
     }
-    return render(request, 'views/blog/news.html', context)
+    if not is_mobile(request):
+        return render(request, 'views/blog/news.html', context)
+    else:
+        return render(request, 'mobile/views/legal/news.html', context)
 
 def rules(request):
     news_ = Rules.objects.all()
@@ -68,4 +77,7 @@ def rules(request):
         'heading': 'Foxstraat Rules',
         'news': news_
     }
-    return render(request, 'views/blog/news.html', context)
+    if not is_mobile(request):
+        return render(request, 'views/blog/news.html', context)
+    else:
+        return render(request, 'mobile/views/legal/news.html', context)
