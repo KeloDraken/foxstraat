@@ -19,7 +19,17 @@
         background-color: transparent;
     }
 </style>
-
+{% if not request.user.is_authenticated %}
+<style>
+    .gradient {
+        background-image: linear-gradient(to right,
+                #eea263,
+                #d65e94,
+                #8952a8,
+                #6870ca);
+    }
+</style>
+{% endif %}
 
 {% if request.user.is_authenticated %}
 <div class="navbar-fixed">
@@ -77,7 +87,7 @@
 </div>
 {% else %}
 <div class="navbar-fixed">
-    <nav class="white z-depth-0">
+    <nav class="gradient z-depth-0">
         <div class="nav-wrapper">
             <div class="container">
                 <a href="/" class="brand-logo n-logo">Foxstraat.</a>
@@ -109,3 +119,4 @@
     </nav>
 </div>
 {% endif %}
+

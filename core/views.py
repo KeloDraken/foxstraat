@@ -37,7 +37,7 @@ def news(request):
 
 def about(request):
     add_feedback(request)
-    return render(request, 'views/index.html')
+    return render(request, 'views/index.html', context={'page': 'about'})
 
 def terms(request):
     news_ = Terms.objects.all()
