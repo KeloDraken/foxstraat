@@ -1,0 +1,32 @@
+<div class="navbar-fixed">
+    <nav class="white nav-extended">
+        <div class="nav-wrapper">
+            <a href="{% url 'index' %}" class="brand-logo black-text center">Foxstraat</a>
+        </div>
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab" title="Explore music">
+                    <a href="{% url 'music:explore-music' %}">
+                        <span class="black-text material-icons-outlined">
+                            library_music
+                        </span>
+                    </a>
+                </li>
+                <li class="tab" title="Browse">
+                    <a href="{% url 'bulletin:frontpage' %}">
+                        <span class="black-text material-icons-outlined">
+                            explore
+                        </span>
+                    </a>
+                </li>
+                <li class="tab" title="About Foxstraat">
+                    <a href="{% url 'about' %}">
+                        <span class="black-text material-icons-outlined">
+                            info
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

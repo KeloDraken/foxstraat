@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from utils.helpers import object_id_generator, ref_from_url
+from utils.helpers import is_mobile, object_id_generator, ref_from_url
 from core.models import Feedback, News, Privacy, Rules, Terms
 
 
@@ -22,10 +22,16 @@ def add_feedback(request):
 
 def index(request):
     ref_from_url(request)
-    if request.user.is_authenticated:
-        return redirect('accounts:user-dashboard')
+
+    is_mobile_ = is_mobile(request)
+    
+    if not is_mobile_:
+        if request.user.is_authenticated:
+            return redirect('accounts:user-dashboard')
+        else:
+            return render(request, 'views/index.html')
     else:
-        return render(request, 'views/index.html')
+        return redirect('bulletin:frontpage')
 
 def news(request):
     news_ = News.objects.all().order_by('-datetime_created')

@@ -17,6 +17,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from utils.db import cast_vote, check_has_user_voted
 from utils.helpers import (
     extract_hashtags,
+    is_mobile,
     link_tags_to_post, 
     object_id_generator
 )
@@ -184,12 +185,19 @@ def frontpage(request):
         'heading': f'Explore {weekday}\'s photos',
         'page_obj': page_obj
     }
-    
-    return render(
-        request, 
-        'views/frontpage/frontpage.html',
-        context
-    )
+    is_mobile_ = is_mobile(request)
+    if not is_mobile_:
+        return render(
+            request, 
+            'views/frontpage/frontpage.html',
+            context
+        )
+    else:
+        return render(
+            request, 
+            'mobile/views/frontpage/frontpage.html',
+            context
+        )
 
 @login_required
 def manage_posts(request):
