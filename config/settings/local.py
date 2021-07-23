@@ -4,16 +4,19 @@ import dj_database_url
 
 from config.settings.base import *
 
-from django.core.management.utils import get_random_secret_key
 
+SECRET_KEY = '9OQeQf90W1HY9KRlRpkBuP1Lbl0xgLsnwZuvmmRJg0HmjhlnL7E8OXmh6SiuQQKa'
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+DEBUG = False
 
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEVELOPMENT_MODE = False
 
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = [
+    '147.182.185.220',
+    '127.0.0.1',
+    'localhost',
+    'foxstraat.com'
+]
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
