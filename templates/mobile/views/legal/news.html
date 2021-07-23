@@ -7,6 +7,10 @@
         margin-top: 3rem !important;
     }
 
+    .content_ {
+        margin-top: 6rem !important;
+    }
+
     .date {
         font-size: 1.5em !important;
     }
@@ -21,16 +25,19 @@
 {% endblock %}
 
 {% block body %}
-{% include 'components/navbar.html' %}
-<h3 class="center">{{heading}}</h3>
-<div class="container content">
-    {% for i in news %}
-    <div class="center">
+{% include 'mobile/components/navbar.html' %}
 
-        <span class="date">{{ i.datetime_created|date:"d M Y" }}</span>
-        <pre class="news center">{{ i.text }}</pre>
-        <pre class="news center">{{ i.body|safe }}</pre>
+<div class="content_">
+    <h3 class="center">{{heading}}</h3>
+    <div class="container content">
+        {% for i in news %}
+        <div class="center">
+
+            <span class="date">{{ i.datetime_created|date:"d M Y" }}</span>
+            <pre class="news center">{{ i.text }}</pre>
+            <pre class="news center">{{ i.body|safe }}</pre>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
