@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -111,14 +111,6 @@ LOGIN_REDIRECT_URL = '/u/dashboard'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static-root'
-STATICFILES_DIRS = [
-    BASE_DIR /'static'
-]
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media-root'
 
 HTML_MINIFY = True
 

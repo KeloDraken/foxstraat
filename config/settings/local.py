@@ -22,3 +22,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
 }
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static-root'
+STATICFILES_DIRS = [
+    BASE_DIR /'static'
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media-root'
