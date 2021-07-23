@@ -19,14 +19,12 @@
         background-color: transparent;
     }
 </style>
+
+
 {% if not request.user.is_authenticated %}
 <style>
-    .gradient {
-        background-image: linear-gradient(to right,
-                #eea263,
-                #d65e94,
-                #8952a8,
-                #6870ca);
+    .nav-wrapper li {
+        margin-top: 0.5rem;
     }
 </style>
 {% endif %}
@@ -87,31 +85,52 @@
 </div>
 {% else %}
 <div class="navbar-fixed">
-    <nav class="gradient z-depth-0">
+    <nav class="white z-depth-0">
         <div class="nav-wrapper">
             <div class="container">
                 <a href="/" class="brand-logo n-logo">Foxstraat.</a>
                 <ul class="right">
-                    <li>
+                    <li title="Explore music">
                         <a class="black-text" href="{% url 'music:explore-music' %}">
-                            Charts
+                            <span class="material-icons-outlined">
+                                library_music
+                            </span>
                         </a>
                     </li>
-                    <li>
+                    <li title="Browse">
                         <a class="black-text" href="{% url 'bulletin:frontpage' %}">
-                            Explore
+                            <span class="material-icons-outlined">
+                                explore
+                            </span>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a class="black-text" href="{% url 'blog:engineering' %}">
-                            Blog
+                    <!-- <li title="Forums">
+                        <a href="{% url 'forums:get-forum' %}">
+                            <span class="material-icons-outlined">
+                                forum
+                            </span>
                         </a>
                     </li> -->
+                    <li title="Foxstraat Winkel">
+                        <a class="black-text" href="{% url 'accounts:user-register' %}">
+                            <span class="material-icons-outlined">
+                                storefront
+                            </span>
+                        </a>
+                    </li>
                     <li>
-                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
-                        <script
-                            type='text/javascript'>kofiwidget2.init('Support Me', '#29abe0', 'Y8Y31URML'); kofiwidget2.draw();</script>
-
+                        <a class="black-text" href="{% url 'accounts:user-register' %}">
+                            <span class="material-icons-outlined">
+                                account_circle
+                            </span>
+                        </a>
+                    </li>
+                    <li title="About Foxstraat">
+                        <a class="black-text" href="{% url 'about' %}">
+                            <span class="material-icons-outlined">
+                                info
+                            </span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -119,4 +138,3 @@
     </nav>
 </div>
 {% endif %}
-
