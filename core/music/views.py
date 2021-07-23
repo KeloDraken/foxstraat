@@ -18,7 +18,7 @@ from django.shortcuts import (
 )
 
 from utils.db import cast_vote, check_has_user_voted
-from utils.helpers import object_id_generator
+from utils.helpers import is_mobile, object_id_generator
 
 from core.forms import FormWithCaptcha
 from core.music.forms import AddSongForm
@@ -226,11 +226,21 @@ def top_music_chart(request):
         'page': 'top',
         'heading': f'Foxstraat {weekday} chart',
     }
-    return render(
-        request, 
-        'views/music/charts.html', 
-        context
-    )
+    is_mobile_ = is_mobile(request)
+
+    if not is_mobile_:
+        return render(
+            request, 
+            'views/music/charts.html', 
+            context
+        )
+    else:
+        return render(
+            request, 
+            'mobile/views/music/charts.html', 
+            context
+        )
+
 
 def new_music_chart(request):
     songs = Song.objects.all().order_by('-datetime_created')
@@ -254,11 +264,20 @@ def new_music_chart(request):
         'page_obj': page_obj,
         'heading': 'Recent submissions',
     }
-    return render(
-        request, 
-        'views/music/charts.html', 
-        context
-    )
+    is_mobile_ = is_mobile(request)
+
+    if not is_mobile_:
+        return render(
+            request, 
+            'views/music/charts.html', 
+            context
+        )
+    else:
+        return render(
+            request, 
+            'mobile/views/music/charts.html', 
+            context
+        )
 
 def hot_music_chart(request):
     songs = Song.objects.all().order_by('-datetime_created')
@@ -277,11 +296,20 @@ def hot_music_chart(request):
         'page_obj': page_obj,
         'heading': 'Trending today',
     }
-    return render(
-        request, 
-        'views/music/charts.html', 
-        context
-    )
+    is_mobile_ = is_mobile(request)
+
+    if not is_mobile_:
+        return render(
+            request, 
+            'views/music/charts.html', 
+            context
+        )
+    else:
+        return render(
+            request, 
+            'mobile/views/music/charts.html', 
+            context
+        )
 
 def alltime_music_chart(request):
     songs = Song.objects.all().order_by('-upvotes')
@@ -298,11 +326,20 @@ def alltime_music_chart(request):
         'page_obj': page_obj,
         'heading': f'All time top voted',
     }
-    return render(
-        request, 
-        'views/music/charts.html', 
-        context
-    )
+    is_mobile_ = is_mobile(request)
+
+    if not is_mobile_:
+        return render(
+            request, 
+            'views/music/charts.html', 
+            context
+        )
+    else:
+        return render(
+            request, 
+            'mobile/views/music/charts.html', 
+            context
+        )
 
 def get_genre(request, genre):
     songs = Song.objects.filter(genre__icontains=genre).order_by('-score')
