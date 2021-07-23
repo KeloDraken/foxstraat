@@ -191,7 +191,7 @@ def get_song(request, song_id):
                     has_downvoted = False
                     has_upvoted = False
                     
-        upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
+        upvotes = round(post.upvotes - post.downvotes)
 
         context = {
             'has_upvoted': has_upvoted,

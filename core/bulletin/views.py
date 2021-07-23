@@ -152,7 +152,7 @@ def get_bulletin(request, bulletin_id):
                     has_downvoted = False
                     has_upvoted = False
 
-        upvotes = round(post.upvotes * (random.randint(1,10))/random.random())
+        upvotes = round(post.upvotes - post.downvotes)
         context = {
             'has_upvoted': has_upvoted,
             'has_downvoted': has_downvoted,
