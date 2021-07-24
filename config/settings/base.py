@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'captcha',
     'corsheaders',
     'imagekit',
+    'storages',
 
     # Foxstraat apps
     'core',
@@ -110,7 +111,6 @@ LOGIN_REDIRECT_URL = '/u/dashboard'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-
 
 HTML_MINIFY = True
 
