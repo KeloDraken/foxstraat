@@ -24,42 +24,29 @@
         <br>
         <input type="file" accept="image/jpeg, image/png" placeholder="Upload new profile pic" name="profile_pic"
             id="profile_pic">
-        <br><br>
-        {% if not request.user.is_artist %}
-        <p>
-            <label>
-                <input name="is_artist" id="is_artist" type="checkbox">
-                <span class="black-text">Convert to artist account</span>
-            </label>
-        </p>
         <br>
-        {% endif %}
-        <!-- {% if not request.user.is_blogger %}
-        <p>
-            <label>
-                <input name="is_blogger" id="is_blogger" type="checkbox">
-                <span class="black-text">Add blogging feature</span>
-            </label>
-        </p>
         <br>
-        {% endif %} -->
         <h5 class="black-text">Display name</h5>
         <input type="text" value="{% if user.display_name %}{{ user.display_name }}{% endif %}" class="form-input"
             name="display_name" id="display_name" placeholder="Display name" />
         <br>
         <h5 class="black-text">Social handles</h5>
-        <input type="text" value="{% if user.instagram %}{{ user.instagram }}{% endif %}" class="form-input"
-            name="instagram" id="instagram" placeholder="Instagram" maxlength="60" />
+        <input type="text" autocapitalize="off" autocomplete="off"
+            value="{% if user.instagram %}{{ user.instagram }}{% endif %}" class="form-input" name="instagram"
+            id="instagram" placeholder="Instagram" maxlength="60" />
         <!-- <label class="grey-text" for="instgram">Instagram handle</label> -->
         <br>
-        <input type="text" value="{% if user.twitter %}{{ user.twitter }}{% endif %}" class="form-input" name="twitter"
-            id="twitter" placeholder="Twitter" maxlength="60" />
+        <input type="text" autocapitalize="off" autocomplete="off"
+            value="{% if user.twitter %}{{ user.twitter }}{% endif %}" class="form-input" name="twitter" id="twitter"
+            placeholder="Twitter" maxlength="60" />
         <br>
-        <input type="url" class="form-input" value="{% if user.website %}{{ user.website }}{% endif %}" name="website"
-            id="website" placeholder="Website" maxlength="60" />
+        <input type="url" autocapitalize="off" autocomplete="off" class="form-input"
+            value="{% if user.website %}{{ user.website }}{% endif %}" name="website" id="website" placeholder="Website"
+            maxlength="60" />
         <br><br>
-        <h5 class="black-text">Edit bio</h5>
-        <textarea maxlength="220" name="about_me" id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
+        <h5 class="black-text">About me</h5>
+        <textarea maxlength="220" placeholder="Write something about yourself" name="about_me"
+            id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
         <label for="about_me">220 character limit</label>
         <br>
         <!-- custom css starts -->
