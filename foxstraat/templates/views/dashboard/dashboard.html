@@ -71,19 +71,23 @@
         font-weight: 400;
         margin-top: -1em;
     }
+
     .section-heading {
         text-transform: uppercase;
     }
+
     .footer {
         background-color: #e4e4e4;
         border-top: 2px solid #999999;
         height: 40vh;
         padding-top: 2rem;
     }
+
     .footer-link {
         color: #000000;
         text-decoration: underline;
     }
+
     .text {
         font-size: 1.2em;
         color: #000000;
@@ -132,9 +136,6 @@
             {% include 'components/dashboard/manage_listings.html' %}
             <!-- Manage listings section ends -->
 
-            <!-- Site info section -->
-            {% include 'components/dashboard/site_info.html' %}
-            <!-- site info section ends -->
             <div class="info">
                 <a class="sign-out" href="{% url 'accounts:user-logout' %}">Sign out</a>
             </div>
@@ -155,19 +156,14 @@
                     <!-- foxstraat announcements section -->
                     {% include 'components/dashboard/announcements.html' %}
                     <!-- foxstraat announcements section ends -->
-                    
-                    
-                    <!-- foxstraat product announcements section -->
-                    {% include 'components/dashboard/product_announcement.html' %}
-                    <!-- foxstraat product announcements section ends -->
                 </div>
                 <div class="col s6">
                     {% include 'components/dashboard/add_song.html' %}
-                    
+
                     {% if request.user.is_superuser %}
                     {% include 'components/dashboard/add_blog_post.html' %}
                     {% endif %}
-                    
+
                     {% include 'components/dashboard/create_announcement.html' %}
 
                     <!-- Marketplace section -->
