@@ -12,102 +12,6 @@
         font-family: "Lobster", cursive;
         color: rgb(24, 24, 24) !important;
     }
-
-    body {
-        background-image: linear-gradient(to bottom,rgb(30, 255, 0), #2296F3, #2296F3, #2296F3, #2296F3);
-    }
-
-    nav {
-        border-bottom: 2px solid #212121;
-    }
-
-    section {
-        height: 60vh;
-    }
-
-    .heading {
-        margin-top: 5rem;
-        font-size: 6em;
-    }
-
-    .subheading {
-        font-size: 2em !important;
-        font-weight: 400;
-        margin-top: -1em;
-    }
-
-    .section-heading {
-        text-transform: uppercase;
-    }
-
-    .banner {
-        height: 72vh;
-    }
-
-    .about {
-        background-image: linear-gradient(to bottom,#2296F3 , #2296F3, #2296F3, #6D429A);
-        height: 72vh;
-        padding-top: 2rem;
-    }
-    .feedback {
-        background-image: linear-gradient(to bottom,#6D429A , #6D429A,#6D429A, #6D429A);
-        height: 72vh;
-        padding-top: 2rem;
-    }
-
-    .footer {
-        background-image: linear-gradient(to bottom,#6D429A , #e7e444,#e7e444);
-        height: 72vh;
-        padding-top: 2rem;
-    }
-
-    .bt {
-        border-top: 2px solid #212121;
-    }
-
-    .join {
-        font-weight: 700 !important;
-        width: 20rem;
-    }
-
-    .footer-link {
-        color: #000000;
-        text-decoration: underline;
-    }
-
-    .text {
-        font-size: 2em;
-        color: #000000;
-    }
-    .yellow-text {
-        color: rgb(255, 251, 0) !important;
-    }
-
-    .form-input {
-        border: 2px solid #000 !important;
-        width: 100% !important;
-        height: 30vh !important;
-        border-radius: 3px !important;
-        font-size: 1.5em !important;
-        color: #000 !important;
-        font-weight: 500;
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-        padding-top: 2px !important;
-        padding-bottom: 2px !important;
-        background-color: rgb(250, 250, 250) !important;
-    }
-
-    .form-input::placeholder {
-        color: #000;
-        font-weight: 500;
-        opacity: 1;
-    }
-
-    .submit-btn {
-        width: 100% !important;
-        margin-bottom: 1rem !important;
-    }
 </style>
 {% endblock %}
 
@@ -132,48 +36,11 @@
 {% endif %}
 
 <!-- banner begins -->
-<section class="container center banner">
-    <h1 class="heading black-text">Build a custom profile and share your art</h1>
-    <p class="subheading black-text">A platform for small bands and artists to find a new audience</p>
-    {% if not request.user.is_authenticated %}
-    <a href="{% url 'accounts:user-register' %}" class="btn btn-large waves-effect waves-light black join">Get
-        started</a>
-    {% else %}
-    <a href="{% url 'accounts:user-dashboard' %}" class="btn btn-large waves-effect waves-light black join">Continue to
-        Dashboard</a>
-    {% endif %}
-</section>
-<!-- banner ends -->
 
-<section class="blue about">
-    <div class="container">
-        <p class="text center section-heading">
-            Prepare to be assimilated
-        </p>
-        <p class="text">
-            Foxstraat is a friendly online community for small artists
-            and bands to build an audience. It lets you customise your
-            profile's css to whatever you want. Make it match your brand
-            and aesthetic or go to town with crazy designs.
-            Share your favourite images and music, and discover new artists
-            and cool people.
-        </p>
+<div class="container">
+    <div class="center">
+
+        <h1>About Us</h1>
     </div>
-</section>
-
-<section id="feedback_" class="purple darken-3 feedback">
-    <div class="container">
-        <p class="yellow-text text center section-heading">
-            Give us feedback or suggestions
-        </p>
-        <form method="post" action="{% url 'about' %}" class="center">
-            {% csrf_token %}
-            <textarea placeholder="Write your feedback here..." class="form-input" name="feedback"
-                id="feedback"></textarea>
-            <button class="btn submit-btn btn-large black white-text center" type="submit">SUBMIT FEEDBACK</button>
-        </form>
-    </div>
-</section>
-
-{% include 'components/footer.html' %}
+</div>
 {% endblock %}
