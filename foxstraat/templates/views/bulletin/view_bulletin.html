@@ -77,9 +77,11 @@
     .links {
         margin-top: 1rem;
     }
+
     .time {
         font-size: 1.1em;
     }
+
     .vote {
         margin-top: 0.5rem;
     }
@@ -94,12 +96,14 @@
     .section-heading {
         text-transform: uppercase;
     }
+
     .footer {
         background-color: #e4e4e4;
         border-top: 2px solid #999999;
         height: 40vh;
         padding-top: 2rem;
     }
+
     .footer-link {
         color: #000000;
         text-decoration: underline;
@@ -117,18 +121,17 @@
     <div class="row">
         <div class="col s7">
             <img class="post-image" src="{{ post.image.url }}" alt="post">
-            <small>Comments coming soon</small>
         </div>
         <div class="col s5">
             <h4 class="post-title">{{ post.title }}</h4>
             {% if post.user.is_active %}
             <a title="{{ post.user.display_name }}" class="post-author"
                 href="{% url 'get-user-profile' username=post.user.username %}">
-                {{ post.user.display_name }} | 
+                {{ post.user.display_name }} |
             </a>
             {% else %}
             <a class="post-author">
-                [deleted] | 
+                [deleted] |
             </a>
             {% endif %}
 
