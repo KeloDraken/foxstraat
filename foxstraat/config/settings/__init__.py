@@ -1,7 +1,3 @@
-from foxstraat.config.settings.base import *
+from django.conf import settings
 
-try:
-    from foxstraat.config.settings.production import *
-
-except:
-    from foxstraat.config.settings.local import *
+from foxstraat.config.settings.common import *
