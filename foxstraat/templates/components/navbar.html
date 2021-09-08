@@ -6,13 +6,17 @@
     @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
     .n-logo {
-        font-size: 2em !important;
+        font-size: 2.3em !important;
         font-family: "Lobster", cursive;
         color: rgb(24, 24, 24) !important;
     }
 
     nav {
         border-bottom: 2px solid #212121;
+    }
+
+    .material-icons-outlined.md-16 {
+        font-size: 2em;
     }
 
     .black-text:hover {
@@ -38,28 +42,28 @@
                 <ul class="right">
                     <li title="Browse">
                         <a href="{% url 'bulletin:frontpage' %}">
-                            <span class="material-icons-outlined">
+                            <span class="material-icons-outlined md-16">
                                 explore
                             </span>
                         </a>
                     </li>
                     <li title="Foxstraat Winkel">
                         <a href="{% url 'marketplace:storefront' %}">
-                            <span class="material-icons-outlined">
+                            <span class="material-icons-outlined md-16">
                                 storefront
                             </span>
                         </a>
                     </li>
                     <li title="{{ user.username }}">
                         <a href="{% url 'get-user-profile' username=user.username %}">
-                            <span class="material-icons-outlined">
+                            <span class="material-icons-outlined md-16">
                                 account_circle
                             </span>
                         </a>
                     </li>
                     <li title="About Foxstraat">
                         <a href="{% url 'about' %}">
-                            <span class="material-icons-outlined">
+                            <span class="material-icons-outlined md-16">
                                 info
                             </span>
                         </a>
