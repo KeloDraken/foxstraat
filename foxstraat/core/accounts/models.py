@@ -11,6 +11,7 @@ class LowercaseCharField(models.CharField):
     """
     Override CharField to convert to lowercase before saving.
     """
+
     def to_python(self, value):
         """
         Convert text to lowercase.
@@ -21,31 +22,36 @@ class LowercaseCharField(models.CharField):
             return value.lower()
         return value
 
+
 class User(AbstractUser):
     object_id = models.CharField(max_length=20, null=True, blank=True)
     is_fake_profile = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     is_artist = models.BooleanField(default=False)
     is_blogger = models.BooleanField(default=False)
-    gelt = models.IntegerField(default=0)
+    gelt = models.IntegerField(default=500)
     num_posts = models.PositiveIntegerField(default=0)
     username = LowercaseCharField(
         # Copying this from AbstractUser code
-        _('username'),
+        _("username"),
         max_length=20,
         unique=True,
-        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
-        validators=[UnicodeUsernameValidator(),],
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
+        validators=[
+            UnicodeUsernameValidator(),
+        ],
         error_messages={
-            'unique': _("A user with that username already exists."),
+            "unique": _("A user with that username already exists."),
         },
     )
     display_name = models.CharField(max_length=100, null=True, blank=True)
     profile_pic = ProcessedImageField(
-        upload_to='accounts/profile_pics/',
+        upload_to="accounts/profile_pics/",
         processors=[ResizeToFit(320, 440)],
-        format='JPEG',
-        options={'quality': 90},
+        format="JPEG",
+        options={"quality": 90},
         null=True,
         blank=True,
     )
@@ -58,10 +64,9 @@ class User(AbstractUser):
     twitter = models.CharField(max_length=60, null=True, blank=True)
     website = models.URLField(max_length=300, null=True, blank=True)
     default_styles = models.TextField(
-        null=False, 
-        blank=False, 
-        default=
-        """
+        null=False,
+        blank=False,
+        default="""
 <style>
     /* 
     You can edit other HTML Tags' styles.
@@ -202,10 +207,8 @@ class User(AbstractUser):
     }
     /* post image styles end */
 </style>
-        """
+        """,
     )
     custom_styles = models.TextField(null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
     datetime_joined = models.DateTimeField(auto_now_add=True)
-
-  
