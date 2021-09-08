@@ -33,7 +33,7 @@
                 <form method="post" action="{% url 'accounts:user-register' %}">
                     {% csrf_token %}
                     {{registration_form.as_p}}
-                    <div class="center">{{ captcha.as_p }}</div>
+                    {{ captcha.as_p }}
                     <button class="btn btn-large waves-effect waves-light black white-text submit-btn"
                         type="submit">Join Foxstraat</button>
                 </form>
