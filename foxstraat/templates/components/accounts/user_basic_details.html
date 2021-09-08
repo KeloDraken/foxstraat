@@ -21,19 +21,19 @@
     </div>
 
     <div class="user-stat-container">
-        <p class="stat">{{user.upvotes|shrink_num}} upvote{{user.upvotes|pluralize}}</p>
-        <p class="stat">{{user.subscribers|shrink_num}} subscriber{{user.subscribers|pluralize}}</p>
+        <p class="stat">{{user.num_posts|shrink_num}} post{{user.num_posts|pluralize}}</p>
     </div>
 
     {% if user.has_server %}
     <div class="join-btn-container">
-        <button id="join-server-btn" data-server-id="{{ user.object_id }}" onclick="joinServer()" class="join-btn">Join server</button>
+        <button id="join-server-btn" data-server-id="{{ user.object_id }}" onclick="joinServer()" class="join-btn">Join
+            server</button>
     </div>
     {% endif %}
 </div>
 {% if user.has_server %}
 <script>
-    function joinServer(){
+    function joinServer() {
         const joinBtn = document.getElementById('join-server-btn');
         const serverID = joinBtn.dataset.serverId
         window.location.href = `/s/${serverID}`
