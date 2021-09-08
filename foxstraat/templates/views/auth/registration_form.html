@@ -29,8 +29,8 @@
             <br>
             {% endif %}
 
-            <div class="center row">
-                <form method="post" action="{% url 'accounts:user-register' %}" class="col s12">
+            <div class="center">
+                <form method="post" action="{% url 'accounts:user-register' %}">
                     {% csrf_token %}
                     {{registration_form.as_p}}
                     <div class="center">{{ captcha.as_p }}</div>

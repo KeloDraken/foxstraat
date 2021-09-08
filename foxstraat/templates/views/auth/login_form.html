@@ -28,7 +28,7 @@
             <br>
             {% endif %}
 
-            <div class="center row">
+            <div class="center">
                 <form action="{% url 'accounts:user-login' %}" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
