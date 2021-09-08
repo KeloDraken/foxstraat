@@ -32,7 +32,7 @@ def index(request):
         if request.user.is_authenticated:
             return redirect("accounts:user-dashboard")
         else:
-            return render(request, "views/index.html")
+            return redirect("bulletin:frontpage")
     else:
         return redirect("bulletin:frontpage")
 
