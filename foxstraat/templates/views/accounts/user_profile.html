@@ -67,11 +67,13 @@
         .blue-text {
             color: #2196f3;
         }
-        .pagination{
+
+        .pagination {
             font-family: Arial, Helvetica, sans-serif;
             font-weight: 600;
             font-size: .9em;
         }
+
         .pagination a {
             text-decoration: none;
         }
@@ -86,14 +88,10 @@
     <div class="navbar">
         <a class="logo" href="/">Foxstraat.</a>
         <a class="nav-links" href="{% url 'get-user-profile' username=user.username %}">Photos</a>
-        {% if user.is_artist %}
-        <a class="nav-links" href="{% url 'get-user-songs' username=user.username %}">Songs</a>
-        {% endif %}
         <!-- {% if user.is_blogger %}
             <a class="nav-links" href="#">Blog</a>
             {% endif %} -->
         <a class="nav-links" href="{% url 'bulletin:frontpage' %}">Explore</a>
-        <a class="nav-links" href="{% url 'music:explore-music' %}">Charts</a>
         <a class="nav-links" href="{% url 'marketplace:storefront' %}">Layouts</a>
         <a class="nav-links" href="{% url 'about' %}">About</a>
     </div>
