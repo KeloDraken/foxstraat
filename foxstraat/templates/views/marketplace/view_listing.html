@@ -59,22 +59,9 @@
         font-weight: 400;
         margin-top: -1em;
     }
+
     .section-heading {
         text-transform: uppercase;
-    }
-    .footer {
-        background-color: #e4e4e4;
-        border-top: 2px solid #999999;
-        height: 40vh;
-        padding-top: 2rem;
-    }
-    .footer-link {
-        color: #000000;
-        text-decoration: underline;
-    }
-    .text {
-        font-size: 1.2em;
-        color: #000000;
     }
 </style>
 {% endblock %}
@@ -105,7 +92,7 @@
 
         <div class="col s5">
             <h4 class="post-title">{{ post.name }}</h4>
-            
+
             <div class="row votes">
                 {% if post.price == 0 %}
                 <div class="col s12 price free">
@@ -137,6 +124,5 @@
 
     </div>
 </div>
-{% include 'components/footer.html' %}
 
 {% endblock %}

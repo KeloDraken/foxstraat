@@ -83,19 +83,24 @@
         font-weight: 400;
         margin-top: -1em;
     }
+
     .section-heading {
         text-transform: uppercase;
     }
+
     .footer {
-        background-color: #e4e4e4;
-        border-top: 2px solid #999999;
+        margin-top: 10rem;
+        background-color: #f5f5f5;
+        border-top: 2px solid #d6d6d6;
         height: 40vh;
         padding-top: 2rem;
     }
+
     .footer-link {
         color: #000000;
         text-decoration: underline;
     }
+
     .text {
         font-size: 1.2em;
         color: #000000;
@@ -133,7 +138,7 @@
             </div>
             <a class="white-text" title="{{ listing.name }}"
                 href="{% url 'marketplace:view-listing' listing_id=listing.object_id %}">
-                <img class="post-image" src="{{ listing.screenshot_1.url }}" alt="Listing screenshot"/>
+                <img class="post-image" src="{{ listing.screenshot_1.url }}" alt="Listing screenshot" />
             </a>
             <p class="listing-name">{{listing.name}}</p>
         </div>
