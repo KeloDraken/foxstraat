@@ -149,11 +149,6 @@
                     <!-- foxstraat announcements section ends -->
                 </div>
                 <div class="col s6">
-
-                    {% if request.user.is_superuser %}
-                    {% include 'components/dashboard/add_blog_post.html' %}
-                    {% endif %}
-
                     {% include 'components/dashboard/create_announcement.html' %}
 
                     <!-- Marketplace section -->
