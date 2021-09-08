@@ -15,90 +15,86 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
-
-    #Third-party apps
-    'captcha',
-    'corsheaders',
-    'imagekit',
-    'storages',
-
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.humanize",
+    # Third-party apps
+    "captcha",
+    "corsheaders",
+    "imagekit",
     # Foxstraat apps
-    'core',
-    'core.accounts',
-    'core.announcements',
-    'core.blog',
-    'core.bulletin',
-    'core.forums',
-    'core.marketplace',
-    'core.music',
-    'core.search',
-
+    "core",
+    "core.accounts",
+    "core.announcements",
+    "core.blog",
+    "core.bulletin",
+    "core.forums",
+    "core.marketplace",
+    "core.music",
+    "core.search",
     # template tags
-    'core.bulletin.templatetags',
+    "core.bulletin.templatetags",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'htmlmin.middleware.HtmlMinifyMiddleware',
-    'htmlmin.middleware.MarkRequestMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "htmlmin.middleware.HtmlMinifyMiddleware",
+    "htmlmin.middleware.MarkRequestMiddleware",
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = "config.wsgi.application"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'Africa/Johannesburg'
+TIME_ZONE = "Africa/Johannesburg"
 
 USE_I18N = True
 
@@ -106,14 +102,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/u/login/'
-LOGIN_REDIRECT_URL = '/u/dashboard'
+LOGIN_URL = "/u/login/"
+LOGIN_REDIRECT_URL = "/u/dashboard"
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 HTML_MINIFY = True
 
-RECAPTCHA_PUBLIC_KEY = '6LfL3VwbAAAAAAjNlajN06IQU5kM0ZBdgS_nZHp-'
-RECAPTCHA_PRIVATE_KEY = '6LfL3VwbAAAAAG-5AcpAiGmitRwRkE2oabWlnZJB'
+RECAPTCHA_PUBLIC_KEY = "6LfL3VwbAAAAAAjNlajN06IQU5kM0ZBdgS_nZHp-"
+RECAPTCHA_PRIVATE_KEY = "6LfL3VwbAAAAAG-5AcpAiGmitRwRkE2oabWlnZJB"
 RECAPTCHA_REQUIRED_SCORE = 0.85
