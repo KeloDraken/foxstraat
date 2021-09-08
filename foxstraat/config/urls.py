@@ -24,7 +24,6 @@ from django.urls import include, path
 
 from foxstraat.core.accounts.views import (
     get_user_profile,
-    get_user_songs,
 )
 
 from foxstraat.core.views import about, index, news, privacy, rules, terms
@@ -49,8 +48,6 @@ urlpatterns = (
         path("u/", include("foxstraat.core.accounts.urls", namespace="accounts")),
         # Bulletin urls
         path("f/", include("foxstraat.core.bulletin.urls", namespace="bulletin")),
-        # Bulletin urls
-        path("f/songs/", include("foxstraat.core.music.urls", namespace="music")),
         # Topics urls
         path("b/", include("foxstraat.core.forums.urls", namespace="forums")),
         # Announcements urls
@@ -64,7 +61,6 @@ urlpatterns = (
         path("s/", include("foxstraat.core.marketplace.urls", namespace="marketplace")),
         # User main profile
         path("<username>/", get_user_profile, name="get-user-profile"),
-        path("<username>/music/", get_user_songs, name="get-user-songs"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,7 +14,6 @@ from foxstraat.core.accounts.forms import UserLoginForm, UserRegistrationForm
 from foxstraat.core.accounts.models import User
 from foxstraat.core.announcements.models import Announcement, ProductAnnouncement
 from foxstraat.core.bulletin.models import Bulletin
-from foxstraat.core.music.models import Song
 
 
 def explore_users(request):
@@ -136,31 +135,6 @@ def get_user_profile(request, username):
             return render(request, "views/accounts/user_profile.html", context)
         else:
             raise Http404
-    else:
-        return redirect("index")
-
-
-def get_user_songs(request, username):
-    if not is_mobile(request):
-        user = User.objects.get(username=username)
-        if user.is_artist:
-            if user.is_active:
-                songs = Song.objects.filter(user=user).order_by("-datetime_created")
-
-                try:
-                    page_number = int(request.GET.get("sida"))
-                except:
-                    page_number = 1
-
-                paginator = Paginator(songs, 15)
-                page_obj = paginator.get_page(page_number)
-
-                context = {"page": "songs", "page_obj": page_obj, "user": user}
-                return render(request, "views/accounts/user_profile.html", context)
-            else:
-                raise Http404
-        else:
-            return redirect("get-user-profile", username=username)
     else:
         return redirect("index")
 
