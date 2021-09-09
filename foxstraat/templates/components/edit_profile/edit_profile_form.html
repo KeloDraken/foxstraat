@@ -49,14 +49,6 @@
             id="about_me">{% if user.bio %}{{user.bio}}{% endif %}</textarea><br>
         <label for="about_me">220 character limit</label>
         <br>
-        <!-- custom css starts -->
-        <h5 class="black-text center">Customise profile</h5>
-        {% include 'components/edit_profile/css_editor.html' %}
-        <label class="grey-text" for="custom_styles">
-            Download the user profile html/css to edit the template.
-            <a class="blue-text" href="{% static 'downloads/Foxstraat.zip' %}">Download</a>
-        </label>
-        <!-- custom css ends -->
     </div>
     <!-- about me ends -->
     <br>
