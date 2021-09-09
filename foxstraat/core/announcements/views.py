@@ -17,6 +17,16 @@ def save_announcement(form):
     form.save()
 
 
+def handle_post(request, form):
+    if form.is_valid():
+        save_announcement(form)
+
+        messages.success(request, "New announcement added")
+        return redirect("accounts:user-dashboard")
+    else:
+        messages.error(request, "Announcement creation failed")
+
+
 @login_required
 def create_announcement(request):
     if not request.user.is_superuser:
@@ -24,14 +34,7 @@ def create_announcement(request):
     else:
         if request.method == "POST":
             form = AnnouncementCreationForm(request.POST)
-            if form.is_valid():
-                save_announcement(form)
-
-                messages.success(request, "New announcement added")
-                return redirect("accounts:user-dashboard")
-            else:
-                messages.error(request, "Announcement creation failed")
-
+            handle_post(request, form)
         else:
             form = AnnouncementCreationForm()
 
