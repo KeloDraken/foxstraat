@@ -29,10 +29,7 @@ def index(request):
     ref_from_url(request)
 
     if not is_mobile(request):
-        if request.user.is_authenticated:
-            return redirect("accounts:user-dashboard")
-        else:
-            return redirect("bulletin:frontpage")
+        return redirect("bulletin:frontpage")
     else:
         return redirect("bulletin:frontpage")
 
