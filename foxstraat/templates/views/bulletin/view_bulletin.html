@@ -121,7 +121,7 @@
             </a>
             {% endif %}
 
-            <span class="time">{{post.datetime_created|naturaltime}}</span>
+            <span class="time">{{post.datetime_created|date:"d M Y"}}</span>
             <pre class="post-caption">{{post.caption}}</pre>
             <!-- More from user -->
             <div class="more">
