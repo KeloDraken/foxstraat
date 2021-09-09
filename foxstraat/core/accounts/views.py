@@ -12,7 +12,7 @@ from foxstraat.core.forms import FormWithCaptcha
 
 from foxstraat.core.accounts.forms import UserLoginForm, UserRegistrationForm
 from foxstraat.core.accounts.models import User
-from foxstraat.core.bulletin.models import Bulletin
+from foxstraat.core.posts.models import Bulletin
 
 
 def explore_users(request):

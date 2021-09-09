@@ -1,6 +1,6 @@
 from django import forms
 
-from foxstraat.core.bulletin.models import Bulletin
+from foxstraat.core.posts.models import Bulletin
 
 
 class CreateBulletinForm(forms.ModelForm):

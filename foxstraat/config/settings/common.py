@@ -34,9 +34,9 @@ INSTALLED_APPS = [
     # Foxstraat apps
     "foxstraat.core",
     "foxstraat.core.accounts",
-    "foxstraat.core.bulletin",
+    "foxstraat.core.posts",
     # template tags
-    "foxstraat.core.bulletin.templatetags",
+    "foxstraat.core.posts.templatetags",
 ]
 
 MIDDLEWARE = [

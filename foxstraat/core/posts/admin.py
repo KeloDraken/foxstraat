@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from foxstraat.core.bulletin.models import (
+from foxstraat.core.posts.models import (
     Bulletin,
     Tag,
     Vote,

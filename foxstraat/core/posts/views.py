@@ -20,8 +20,8 @@ from foxstraat.utils.helpers import (
 
 from foxstraat.core.forms import FormWithCaptcha
 
-from foxstraat.core.bulletin.forms import CreateBulletinForm
-from foxstraat.core.bulletin.models import Bulletin, Vote
+from foxstraat.core.posts.forms import CreateBulletinForm
+from foxstraat.core.posts.models import Bulletin, Vote
 
 
 def user_cast_vote(request, bulletin_id):

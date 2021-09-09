@@ -1,6 +1,6 @@
 from django.urls import path
 
-from foxstraat.core.bulletin.views import (
+from foxstraat.core.posts.views import (
     create_bulletin,
     delete_post,
     frontpage,

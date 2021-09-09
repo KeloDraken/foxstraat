@@ -4,7 +4,7 @@ import string
 
 from foxstraat.core.models import Ref
 
-from foxstraat.core.bulletin.models import Bulletin, PostTag, Tag
+from foxstraat.core.posts.models import Bulletin, PostTag, Tag
 
 
 def is_mobile(request):

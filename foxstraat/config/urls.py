@@ -45,7 +45,7 @@ urlpatterns = (
         # Accounts urls
         path("u/", include("foxstraat.core.accounts.urls", namespace="accounts")),
         # Bulletin urls
-        path("f/", include("foxstraat.core.bulletin.urls", namespace="bulletin")),
+        path("f/", include("foxstraat.core.posts.urls", namespace="bulletin")),
         # User main profile
         path("<username>/", get_user_profile, name="get-user-profile"),
     ]
