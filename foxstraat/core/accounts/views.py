@@ -34,6 +34,33 @@ def explore_users(request):
         return redirect("index")
 
 
+def check_captcha(request):
+    """
+    Checks if request object has valid captcha
+    """
+    captcha_data = request.POST["g-recaptcha-response"]
+    if not captcha_data == "" and not captcha_data == None:
+        return True
+    return False
+
+
+def login_user_on_register(request):
+    """
+    Logs user in on successful `User` instance creation
+    """
+    username = request.POST["username"]
+    password = request.POST["password2"]
+
+    user = authenticate(username=username.lower(), password=password)
+
+    if user is not None:
+        login(request, user)
+        messages.success(request, "Welcome to Foxstraat. Feel free to explore.")
+        return redirect("accounts:user-dashboard")
+    else:
+        messages.error(request, "Something went wrong")
+
+
 def user_registration(request):
     if not is_mobile(request):
         if request.user.is_authenticated:
@@ -44,31 +71,13 @@ def user_registration(request):
             if request.method == "POST":
                 registration_form = UserRegistrationForm(request.POST)
 
-                # TODO: remove this try/catch in production
-                # try:
-                captcha_data = request.POST["g-recaptcha-response"]
-                # except:
-                #     captcha_data = '...'
+                has_valid_captcha = check_captcha(request)
 
-                if not captcha_data == "" and not captcha_data == None:
+                if has_valid_captcha:
                     if registration_form.is_valid():
                         registration_form.save()
 
-                        username = request.POST["username"]
-                        password = request.POST["password2"]
-
-                        user = authenticate(
-                            username=username.lower(), password=password
-                        )
-
-                        if user is not None:
-                            login(request, user)
-                            messages.success(
-                                request, "Welcome to Foxstraat. Feel free to explore."
-                            )
-                            return redirect("accounts:user-dashboard")
-                        else:
-                            pass
+                        return login_user_on_register(request)
                 else:
                     messages.error(request, "Please confirm that you're not a robot")
             else:
@@ -139,17 +148,42 @@ def get_user_profile(request, username):
         return redirect("index")
 
 
-def save_profile(request, custom_styles):
-    """
-    Continues to save other fields in Edit Profile
-    """
-    user = request.user
+def change_custom_styles(custom_styles, user):
+    if not len(custom_styles) <= 0 and not custom_styles == None:
+        user.custom_styles = custom_styles
+    else:
+        user.custom_styles = None
 
-    if request.FILES.get("profile_pic"):
-        user.profile_pic = request.FILES.get("profile_pic")
 
-    bio = request.POST["about_me"]
+def change_web_url(user, website):
+    if not len(website) <= 0 and not website == None:
+        user.website = website
+    else:
+        user.website = None
 
+
+def change_twitter_handle(user, twitter):
+    if not len(twitter) <= 0 and not twitter == None:
+        user.twitter = twitter
+    else:
+        user.twitter = None
+
+
+def change_instagram_handle(user, instagram):
+    if not len(instagram) <= 0 and not instagram == None:
+        user.instagram = instagram
+    else:
+        user.instagram = None
+
+
+def change_display_name(user, display_name):
+    if not len(display_name) <= 0 and not display_name == None:
+        user.display_name = display_name
+    else:
+        pass
+
+
+def change_bio(request, user, bio):
     if len(bio) > 220:
         messages.error(
             request, "Your bio is too long. Please keep it at 220 characters of less"
@@ -157,49 +191,40 @@ def save_profile(request, custom_styles):
     else:
         user.bio = bio
 
-    is_artist = request.POST.get("is_artist")
-    if is_artist == "on":
-        user.is_artist = True
-    else:
-        pass
 
-    is_blogger = request.POST.get("is_blogger")
-    if is_blogger == "on":
-        user.is_blogger = True
-    else:
-        pass
+def save_profile(request, custom_styles):
+    """
+    Continues to save other fields in Edit Profile
+    """
+    user = request.user
+
+    update_profile_pic(request, user)
+
+    bio = request.POST["about_me"]
+
+    change_bio(request, user, bio)
 
     display_name = request.POST["display_name"]
-    if not len(display_name) <= 0 and not display_name == None:
-        user.display_name = display_name
-    else:
-        pass
+    change_display_name(user, display_name)
 
     instagram = request.POST["instagram"]
-    if not len(instagram) <= 0 and not instagram == None:
-        user.instagram = instagram
-    else:
-        user.instagram = None
+    change_instagram_handle(user, instagram)
 
     twitter = request.POST["twitter"]
-    if not len(twitter) <= 0 and not twitter == None:
-        user.twitter = twitter
-    else:
-        user.twitter = None
+    change_twitter_handle(user, twitter)
 
     website = request.POST["website"]
-    if not len(website) <= 0 and not website == None:
-        user.website = website
-    else:
-        user.website = None
+    change_web_url(user, website)
 
-    if not len(custom_styles) <= 0 and not custom_styles == None:
-        user.custom_styles = custom_styles
-    else:
-        user.custom_styles = None
+    change_custom_styles(custom_styles, user)
 
     user.save()
     messages.success(request, "Profile successfully updated")
+
+
+def update_profile_pic(request, user):
+    if request.FILES.get("profile_pic"):
+        user.profile_pic = request.FILES.get("profile_pic")
 
 
 @login_required

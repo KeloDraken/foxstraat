@@ -27,8 +27,6 @@ class User(AbstractUser):
     object_id = models.CharField(max_length=20, null=True, blank=True)
     is_fake_profile = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
-    is_artist = models.BooleanField(default=False)
-    is_blogger = models.BooleanField(default=False)
     gelt = models.IntegerField(default=500)
     num_posts = models.PositiveIntegerField(default=0)
     username = LowercaseCharField(
