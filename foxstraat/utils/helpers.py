@@ -4,7 +4,7 @@ import string
 
 from foxstraat.core.models import Ref
 
-from foxstraat.core.posts.models import Bulletin, PostTag, Tag
+from foxstraat.core.posts.models import Post, PostTag, Tag
 
 
 def is_mobile(request):
@@ -99,7 +99,7 @@ def extract_hashtags(text) -> list:
 
 
 def link_tags_to_post(post_id: str, tags: list):
-    post = Bulletin.objects.get(object_id=post_id)
+    post = Post.objects.get(object_id=post_id)
 
     for tag in tags:
         _tag = Tag.objects.get(name=tag.lower())

@@ -12,7 +12,7 @@ from foxstraat.core.forms import FormWithCaptcha
 
 from foxstraat.core.accounts.forms import UserLoginForm, UserRegistrationForm
 from foxstraat.core.accounts.models import User
-from foxstraat.core.posts.models import Bulletin
+from foxstraat.core.posts.models import Post
 
 
 def explore_users(request):
@@ -111,7 +111,7 @@ def get_user_profile(request, username):
         user = get_object_or_404(User, username=username)
 
         if user.is_active:
-            posts = Bulletin.objects.filter(user=user).order_by("-datetime_created")
+            posts = Post.objects.filter(user=user).order_by("-datetime_created")
 
             try:
                 page_number = int(request.GET.get("sida"))

@@ -21,14 +21,14 @@ from foxstraat.utils.helpers import (
 from foxstraat.core.forms import FormWithCaptcha
 
 from foxstraat.core.posts.forms import CreateBulletinForm
-from foxstraat.core.posts.models import Bulletin, Vote
+from foxstraat.core.posts.models import Post, Vote
 
 
 def user_cast_vote(request, bulletin_id):
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
     else:
-        bulletin = get_object_or_404(Bulletin, object_id=bulletin_id)
+        bulletin = get_object_or_404(Post, object_id=bulletin_id)
 
         try:
             vote_value = int(request.GET.get("vote_value"))
@@ -76,7 +76,7 @@ def handle_post_save(request, post_form):
         messages.error(request, "Post wasn't created. No image was found")
         return redirect("bulletin:create-bulletin")
 
-    object_id = object_id_generator(11, Bulletin)
+    object_id = object_id_generator(11, Post)
     post_form.object_id = object_id
 
     caption = request.POST["caption"]
@@ -120,9 +120,9 @@ def create_bulletin(request):
 
 def get_bulletin(request, bulletin_id):
     if not is_mobile(request):
-        post = get_object_or_404(Bulletin, object_id=bulletin_id)
+        post = get_object_or_404(Post, object_id=bulletin_id)
 
-        more_from_user = Bulletin.objects.filter(user=post.user).order_by("?")[:4]
+        more_from_user = Post.objects.filter(user=post.user).order_by("?")[:4]
 
         has_voted = False
         has_downvoted = False
@@ -157,7 +157,7 @@ def get_bulletin(request, bulletin_id):
 
 
 def frontpage(request):
-    qs = Bulletin.objects.all().order_by("-datetime_created")
+    qs = Post.objects.all().order_by("-datetime_created")
 
     paginator = Paginator(qs, 20)
 
@@ -185,7 +185,7 @@ def frontpage(request):
 
 @login_required
 def manage_posts(request):
-    posts = Bulletin.objects.filter(user=request.user).order_by("-datetime_created")
+    posts = Post.objects.filter(user=request.user).order_by("-datetime_created")
     if not posts:
         messages.error(request, "You don't have any posts yet. Create your post")
         return redirect("bulletin:create-bulletin")
@@ -198,7 +198,7 @@ def manage_posts(request):
 @login_required
 def delete_post(request, bulletin_id):
     try:
-        bulletin = Bulletin.objects.get(object_id=bulletin_id)
+        bulletin = Post.objects.get(object_id=bulletin_id)
     except:
         raise Http404
 

@@ -6,7 +6,7 @@ from imagekit.processors import ResizeToFit
 from foxstraat.core.accounts.models import User
 
 
-class Bulletin(models.Model):
+class Post(models.Model):
     object_id = models.CharField(max_length=11, null=False, blank=False)
     user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=140, null=False, blank=False)
@@ -26,12 +26,12 @@ class Bulletin(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
-        return f"<Bulletin:{self.id}>"
+        return f"<Post:{self.id}>"
 
 
 class Vote(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
-    bulletin = models.ForeignKey(Bulletin, on_delete=models.CASCADE)
+    bulletin = models.ForeignKey(Post, on_delete=models.CASCADE)
     value = models.IntegerField(default=0)
     has_voted = models.BooleanField(default=False)
 
@@ -45,7 +45,7 @@ class Tag(models.Model):
 
 
 class PostTag(models.Model):
-    post = models.ForeignKey(Bulletin, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     tag = models.ForeignKey(
         Tag,
         on_delete=models.CASCADE,

@@ -1,6 +1,6 @@
 from django import forms
 
-from foxstraat.core.posts.models import Bulletin
+from foxstraat.core.posts.models import Post
 
 
 class CreateBulletinForm(forms.ModelForm):
@@ -41,7 +41,7 @@ class CreateBulletinForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Bulletin
+        model = Post
         fields = (
             "title",
             "caption",
