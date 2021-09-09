@@ -106,18 +106,6 @@ def user_logout(request):
     return redirect("accounts:user-login")
 
 
-@login_required
-def user_dashboard(request):
-    if not is_mobile(request):
-        posts = Bulletin.objects.all().exclude(user=request.user).order_by("?")[:3]
-        context = {
-            "posts": posts,
-        }
-        return render(request, "views/dashboard/dashboard.html", context)
-    else:
-        return redirect("index")
-
-
 def get_user_profile(request, username):
     if not is_mobile(request):
         user = get_object_or_404(User, username=username)
