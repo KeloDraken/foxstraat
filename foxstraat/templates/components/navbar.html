@@ -1,7 +1,5 @@
 {% load static %}
-{% if request.user.is_authenticated %}
 <link rel="stylesheet" href="{% static 'css/components/navbar.css' %}">
-{% endif %}
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
@@ -12,30 +10,22 @@
         color: rgb(24, 24, 24) !important;
     }
 
-    nav {
-        border-bottom: 2px solid #212121;
-    }
-
-    .material-icons-outlined.md-16 {
+    .right li a {
         font-size: 2em;
+        text-transform: uppercase;
     }
 
     .black-text:hover {
         background-color: transparent;
     }
-</style>
 
-
-{% if not request.user.is_authenticated %}
-<style>
-    .nav-wrapper li {
-        margin-top: 0.5rem;
+    .navbar-m {
+        margin-bottom: 5rem;
     }
 </style>
-{% endif %}
 
-{% if request.user.is_authenticated %}
-<div class="navbar-fixed">
+
+<div class="navbar-m">
     <nav class="white z-depth-0">
         <div class="nav-wrapper">
             <div class="container">
@@ -43,23 +33,23 @@
                 <ul class="right">
                     <li title="Browse">
                         <a href="{% url 'bulletin:frontpage' %}">
-                            <span class="material-icons-outlined md-16">
-                                explore
-                            </span>
+                            Frontpage
                         </a>
                     </li>
                     <li title="{{ user.username }}">
+                        {% if request.user.is_authenticated %}
                         <a href="{% url 'get-user-profile' username=user.username %}">
-                            <span class="material-icons-outlined md-16">
-                                account_circle
-                            </span>
+                            Account
                         </a>
+                        {% else %}
+                        <a href="{% url 'accounts:user-register' %}">
+                            Account
+                        </a>
+                        {% endif %}
                     </li>
                     <li title="About Foxstraat">
                         <a href="{% url 'about' %}">
-                            <span class="material-icons-outlined md-16">
-                                info
-                            </span>
+                            About
                         </a>
                     </li>
                 </ul>
@@ -67,44 +57,3 @@
         </div>
     </nav>
 </div>
-{% else %}
-<div class="navbar-fixed">
-    <nav class="white z-depth-0">
-        <div class="nav-wrapper">
-            <div class="container">
-                <a href="/" class="brand-logo n-logo">Foxstraat.</a>
-                <ul class="right">
-                    <li title="Browse">
-                        <a class="black-text" href="{% url 'bulletin:frontpage' %}">
-                            <span class="material-icons-outlined md-16">
-                                explore
-                            </span>
-                        </a>
-                    </li>
-                    <!-- <li title="Forums">
-                        <a href="{% url 'forums:get-forum' %}">
-                            <span class="material-icons-outlined">
-                                forum
-                            </span>
-                        </a>
-                    </li> -->
-                    <li>
-                        <a class="black-text" href="{% url 'accounts:user-register' %}">
-                            <span class="material-icons-outlined md-16">
-                                account_circle
-                            </span>
-                        </a>
-                    </li>
-                    <li title="About Foxstraat">
-                        <a class="black-text" href="{% url 'about' %}">
-                            <span class="material-icons-outlined md-16">
-                                info
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
-{% endif %}
