@@ -118,7 +118,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL = "/u/login/"
-LOGIN_REDIRECT_URL = "/u/dashboard"
+LOGIN_REDIRECT_URL = "/f/"
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static-root"
