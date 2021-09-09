@@ -42,8 +42,6 @@ urlpatterns = (
         path("privacy/", privacy, name="privacy"),
         path("rules/", rules, name="rules"),
         path("terms/", terms, name="terms"),
-        # Blogs urls
-        path("blog/", include("foxstraat.core.blog.urls", namespace="blog")),
         # Accounts urls
         path("u/", include("foxstraat.core.accounts.urls", namespace="accounts")),
         # Bulletin urls
