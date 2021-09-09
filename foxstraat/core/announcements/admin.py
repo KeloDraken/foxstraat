@@ -1,6 +1,5 @@
 from django.contrib import admin
-from foxstraat.core.announcements.models import Announcement, ProductAnnouncement
+from foxstraat.core.announcements.models import Announcement
 
 
 admin.site.register(Announcement)
-admin.site.register(ProductAnnouncement)
