@@ -48,11 +48,6 @@ urlpatterns = (
         path("f/", include("foxstraat.core.bulletin.urls", namespace="bulletin")),
         # Topics urls
         path("b/", include("foxstraat.core.forums.urls", namespace="forums")),
-        # Announcements urls
-        path(
-            "n/",
-            include("foxstraat.core.announcements.urls", namespace="announcements"),
-        ),
         # Search urls
         path("search/", include("foxstraat.core.search.urls", namespace="search")),
         # User main profile

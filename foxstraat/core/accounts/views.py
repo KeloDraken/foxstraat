@@ -12,7 +12,6 @@ from foxstraat.core.forms import FormWithCaptcha
 
 from foxstraat.core.accounts.forms import UserLoginForm, UserRegistrationForm
 from foxstraat.core.accounts.models import User
-from foxstraat.core.announcements.models import Announcement
 from foxstraat.core.bulletin.models import Bulletin
 
 
@@ -110,11 +109,9 @@ def user_logout(request):
 @login_required
 def user_dashboard(request):
     if not is_mobile(request):
-        announcements = Announcement.objects.all().order_by("-datetime_created")
         posts = Bulletin.objects.all().exclude(user=request.user).order_by("?")[:3]
         context = {
             "posts": posts,
-            "announcements": announcements,
         }
         return render(request, "views/dashboard/dashboard.html", context)
     else:
