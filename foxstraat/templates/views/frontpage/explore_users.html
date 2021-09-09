@@ -99,14 +99,14 @@
         <!-- items -->
         <div class="infinite-container">
             {% for account in page_obj %}
+            {% if account.profile_pic %}
             <div class="grid-item infinite-item">
                 <a class="white-text" title="{{ account.bio }}"
                     href="{% url 'get-user-profile' username=account.username %}">
-                    {% if account.profile_pic %}
                     <img class="account-image" src="{{ account.profile_pic.url }}" alt="account cover image" />
-                    {% endif %}
                 </a>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

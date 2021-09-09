@@ -7,7 +7,7 @@ from django.http.response import Http404
 
 from django.shortcuts import get_object_or_404, redirect, render
 
-from foxstraat.utils.helpers import forbidden_attributes, is_mobile
+from foxstraat.utils.helpers import is_mobile
 from foxstraat.core.forms import FormWithCaptcha
 
 from foxstraat.core.accounts.forms import UserLoginForm, UserRegistrationForm
@@ -217,25 +217,7 @@ def save_profile(request, custom_styles):
 @login_required
 def edit_user_profile(request):
     if request.method == "POST":
-        custom_styles = request.POST["custom_styles"]
-
-        forbidden = forbidden_attributes()
-        for i in forbidden:
-            if i in custom_styles.lower():
-                context = {
-                    "user": request.user,
-                }
-                messages.error(
-                    request,
-                    """
-                    Only css is allowed.
-                    Continued use of non-css code could result 
-                    in a permanent ban from Foxstraat.
-                    """,
-                )
-                return render(request, "views/accounts/edit_profile.html", context)
-
-        save_profile(request, custom_styles)
+        return save_profile(request)
 
     context = {
         "user": request.user,
