@@ -26,12 +26,7 @@ def add_feedback(request):
 
 
 def index(request):
-    ref_from_url(request)
-
-    if not is_mobile(request):
-        return redirect("bulletin:frontpage")
-    else:
-        return redirect("bulletin:frontpage")
+    return redirect("bulletin:frontpage")
 
 
 def news(request):
