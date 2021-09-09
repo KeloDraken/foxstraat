@@ -51,44 +51,58 @@ def user_cast_vote(request, bulletin_id):
             return JsonResponse(data={"score": bulletin.score, "has_voted": True})
 
 
+def check_captcha(request):
+    """
+    Checks if request object has valid captcha
+    """
+    captcha_data = request.POST["g-recaptcha-response"]
+    if not captcha_data == "" and not captcha_data == None:
+        return True
+    return False
+
+
+def increment_user_num_posts(request):
+    request.user.num_posts = request.user.num_posts + 1
+    request.user.save()
+
+
+def handle_post_save(request, post_form):
+    post_form = post_form.save(commit=False)
+    post_form.user = request.user
+
+    if request.FILES.get("image"):
+        post_form.image = request.FILES.get("image")
+    else:
+        messages.error(request, "Post wasn't created. No image was found")
+        return redirect("bulletin:create-bulletin")
+
+    object_id = object_id_generator(11, Bulletin)
+    post_form.object_id = object_id
+
+    caption = request.POST["caption"]
+
+    hashtags = extract_hashtags(text=caption)
+
+    increment_user_num_posts(request)
+
+    post_form.save()
+
+    link_tags_to_post(post_id=object_id, tags=hashtags)
+    return redirect("bulletin:get-bulletin", bulletin_id=object_id)
+
+
 @login_required
 def create_bulletin(request):
     captcha = FormWithCaptcha()
 
     if request.method == "POST":
         post_form = CreateBulletinForm(request.POST)
-        # TODO: remove this try/catch in production
-        # try:
-        captcha_data = request.POST["g-recaptcha-response"]
-        # except:
-        #     captcha_data = '...'
 
-        if not captcha_data == "" and not captcha_data == None:
+        has_valid_captcha = check_captcha(request)
+
+        if has_valid_captcha:
             if post_form.is_valid():
-                post_form = post_form.save(commit=False)
-                post_form.user = request.user
-
-                if request.FILES.get("image"):
-                    post_form.image = request.FILES.get("image")
-                else:
-                    messages.error(request, "Post wasn't created. No image was found")
-                    return redirect("bulletin:create-bulletin")
-
-                object_id = object_id_generator(11, Bulletin)
-                post_form.object_id = object_id
-
-                caption = request.POST["caption"]
-
-                hashtags = extract_hashtags(text=caption)
-
-                request.user.num_posts = request.user.num_posts + 1
-                request.user.save()
-
-                post_form.save()
-
-                link_tags_to_post(post_id=object_id, tags=hashtags)
-
-                return redirect("bulletin:get-bulletin", bulletin_id=object_id)
+                return handle_post_save(request=request, post_form=post_form)
 
             else:
                 messages.error(request, "Post creation failed")
