@@ -46,8 +46,6 @@ urlpatterns = (
         path("u/", include("foxstraat.core.accounts.urls", namespace="accounts")),
         # Bulletin urls
         path("f/", include("foxstraat.core.bulletin.urls", namespace="bulletin")),
-        # Topics urls
-        path("b/", include("foxstraat.core.forums.urls", namespace="forums")),
         # Search urls
         path("search/", include("foxstraat.core.search.urls", namespace="search")),
         # User main profile

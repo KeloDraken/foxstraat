@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "foxstraat.core",
     "foxstraat.core.accounts",
     "foxstraat.core.bulletin",
-    "foxstraat.core.forums",
     "foxstraat.core.search",
     # template tags
     "foxstraat.core.bulletin.templatetags",
