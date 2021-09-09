@@ -20,7 +20,7 @@ def is_mobile(request):
 
 
 def forbidden_attributes():
-    content_list = [
+    return [
         "script",
         "<script>",
         "</script>",
@@ -119,7 +119,6 @@ def forbidden_attributes():
         "onwebkittransitionend",
         "onwheel",
     ]
-    return content_list
 
 
 def ref_from_url(request):

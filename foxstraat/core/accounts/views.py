@@ -192,6 +192,11 @@ def change_bio(request, user, bio):
         user.bio = bio
 
 
+def update_profile_pic(request, user):
+    if request.FILES.get("profile_pic"):
+        user.profile_pic = request.FILES.get("profile_pic")
+
+
 def save_profile(request, custom_styles):
     """
     Continues to save other fields in Edit Profile
@@ -220,11 +225,6 @@ def save_profile(request, custom_styles):
 
     user.save()
     messages.success(request, "Profile successfully updated")
-
-
-def update_profile_pic(request, user):
-    if request.FILES.get("profile_pic"):
-        user.profile_pic = request.FILES.get("profile_pic")
 
 
 @login_required
