@@ -123,11 +123,6 @@
             <!-- Manage posts section -->
             {% include 'components/dashboard/manage_posts.html' %}
             <!-- Manage posts section ends -->
-
-            <!-- Manage listings section -->
-            {% include 'components/dashboard/manage_listings.html' %}
-            <!-- Manage listings section ends -->
-
             <div class="info">
                 <a class="sign-out" href="{% url 'accounts:user-logout' %}">Sign out</a>
             </div>
@@ -151,10 +146,6 @@
                 </div>
                 <div class="col s6">
                     {% include 'components/dashboard/create_announcement.html' %}
-
-                    <!-- Marketplace section -->
-                    {% include 'components/dashboard/add_marketplace_listing.html' %}
-                    <!-- Marketplace section ends -->
 
                 </div>
             </div>

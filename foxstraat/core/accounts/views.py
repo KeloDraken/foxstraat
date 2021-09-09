@@ -144,13 +144,6 @@ def get_user_profile(request, username):
         return redirect("index")
 
 
-def change_custom_styles(custom_styles, user):
-    if not len(custom_styles) <= 0 and not custom_styles == None:
-        user.custom_styles = custom_styles
-    else:
-        user.custom_styles = None
-
-
 def change_web_url(user, website):
     if not len(website) <= 0 and not website == None:
         user.website = website
@@ -216,8 +209,6 @@ def save_profile(request, custom_styles):
 
     website = request.POST["website"]
     change_web_url(user, website)
-
-    change_custom_styles(custom_styles, user)
 
     user.save()
     messages.success(request, "Profile successfully updated")

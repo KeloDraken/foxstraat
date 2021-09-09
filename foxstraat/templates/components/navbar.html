@@ -48,13 +48,6 @@
                             </span>
                         </a>
                     </li>
-                    <li title="Foxstraat Winkel">
-                        <a href="{% url 'marketplace:storefront' %}">
-                            <span class="material-icons-outlined md-16">
-                                storefront
-                            </span>
-                        </a>
-                    </li>
                     <li title="{{ user.username }}">
                         <a href="{% url 'get-user-profile' username=user.username %}">
                             <span class="material-icons-outlined md-16">
@@ -95,13 +88,6 @@
                             </span>
                         </a>
                     </li> -->
-                    <li title="Foxstraat Winkel">
-                        <a class="black-text" href="{% url 'accounts:user-register' %}">
-                            <span class="material-icons-outlined md-16">
-                                storefront
-                            </span>
-                        </a>
-                    </li>
                     <li>
                         <a class="black-text" href="{% url 'accounts:user-register' %}">
                             <span class="material-icons-outlined md-16">

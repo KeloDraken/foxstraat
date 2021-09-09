@@ -55,8 +55,6 @@ urlpatterns = (
         ),
         # Search urls
         path("search/", include("foxstraat.core.search.urls", namespace="search")),
-        # Marketplace urls
-        path("s/", include("foxstraat.core.marketplace.urls", namespace="marketplace")),
         # User main profile
         path("<username>/", get_user_profile, name="get-user-profile"),
     ]
