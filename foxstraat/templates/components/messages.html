@@ -1,5 +1,5 @@
 {% if messages %}
-<div class="container center">
+<div class="container my-5">
     {% for message in messages %}
     {% if message.tags == 'error' %}
     <div class="bg-red-400 rounded px-2 py-1 font-bold text-white">{{ message }}</div>
@@ -10,5 +10,4 @@
     {% endif %}
     {% endfor %}
 </div>
-<br>
 {% endif %}
