@@ -8,9 +8,7 @@
     <h1 class="text-3xl text-center mt-16 mb-0 font-bold">Create an account on Foxstraat</h1>
     <div class="flex justify-center mb-10">
         <form action="{% url 'accounts:user-register' %}" class="mt-7" method="post">
-
             {% include 'components/messages.html' %}
-
 
             {% csrf_token %}
             {% for field in registration_form %}

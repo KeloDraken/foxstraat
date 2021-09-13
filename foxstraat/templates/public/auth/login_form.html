@@ -18,7 +18,6 @@
             </div>
             {% endif %}
 
-
             {% csrf_token %}
             {% for field in form %}
             <label for="{{field.auto_id}}" class="text-black font-bold capitalize">{{ field.html_name }}</label>
