@@ -115,7 +115,7 @@ def create_bulletin(request):
         "post_form": post_form,
         "captcha": captcha,
     }
-    return render(request, "views/bulletin/create_bulletin.html", context)
+    return render(request, "private/posts/create_post.html", context)
 
 
 def get_bulletin(request, bulletin_id):
@@ -151,7 +151,7 @@ def get_bulletin(request, bulletin_id):
             "upvotes": upvotes,
             "more_from_user": more_from_user,
         }
-        return render(request, "views/bulletin/view_bulletin.html", context)
+        return render(request, "public/posts/view_post.html", context)
     else:
         return redirect("index")
 
@@ -178,7 +178,7 @@ def frontpage(request):
     }
     is_mobile_ = is_mobile(request)
     if not is_mobile_:
-        return render(request, "views/frontpage/frontpage.html", context)
+        return render(request, "public/posts/frontpage.html", context)
     else:
         return render(request, "mobile/views/frontpage/frontpage.html", context)
 
@@ -192,7 +192,7 @@ def manage_posts(request):
     else:
         context = {"posts": posts}
 
-        return render(request, "views/bulletin/manage_posts.html", context)
+        return render(request, "private/posts/manage_posts.html", context)
 
 
 @login_required
