@@ -20,15 +20,15 @@ from foxstraat.utils.helpers import (
 
 from foxstraat.core.forms import FormWithCaptcha
 
-from foxstraat.core.posts.forms import CreateBulletinForm
+from foxstraat.core.posts.forms import CreatePostForm
 from foxstraat.core.posts.models import Post, Vote
 
 
-def user_cast_vote(request, bulletin_id):
+def user_cast_vote(request, post_id):
     if not request.user.is_authenticated:
         return HttpResponseForbidden()
     else:
-        bulletin = get_object_or_404(Post, object_id=bulletin_id)
+        bulletin = get_object_or_404(Post, object_id=post_id)
 
         try:
             vote_value = int(request.GET.get("vote_value"))
@@ -74,7 +74,7 @@ def handle_post_save(request, post_form):
         post_form.image = request.FILES.get("image")
     else:
         messages.error(request, "Post wasn't created. No image was found")
-        return redirect("bulletin:create-bulletin")
+        return redirect("posts:create-post")
 
     object_id = object_id_generator(11, Post)
     post_form.object_id = object_id
@@ -88,15 +88,15 @@ def handle_post_save(request, post_form):
     post_form.save()
 
     link_tags_to_post(post_id=object_id, tags=hashtags)
-    return redirect("bulletin:get-bulletin", bulletin_id=object_id)
+    return redirect("posts:get-post", post_id=object_id)
 
 
 @login_required
-def create_bulletin(request):
+def create_post(request):
     captcha = FormWithCaptcha()
 
     if request.method == "POST":
-        post_form = CreateBulletinForm(request.POST)
+        post_form = CreatePostForm(request.POST)
 
         has_valid_captcha = check_captcha(request)
 
@@ -109,7 +109,7 @@ def create_bulletin(request):
         else:
             messages.error(request, "Please confirm that you're not a robot")
     else:
-        post_form = CreateBulletinForm()
+        post_form = CreatePostForm()
 
     context = {
         "post_form": post_form,
@@ -118,9 +118,9 @@ def create_bulletin(request):
     return render(request, "private/posts/create_post.html", context)
 
 
-def get_bulletin(request, bulletin_id):
+def get_post(request, post_id):
     if not is_mobile(request):
-        post = get_object_or_404(Post, object_id=bulletin_id)
+        post = get_object_or_404(Post, object_id=post_id)
 
         more_from_user = Post.objects.filter(user=post.user).order_by("?")[:4]
 
@@ -188,7 +188,7 @@ def manage_posts(request):
     posts = Post.objects.filter(user=request.user).order_by("-datetime_created")
     if not posts:
         messages.error(request, "You don't have any posts yet. Create your post")
-        return redirect("bulletin:create-bulletin")
+        return redirect("posts:create-post")
     else:
         context = {"posts": posts}
 
@@ -196,16 +196,16 @@ def manage_posts(request):
 
 
 @login_required
-def delete_post(request, bulletin_id):
+def delete_post(request, post_id):
     try:
-        bulletin = Post.objects.get(object_id=bulletin_id)
+        post = Post.objects.get(object_id=post_id)
     except:
         raise Http404
 
-    if not bulletin.user == request.user:
+    if not post.user == request.user:
         raise Http404
 
     else:
-        bulletin.delete()
+        post.delete()
         messages.success(request, "Your post has been deleted")
-        return redirect("bulletin:manage-posts")
+        return redirect("posts:manage-posts")

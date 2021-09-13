@@ -12,7 +12,7 @@ class Post(models.Model):
     title = models.CharField(max_length=140, null=False, blank=False)
 
     image = ProcessedImageField(
-        upload_to="bulletin/images/",
+        upload_to="posts/images/",
         processors=[ResizeToFit(480, 600)],
         format="JPEG",
         options={"quality": 90},
@@ -24,9 +24,6 @@ class Post(models.Model):
     caption = models.TextField(null=True, blank=True)
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-
-    def __str__(self):
-        return f"<Post:{self.id}>"
 
 
 class Vote(models.Model):

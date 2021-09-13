@@ -3,7 +3,7 @@ from django import forms
 from foxstraat.core.posts.models import Post
 
 
-class CreateBulletinForm(forms.ModelForm):
+class CreatePostForm(forms.ModelForm):
     title = forms.CharField(
         max_length=140,
         label="",

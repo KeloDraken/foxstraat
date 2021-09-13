@@ -61,7 +61,9 @@ def login_user_on_register(request):
 
 
 def user_registration(request):
-    if not is_mobile(request):
+    if is_mobile(request):
+        return redirect("index")
+    else:
         if request.user.is_authenticated:
             return redirect("accounts:user-dashboard")
         else:
@@ -82,8 +84,6 @@ def user_registration(request):
                 "captcha": captcha,
             }
             return render(request, "public/auth/registration_form.html", context)
-    else:
-        return redirect("index")
 
 
 class UserLoginView(LoginView):
