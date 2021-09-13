@@ -1,0 +1,23 @@
+<div class="flex justify-center mb-10">
+    {% if page_obj.has_previous %}
+    <a href="?sida={{ page_obj.previous_page_number }}{% if page == 'search'%}&q={{ query }}{% endif %}"
+        class="mr-5 my-12 mx-7">
+        <i class="fa fa-arrow-left"></i> Previous
+    </a>
+    {% else %}
+    <a class="mr-5 my-12 mx-7">
+        <i class="fa fa-arrow-left"></i> Previous
+    </a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+    <a href="?sida={{ page_obj.next_page_number }}{% if page == 'search'%}&q={{ query }}{% endif %}"
+        class="mr-5 my-12 mx-7">
+        Next <i class="fa fa-arrow-right"></i>
+    </a>
+    {% else %}
+    <a class="mr-5 my-12 mx-7">
+        Next <i class="fa fa-arrow-right"></i>
+    </a>
+    {% endif %}
+</div>
