@@ -28,7 +28,7 @@ def explore_users(request):
 
     if not is_mobile(request):
         context = {"heading": "Cool new people", "page_obj": page_obj}
-        return render(request, "views/frontpage/explore_users.html", context)
+        return render(request, "public/frontpage/explore_users.html", context)
     else:
         return redirect("index")
 
@@ -70,15 +70,10 @@ def user_registration(request):
             if request.method == "POST":
                 registration_form = UserRegistrationForm(request.POST)
 
-                has_valid_captcha = check_captcha(request)
+                if registration_form.is_valid():
+                    registration_form.save()
 
-                if has_valid_captcha:
-                    if registration_form.is_valid():
-                        registration_form.save()
-
-                        return login_user_on_register(request)
-                else:
-                    messages.error(request, "Please confirm that you're not a robot")
+                    return login_user_on_register(request)
             else:
                 registration_form = UserRegistrationForm()
 
@@ -86,13 +81,13 @@ def user_registration(request):
                 "registration_form": registration_form,
                 "captcha": captcha,
             }
-            return render(request, "views/auth/registration_form.html", context)
+            return render(request, "public/auth/registration_form.html", context)
     else:
         return redirect("index")
 
 
 class UserLoginView(LoginView):
-    template_name = "views/auth/login_form.html"
+    template_name = "public/auth/login_form.html"
     authentication_form = UserLoginForm
     redirect_authenticated_user = True
 
@@ -122,7 +117,7 @@ def get_user_profile(request, username):
             page_obj = paginator.get_page(page_number)
 
             context = {"page_obj": page_obj, "user": user}
-            return render(request, "views/accounts/user_profile.html", context)
+            return render(request, "public/accounts/user_profile.html", context)
         else:
             raise Http404
     else:
@@ -207,7 +202,7 @@ def edit_user_profile(request):
     context = {
         "user": request.user,
     }
-    return render(request, "views/accounts/edit_profile.html", context)
+    return render(request, "private/accounts/edit_profile.html", context)
 
 
 @login_required

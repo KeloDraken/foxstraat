@@ -4,6 +4,7 @@ from django.contrib.auth.forms import (
     UserCreationForm,
 )
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext, gettext_lazy as _
 
 from foxstraat.core.accounts.models import User
 
@@ -14,7 +15,7 @@ class UserRegistrationForm(UserCreationForm):
         label="",
         widget=forms.TextInput(
             attrs={
-                "class": "form-input",
+                "class": "w-full text-black px-3 py-2 mb-3 border-2 border-gray-300 rounded bg-white",
                 "placeholder": "Pick a unique username",
                 "autocomplete": "off",
                 "autocapitalize": "off",
@@ -26,8 +27,8 @@ class UserRegistrationForm(UserCreationForm):
         label="",
         widget=forms.PasswordInput(
             attrs={
-                "class": "form-input",
-                "placeholder": "Create secure password",
+                "class": "w-full text-black px-3 py-2 mb-3 border-2 border-gray-300 rounded bg-white",
+                "placeholder": "Required",
                 "id": "password",
                 "autocomplete": "false",
                 "autocapitalize": "off",
@@ -39,8 +40,8 @@ class UserRegistrationForm(UserCreationForm):
         label="",
         widget=forms.PasswordInput(
             attrs={
-                "class": "form-input",
-                "placeholder": "Please confirm your password",
+                "class": "w-full text-black px-3 py-2 mb-3 border-2 border-gray-300 rounded bg-white",
+                "placeholder": "Required",
                 "id": "password",
                 "autocomplete": "none",
                 "autocapitalize": "off",
@@ -67,9 +68,10 @@ class UserLoginForm(AuthenticationForm):
         label="",
         widget=forms.TextInput(
             attrs={
-                "class": "form-input",
-                "placeholder": "Username",
+                "class": "w-full text-black px-3 py-2 mb-3 border-2 border-gray-300 rounded bg-white",
+                "placeholder": "Required",
                 "autocomplete": "off",
+                "name": "Username",
                 "autocapitalize": "off",
                 "autofocus": "true",
             }
@@ -80,14 +82,19 @@ class UserLoginForm(AuthenticationForm):
         label="",
         widget=forms.PasswordInput(
             attrs={
-                "class": "form-input",
-                "placeholder": "Password",
+                "class": "w-full text-black px-3 py-2 mb-3 border-2 border-gray-300 rounded bg-white",
+                "placeholder": "Required",
                 "id": "password",
+                "name": "Password",
                 "autocomplete": "false",
                 "autocapitalize": "off",
             }
         ),
     )
+    error_messages = {
+        "invalid_login": _("Incorrect log in credentials"),
+        "inactive": _("This account has been suspended"),
+    }
 
     def confirm_login_allowed(self, user):
         if not user.is_active:

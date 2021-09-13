@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Foxstraat - Sign in{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+<div class="w-full justify-center mx-auto px-44">
+    <h1 class="text-3xl text-center mt-16 mb-0 font-bold">Sign In</h1>
+    <div class="flex justify-center mb-10">
+
+        <form action="{% url 'accounts:user-login' %}" class="mt-7" method="post">
+            {% include 'components/messages.html' %}
+            <div class="container center">
+                <div class="bg-red-400 rounded px-2 py-1 font-bold text-white">{{form.error_messages.invalid_login}}
+                </div>
+            </div>
+
+
+            {% csrf_token %}
+            {% for field in form %}
+            <label for="{{field.auto_id}}" class="text-black font-bold capitalize">{{ field.html_name }}</label>
+
+            <p>{{field}}</p>
+            {% endfor %}
+            <div class="flex flex-row">
+                <button class="bg-black text-white text-lg rounded font-extrabold px-5 py-2 mr-1" type="submit">Sign
+                    in</button>
+                <a href="{% url 'accounts:user-register' %}" class="text-black text-lg rounded px-2 py-2 mr-1">or
+                    create
+                    account instead</a>
+            </div>
+            <div class="flex justify-center mt-36">
+                <a title="Send feedback" rel="noopener noreferrer" target="_blank" class="mx-3"
+                    href="https://instagram.com/kelodraken">
+                    Instagram
+                </a>
+                <a title="Send feedback" rel="noopener noreferrer" target="_blank" class="mx-3"
+                    href="https://twitter.com/intent/follow?screen_name=KeloDraken&tw_p=followbutton">
+                    Twitter
+                </a>
+                <a title="Send feedback" rel="noopener noreferrer" target="_blank" class="mx-3"
+                    href="https://github.com/KeloDraken/foxstraat">
+                    GitHub
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

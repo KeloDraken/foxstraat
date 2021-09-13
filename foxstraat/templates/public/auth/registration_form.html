@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Foxstraat - Registration{% endblock %}
+
+{% block body %}
+{% include 'components/navbar.html' %}
+<div class="w-full justify-center mx-auto px-44">
+    <h1 class="text-3xl text-center mt-16 mb-0 font-bold">Create an account on Foxstraat</h1>
+    <div class="flex justify-center mb-10">
+        <form action="{% url 'accounts:user-register' %}" class="mt-7" method="post">
+
+            {% include 'components/messages.html' %}
+
+
+            {% csrf_token %}
+            {% for field in registration_form %}
+            <label for="{{field.auto_id}}" class="text-black font-bold capitalize">
+                {% if field.html_name == "password1" %}
+                Password
+                {% elif field.html_name == "password2" %}
+                Confirm password
+                {% else %}
+                {{ field.html_name }}
+                {% endif %}
+            </label>
+            <span class="text-red-600">{{field.errors}}</span>
+            <p>{{field}}</p>
+            {% endfor %}
+            <div class="flex">
+                <button class="bg-black text-white text-lg rounded font-extrabold px-5 py-2 mr-1" type="submit">Create
+                    account</button>
+                <a href="{% url 'accounts:user-login' %}" class="text-black text-lg rounded px-2 py-2 mr-1">or sign
+                    in instead</a>
+            </div>
+            <div class="flex justify-center mt-36">
+                <a title="Send feedback" rel="noopener noreferrer" target="_blank" class="mx-3"
+                    href="https://instagram.com/kelodraken">
+                    Instagram
+                </a>
+                <a title="Send feedback" rel="noopener noreferrer" target="_blank" class="mx-3"
+                    href="https://twitter.com/intent/follow?screen_name=KeloDraken&tw_p=followbutton">
+                    Twitter
+                </a>
+                <a title="Send feedback" rel="noopener noreferrer" target="_blank" class="mx-3"
+                    href="https://github.com/KeloDraken/foxstraat">
+                    GitHub
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
