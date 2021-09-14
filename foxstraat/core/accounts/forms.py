@@ -16,7 +16,7 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.TextInput(
             attrs={
                 "class": "w-full text-black px-3 py-2 mb-3 border-2 border-gray-300 rounded bg-white",
-                "placeholder": "Use your WeThinkCode email address",
+                "placeholder": "Required",
                 "autocomplete": "off",
                 "autocapitalize": "off",
             }

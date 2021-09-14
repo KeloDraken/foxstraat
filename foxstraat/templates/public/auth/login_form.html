@@ -3,7 +3,6 @@
 {% block title %}Foxstraat - Sign in{% endblock %}
 
 {% block body %}
-{% include 'components/navbar.html' %}
 <div class="w-full justify-center mx-auto px-44">
     <h1 class="text-3xl text-center mt-16 mb-0 font-bold">Sign In</h1>
     <div class="flex justify-center mb-10">
@@ -31,9 +30,9 @@
             <p>{{field}}</p>
             {% endfor %}
             <div class="flex flex-row">
-                <button class="bg-black text-white text-lg rounded font-extrabold px-5 py-2 mr-1" type="submit">Sign
+                <button class="bg-black text-white text-normal rounded font-extrabold px-5 py-2 mr-1" type="submit">Sign
                     in</button>
-                <a href="{% url 'accounts:user-register' %}" class="text-black text-lg rounded px-2 py-2 mr-1">or
+                <a href="{% url 'accounts:user-register' %}" class="text-black text-normal px-2 py-2 mr-1">or
                     create
                     account instead</a>
             </div>
