@@ -2,61 +2,26 @@
 
 {% block title %}Foxstraat - Explore{% endblock %}
 
-{% block styles %}
-<style>
-    .grid {
-        display: flex;
-    }
-
-    .grid-item:hover>.content {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .grid-col {
-        flex: 1;
-        padding: 0 0.7em;
-    }
-</style>
-{% endblock %}
-
 {% block body %}
 <div class="w-full justify-center mx-auto px-44">
     <h1 class="text-3xl mt-10 mb-0 font-bold">Frontpage</h1>
     <h1 id="heading" class="text-lg mt-1 mb-5 font-bold">
-        Today's top voted submissions
+        Your top recommended links
     </h1>
-    <div class="grid">
-        <div class="grid-col"></div>
-        <div class="grid-col"></div>
-        <div class="grid-col"></div>
-        <div class="grid-col"></div>
-
-        <div class="infinite-container">
-            {% for post in page_obj|dictsortreversed:"score" %}
-            <div class="grid-item my-5 infinite-item">
-                <a title="{{ post.title }}" href="{% url 'posts:get-bulletin' bulletin_id=post.object_id %}">
-                    {% if post.image %}
-                    <img class="post-image" src="{{ post.image.url }}" alt="Post cover image" />
-                    {% elif post.cover_art %}
-                    <img class="post-image" src="{{ post.cover_art.url }}" alt="Post cover image" />
-                    {% endif %}
-                </a>
-            </div>
-            {% endfor %}
+    <div class="infinite-container">
+        {% for post in page_obj|dictsortreversed:"score" %}
+        <div class="grid-item my-5 infinite-item">
+            <a title="{{ post.title }}" href="{% url 'posts:get-bulletin' bulletin_id=post.object_id %}">
+                {% if post.image %}
+                <img class="post-image" src="{{ post.image.url }}" alt="Post cover image" />
+                {% elif post.cover_art %}
+                <img class="post-image" src="{{ post.cover_art.url }}" alt="Post cover image" />
+                {% endif %}
+            </a>
         </div>
+        {% endfor %}
     </div>
     {% include 'components/infinite_scroll_fetch.html' %}
     {% include 'components/footer.html' %}
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script src="https://unpkg.com/colcade@0/colcade.js"></script>
-<script>
-    var colc = new Colcade('.grid', {
-        columns: '.grid-col',
-        items: '.grid-item'
-    });
-</script>
 {% endblock %}
