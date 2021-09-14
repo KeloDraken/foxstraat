@@ -5,8 +5,4 @@ Disallow: /static/
 Disallow: /u/
 Allow: /u/login/
 Allow: /u/register/
-Disallow: /s/
-Disallow: /search/
-Disallow: /n/
-Disallow: /f/
 Crawl-delay: 1
