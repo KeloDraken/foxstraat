@@ -1,10 +1,11 @@
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
+
+from foxstraat.core.accounts.validators import UnicodeUsernameValidator
 
 
 class LowercaseCharField(models.CharField):
