@@ -11,10 +11,7 @@ from django.http.response import Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from foxstraat.utils.db import cast_vote, check_has_user_voted
-from foxstraat.utils.helpers import (
-    is_mobile,
-    object_id_generator,
-)
+from foxstraat.utils.helpers import object_id_generator
 
 from foxstraat.core.forms import FormWithCaptcha
 
@@ -112,41 +109,38 @@ def create_post(request):
 
 
 def get_post(request, post_id):
-    if not is_mobile(request):
-        post = get_object_or_404(Post, object_id=post_id)
+    post = get_object_or_404(Post, object_id=post_id)
 
-        more_from_user = Post.objects.filter(user=post.user).order_by("?")[:4]
+    more_from_user = Post.objects.filter(user=post.user).order_by("?")[:4]
 
-        has_voted = False
-        has_downvoted = False
-        has_upvoted = False
+    has_voted = False
+    has_downvoted = False
+    has_upvoted = False
 
-        if request.user.is_authenticated:
-            has_voted = check_has_user_voted(Vote, request.user, post)
+    if request.user.is_authenticated:
+        has_voted = check_has_user_voted(Vote, request.user, post)
 
-            if has_voted:
-                vote = Vote.objects.get(user=request.user, bulletin=post)
-                if vote.value == -1:
-                    has_downvoted = True
-                    has_upvoted = False
-                elif vote.value == 1:
-                    has_downvoted = False
-                    has_upvoted = True
-                else:
-                    has_downvoted = False
-                    has_upvoted = False
+        if has_voted:
+            vote = Vote.objects.get(user=request.user, bulletin=post)
+            if vote.value == -1:
+                has_downvoted = True
+                has_upvoted = False
+            elif vote.value == 1:
+                has_downvoted = False
+                has_upvoted = True
+            else:
+                has_downvoted = False
+                has_upvoted = False
 
-        upvotes = round(post.upvotes - post.downvotes)
-        context = {
-            "has_upvoted": has_upvoted,
-            "has_downvoted": has_downvoted,
-            "post": post,
-            "upvotes": upvotes,
-            "more_from_user": more_from_user,
-        }
-        return render(request, "public/posts/view_post.html", context)
-    else:
-        return redirect("index")
+    upvotes = round(post.upvotes - post.downvotes)
+    context = {
+        "has_upvoted": has_upvoted,
+        "has_downvoted": has_downvoted,
+        "post": post,
+        "upvotes": upvotes,
+        "more_from_user": more_from_user,
+    }
+    return render(request, "public/posts/view_post.html", context)
 
 
 def frontpage(request):
@@ -169,11 +163,7 @@ def frontpage(request):
         "heading": f"Explore {weekday}'s photos",
         "page_obj": page_obj,
     }
-    is_mobile_ = is_mobile(request)
-    if not is_mobile_:
-        return render(request, "public/posts/frontpage.html", context)
-    else:
-        return render(request, "mobile/views/frontpage/frontpage.html", context)
+    return render(request, "public/posts/frontpage.html", context)
 
 
 @login_required

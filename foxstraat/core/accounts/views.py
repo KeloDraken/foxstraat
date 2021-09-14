@@ -7,7 +7,6 @@ from django.http.response import Http404
 
 from django.shortcuts import get_object_or_404, redirect, render
 
-from foxstraat.utils.helpers import is_mobile
 from foxstraat.core.forms import FormWithCaptcha
 
 from foxstraat.core.accounts.forms import UserLoginForm, UserRegistrationForm
@@ -26,11 +25,8 @@ def explore_users(request):
 
     page_obj = paginator.get_page(page_number)
 
-    if not is_mobile(request):
-        context = {"heading": "Cool new people", "page_obj": page_obj}
-        return render(request, "public/frontpage/explore_users.html", context)
-    else:
-        return redirect("index")
+    context = {"heading": "Cool new people", "page_obj": page_obj}
+    return render(request, "public/frontpage/explore_users.html", context)
 
 
 def check_captcha(request):
@@ -55,35 +51,32 @@ def login_user_on_register(request):
     if user is not None:
         login(request, user)
         messages.success(request, "Welcome to Foxstraat. Feel free to explore.")
-        return redirect("/")
+        return redirect("posts:frontpage")
     else:
         messages.error(request, "Something went wrong")
 
 
 def user_registration(request):
-    if is_mobile(request):
-        return redirect("index")
+    if request.user.is_authenticated:
+        return redirect("accounts:user-dashboard")
     else:
-        if request.user.is_authenticated:
-            return redirect("accounts:user-dashboard")
+        captcha = FormWithCaptcha
+
+        if request.method == "POST":
+            registration_form = UserRegistrationForm(request.POST)
+
+            if registration_form.is_valid():
+                registration_form.save()
+
+                return login_user_on_register(request)
         else:
-            captcha = FormWithCaptcha
+            registration_form = UserRegistrationForm()
 
-            if request.method == "POST":
-                registration_form = UserRegistrationForm(request.POST)
-
-                if registration_form.is_valid():
-                    registration_form.save()
-
-                    return login_user_on_register(request)
-            else:
-                registration_form = UserRegistrationForm()
-
-            context = {
-                "registration_form": registration_form,
-                "captcha": captcha,
-            }
-            return render(request, "public/auth/registration_form.html", context)
+        context = {
+            "registration_form": registration_form,
+            "captcha": captcha,
+        }
+        return render(request, "public/auth/registration_form.html", context)
 
 
 class UserLoginView(LoginView):
@@ -102,26 +95,23 @@ def user_logout(request):
 
 
 def get_user_profile(request, username):
-    if not is_mobile(request):
-        user = get_object_or_404(User, username=username)
+    user = get_object_or_404(User, username=username)
 
-        if user.is_active:
-            posts = Post.objects.filter(user=user).order_by("-datetime_created")
+    if user.is_active:
+        posts = Post.objects.filter(user=user).order_by("-datetime_created")
 
-            try:
-                page_number = int(request.GET.get("sida"))
-            except:
-                page_number = 1
+        try:
+            page_number = int(request.GET.get("sida"))
+        except:
+            page_number = 1
 
-            paginator = Paginator(posts, 15)
-            page_obj = paginator.get_page(page_number)
+        paginator = Paginator(posts, 15)
+        page_obj = paginator.get_page(page_number)
 
-            context = {"page_obj": page_obj, "user": user}
-            return render(request, "public/accounts/user_profile.html", context)
-        else:
-            raise Http404
+        context = {"page_obj": page_obj, "user": user}
+        return render(request, "public/accounts/user_profile.html", context)
     else:
-        return redirect("index")
+        raise Http404
 
 
 def change_web_url(user, website):

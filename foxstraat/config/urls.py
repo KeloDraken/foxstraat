@@ -31,7 +31,6 @@ from foxstraat.core.views import about, index, news, privacy, rules, terms
 urlpatterns = (
     [
         path("u/admin/", admin.site.urls, name="admin"),
-        path("", index, name="index"),
         path("about/", about, name="about"),
         path("news/", news, name="news"),
         path(

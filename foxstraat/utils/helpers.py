@@ -2,20 +2,6 @@ import random
 import re
 import string
 
-from foxstraat.core.posts.models import Post
-
-
-def is_mobile(request):
-    """
-    returns True if request comes from mobile device
-    """
-    MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)", re.IGNORECASE)
-
-    if MOBILE_AGENT_RE.match(request.META.get("HTTP_USER_AGENT")):
-        return True
-    else:
-        return False
-
 
 def object_id_generator(size, model, chars=string.ascii_letters + string.digits):
     """
