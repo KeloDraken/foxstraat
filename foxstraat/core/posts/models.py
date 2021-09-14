@@ -9,19 +9,17 @@ from foxstraat.core.accounts.models import User
 class Post(models.Model):
     object_id = models.CharField(max_length=11, null=False, blank=False)
     user = models.ForeignKey(User, null=True, on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=140, null=False, blank=False)
 
-    image = ProcessedImageField(
-        upload_to="posts/images/",
-        processors=[ResizeToFit(480, 600)],
-        format="JPEG",
-        options={"quality": 90},
-        null=True,
-    )
+    url = models.URLField(max_length=1000, null=False, blank=False)
+    title = models.CharField(max_length=400, null=False, blank=False)
+    image = models.CharField(max_length=100000, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    publisher = models.CharField(max_length=400, null=False, blank=False)
+
     score = models.IntegerField(default=0)
     upvotes = models.PositiveIntegerField(default=0)
     downvotes = models.PositiveIntegerField(default=0)
-    caption = models.TextField(null=True, blank=True)
+
     date_created = models.DateField(auto_now_add=True, null=True, blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
@@ -31,26 +29,3 @@ class Vote(models.Model):
     bulletin = models.ForeignKey(Post, on_delete=models.CASCADE)
     value = models.IntegerField(default=0)
     has_voted = models.BooleanField(default=False)
-
-
-class Tag(models.Model):
-    object_id = models.CharField(max_length=11, null=True, blank=True)
-    name = models.CharField(max_length=300, null=False, blank=False)
-
-    def __str__(self):
-        return self.name
-
-
-class PostTag(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    tag = models.ForeignKey(
-        Tag,
-        on_delete=models.CASCADE,
-        related_name="hashtag",
-        max_length=300,
-        null=True,
-        blank=True,
-    )
-
-    def __str__(self):
-        return self.hashtag

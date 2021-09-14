@@ -12,9 +12,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from foxstraat.utils.db import cast_vote, check_has_user_voted
 from foxstraat.utils.helpers import (
-    extract_hashtags,
     is_mobile,
-    link_tags_to_post,
     object_id_generator,
 )
 
@@ -79,15 +77,10 @@ def handle_post_save(request, post_form):
     object_id = object_id_generator(11, Post)
     post_form.object_id = object_id
 
-    caption = request.POST["caption"]
-
-    hashtags = extract_hashtags(text=caption)
-
     increment_user_num_posts(request)
 
     post_form.save()
 
-    link_tags_to_post(post_id=object_id, tags=hashtags)
     return redirect("posts:get-post", post_id=object_id)
 
 
