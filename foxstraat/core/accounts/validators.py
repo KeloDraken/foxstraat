@@ -7,6 +7,6 @@ from django.utils.translation import gettext_lazy as _
 
 @deconstructible
 class UnicodeUsernameValidator(validators.RegexValidator):
-    regex = r"^[\w.@+-]+\Z"
+    regex = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
     message = _("Enter a valid email address.")
     flags = 0
