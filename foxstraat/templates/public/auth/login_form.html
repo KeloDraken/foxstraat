@@ -10,10 +10,11 @@
         <form action="{% url 'accounts:user-login' %}" class="mt-7" method="post">
             {% include 'components/messages.html' %}
 
+
             {% if form.errors %}
-            <div class="container center">
-                <div class="bg-red-400 rounded px-2 py-1 font-bold text-white">{{form.error_messages.invalid_login}}
-                </div>
+            <div class="mb-5">
+                <span class="text-red-600">{{form.error_messages.invalid_login}}
+                </span>
             </div>
             {% endif %}
 
