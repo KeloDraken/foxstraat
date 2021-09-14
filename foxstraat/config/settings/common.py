@@ -104,6 +104,7 @@ else:
 
 
 AUTH_USER_MODEL = "accounts.User"
+AUTHENTICATION_BACKENDS = ["foxstraat.core.accounts.backends.EmailBackend"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

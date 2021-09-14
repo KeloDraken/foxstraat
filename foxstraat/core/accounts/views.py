@@ -47,7 +47,7 @@ def login_user_on_register(request):
     """
     Logs user in on successful `User` instance creation
     """
-    username = request.POST["username"]
+    username = request.POST["email"]
     password = request.POST["password2"]
 
     user = authenticate(username=username.lower(), password=password)
@@ -55,7 +55,7 @@ def login_user_on_register(request):
     if user is not None:
         login(request, user)
         messages.success(request, "Welcome to Foxstraat. Feel free to explore.")
-        return redirect("accounts:user-dashboard")
+        return redirect("/")
     else:
         messages.error(request, "Something went wrong")
 

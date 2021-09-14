@@ -4,9 +4,9 @@ from foxstraat.core.accounts.models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    search_fields = ("username",)
+    search_fields = ("email",)
     list_display = (
-        "username",
+        "email",
         "date_joined",
     )
 

@@ -10,13 +10,13 @@ from foxstraat.core.accounts.models import User
 
 
 class UserRegistrationForm(UserCreationForm):
-    username = forms.CharField(
-        max_length=20,
+    email = forms.EmailField(
+        max_length=300,
         label="",
         widget=forms.TextInput(
             attrs={
                 "class": "w-full text-black px-3 py-2 mb-3 border-2 border-gray-300 rounded bg-white",
-                "placeholder": "Pick a unique username",
+                "placeholder": "Use your WeThinkCode email address",
                 "autocomplete": "off",
                 "autocapitalize": "off",
             }
@@ -51,20 +51,20 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "password1", "password2")
+        fields = ("email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=False)
-        username = self.cleaned_data["username"]
-        user.display_name = username
+        email = self.cleaned_data["email"]
+        user.display_name = email
         if commit:
             user.save()
         return user
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(
-        max_length=20,
+    username = forms.EmailField(
+        max_length=300,
         label="",
         widget=forms.TextInput(
             attrs={

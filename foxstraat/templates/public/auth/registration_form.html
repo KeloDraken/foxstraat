@@ -13,7 +13,9 @@
             {% csrf_token %}
             {% for field in registration_form %}
             <label for="{{field.auto_id}}" class="text-black font-bold capitalize">
-                {% if field.html_name == "password1" %}
+                {% if field.html_name == "email" %}
+                email address
+                {% elif field.html_name == "password1" %}
                 Password
                 {% elif field.html_name == "password2" %}
                 Confirm password

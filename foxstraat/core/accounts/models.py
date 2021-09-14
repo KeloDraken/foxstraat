@@ -29,10 +29,10 @@ class User(AbstractUser):
     is_verified = models.BooleanField(default=False)
     gelt = models.IntegerField(default=500)
     num_posts = models.PositiveIntegerField(default=0)
-    username = LowercaseCharField(
+    email = LowercaseCharField(
         # Copying this from AbstractUser code
-        _("username"),
-        max_length=20,
+        _("email address"),
+        max_length=300,
         unique=True,
         help_text=_(
             "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
