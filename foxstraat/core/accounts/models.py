@@ -41,7 +41,7 @@ class User(AbstractUser):
             UnicodeUsernameValidator(),
         ],
         error_messages={
-            "unique": _("A user with that username already exists."),
+            "unique": _("This email address already has an account associated with it"),
         },
     )
     display_name = models.CharField(max_length=100, null=True, blank=True)
