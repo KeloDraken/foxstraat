@@ -26,7 +26,7 @@ from foxstraat.core.accounts.views import (
     get_user_profile,
 )
 
-from foxstraat.core.views import about, index, news, privacy, rules, terms
+from foxstraat.core.views import about, news, privacy, rules, terms
 
 urlpatterns = (
     [
