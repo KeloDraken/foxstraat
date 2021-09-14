@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
-from foxstraat.core.accounts.validators import UnicodeUsernameValidator
+from foxstraat.core.accounts.validators import UnicodeEmailValidator
 
 
 class LowercaseCharField(models.CharField):
@@ -39,7 +39,7 @@ class User(AbstractUser):
             "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
         ),
         validators=[
-            UnicodeUsernameValidator(),
+            UnicodeEmailValidator(),
         ],
         error_messages={
             "unique": _("This email address already has an account associated with it"),
