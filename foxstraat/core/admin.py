@@ -1,15 +1,7 @@
 from django.contrib import admin
-from foxstraat.core.models import Feedback, News, Privacy, Ref, Rules, Terms
+from foxstraat.core.models import Feedback, News, Privacy, Rules, Terms
 
 
-class RefAdmin(admin.ModelAdmin):
-    list_display = (
-        "source",
-        "hits",
-    )
-
-
-admin.site.register(Ref, RefAdmin)
 admin.site.register(News)
 admin.site.register(Feedback)
 

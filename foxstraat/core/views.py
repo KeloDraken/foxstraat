@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-from foxstraat.utils.helpers import is_mobile, object_id_generator, ref_from_url
+from foxstraat.utils.helpers import is_mobile, object_id_generator
 from foxstraat.core.models import Feedback, News, Privacy, Rules, Terms
 
 

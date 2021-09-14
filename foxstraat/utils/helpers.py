@@ -2,8 +2,6 @@ import random
 import re
 import string
 
-from foxstraat.core.models import Ref
-
 from foxstraat.core.posts.models import Post, PostTag, Tag
 
 
@@ -17,25 +15,6 @@ def is_mobile(request):
         return True
     else:
         return False
-
-
-def ref_from_url(request):
-    """
-    Extracts ?ref from get request and stores access count in `Ref` model
-    """
-    if request.method == "GET":
-        try:
-            ref = request.GET["ref"]
-        except:
-            return
-
-        obj, created = Ref.objects.get_or_create(
-            object_id=object_id_generator(size=11, model=True),
-            source=ref.lower(),
-        )
-        obj.hits += 1
-        obj.save()
-        return ref
 
 
 def object_id_generator(size, model, chars=string.ascii_letters + string.digits):
