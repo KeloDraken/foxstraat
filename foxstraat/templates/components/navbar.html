@@ -7,11 +7,11 @@
 </style>
 <div class="sticky  top-0 z-50">
     <div class="flex flex-row justify-between py-4 px-4 w-full bg-white">
-        <a href="/" native title="Ett projekt av Samkelo Drakensberg" class="logo text-3xl">
+        <a href="{% url 'posts:frontpage' %}" native title="Ett projekt av Samkelo Drakensberg" class="logo text-3xl">
             Foxstraat.
         </a>
         <div class="flex flex-row justify-evenly">
-            <a title="Matstad Home" href="{% url 'index' %}"
+            <a title="Matstad Home" href="{% url 'posts:frontpage' %}"
                 class="nav-link text-2xl mx-5 font-bold border-white">Frontpage</a>
             <a href="#" class="nav-link text-2xl mx-5 font-bold border-white">Browse</a>
             <a href="#" class="nav-link text-2xl mx-5 font-bold border-white">Archive</a>
