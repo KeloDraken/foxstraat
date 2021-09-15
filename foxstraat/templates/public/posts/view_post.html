@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Foxstraat - {{post.title}}{% endblock %}
+
+{% block body %}
+<div class="w-full justify-center mx-auto px-44">
+    <div class="infinite-container mx-auto px-60">
+        <h1 class="text-3xl mt-24 mb-2 font-bold">{{post.title}}</h1>
+        <a href="{{ post.url }}" rel="noopener noreferrer" target="_blank" id="heading"
+            class="underline text-normal mb-5 text-gray-500">
+            visit website
+        </a>
+        <hr class="mt-10">
+    </div>
+    <div class="infinite-container mx-auto pt-10 px-60">
+        <div class="grid-item my-5 infinite-item">
+            <div class="flex px-4 mb-3">
+                <div class="flex flex-col">
+                    <div class="mt-2">
+                        <a href="{% url 'posts:get-post' post_id=post.object_id %}">
+                            <div class="w-full mb-3">
+                                <img src="{{post.image}}" class="w-full  object-cover mb-3" alt="recipe cover image" />
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="py-2 px-4">
+                    <p class="mt-3">
+                        {{post.description}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'components/footer.html' %}
+</div>
+{% endblock %}
