@@ -1,14 +1,14 @@
 import calendar
-import random
 from datetime import date
+import random
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
+
 from django.forms import URLField
-
-
 from django.http.response import Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
