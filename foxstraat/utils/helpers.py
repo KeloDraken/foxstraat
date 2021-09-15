@@ -8,10 +8,12 @@ import string
 
 from django.contrib import messages
 from django.db import IntegrityError
+from django.http import HttpResponse
 from django.shortcuts import redirect
 
 from bs4 import BeautifulSoup
 
+from foxstraat.core.models import ForbiddenWebsites
 from foxstraat.core.posts.models import Post
 
 
@@ -23,21 +25,44 @@ def object_id_generator(size, model, chars=string.ascii_letters + string.digits)
     return check_object_id_exists(object_id=object_id, model=model)
 
 
+def is_forbidden(url):
+    forbidden_sites = ForbiddenWebsites.objects.all()
+
+    if not url == None and len(url) > 0:
+        for i in forbidden_sites:
+            if url in i.domain:
+                return True
+            else:
+                return False
+    else:
+        return True
+
+
 def add_post_to_db(url, publisher, title, description, image, request=None):
     """
     Commits page data to db, creating new `Post` object
     """
     object_id = object_id_generator(size=11, model=Post)
     try:
-        post = Post.objects.create(
-            object_id=object_id,
-            user=request.user,
-            url=url,
-            publisher=publisher,
-            title=title,
-            description=description,
-            image=image,
-        )
+        is_forbidden_site = is_forbidden(url)
+
+        if not is_forbidden_site:
+            messages.error(
+                request,
+                "Link wasn't added because the host has been banned from Foxstraat",
+            )
+            return redirect("posts:create-post")
+
+        else:
+            post = Post.objects.create(
+                object_id=object_id,
+                user=request.user,
+                url=url,
+                publisher=publisher,
+                title=title,
+                description=description,
+                image=image,
+            )
     except IntegrityError:
         messages.error(
             request,
