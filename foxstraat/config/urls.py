@@ -26,7 +26,7 @@ from foxstraat.core.accounts.views import (
     get_user_profile,
 )
 
-from foxstraat.core.views import about, news, privacy, rules, terms
+from foxstraat.core.views import about, dump_sites, news, privacy, rules, terms
 
 urlpatterns = (
     [
@@ -37,6 +37,7 @@ urlpatterns = (
             "robots.txt",
             TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
         ),
+        path("dump/", dump_sites),
         # Legal
         path("privacy/", privacy, name="privacy"),
         path("rules/", rules, name="rules"),

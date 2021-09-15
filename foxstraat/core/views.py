@@ -1,3 +1,4 @@
+from foxstraat.utils.db import fetch_porn_sites_json
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
@@ -23,6 +24,10 @@ def add_feedback(request):
                 request, "Something went wrong. We couldn't send your feedback"
             )
             return redirect("about")
+
+
+def dump_sites(request):
+    return fetch_porn_sites_json()
 
 
 def news(request):
