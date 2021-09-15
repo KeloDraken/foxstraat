@@ -7,6 +7,7 @@ import string
 
 
 from django.contrib import messages
+from django.db import IntegrityError
 from django.shortcuts import redirect
 
 from bs4 import BeautifulSoup
@@ -27,15 +28,23 @@ def add_post_to_db(url, publisher, title, description, image, request=None):
     Commits page data to db, creating new `Post` object
     """
     object_id = object_id_generator(size=11, model=Post)
-    post = Post.objects.create(
-        object_id=object_id,
-        user=request.user,
-        url=url,
-        publisher=publisher,
-        title=title,
-        description=description,
-        image=image,
-    )
+    try:
+        post = Post.objects.create(
+            object_id=object_id,
+            user=request.user,
+            url=url,
+            publisher=publisher,
+            title=title,
+            description=description,
+            image=image,
+        )
+    except IntegrityError:
+        messages.error(
+            request,
+            "Couldn't create submission because the page is missing important information",
+        )
+        return redirect("posts:create-post")
+
     return redirect("posts:get-post", post_id=object_id)
 
 
