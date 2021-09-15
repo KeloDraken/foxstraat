@@ -2,41 +2,6 @@
 
 {% block title %}Foxstraat - Explore{% endblock %}
 
-{% block styles %}
-<style>
-    .placeholder-item {
-        box-shadow: 0 4px 10px 0 rgba(33, 33, 33, 0.15);
-        border-radius: 4px;
-        height: 200px;
-        position: relative;
-        background-color: #ececec;
-        margin-bottom: 1rem;
-        overflow: hidden;
-    }
-
-    .placeholder-item::before {
-        content: '';
-        display: block;
-        position: absolute;
-        left: -150px;
-        top: 0;
-        height: 100%;
-        width: 150px;
-        background: linear-gradient(to right, transparent 0%, #f3f3f3 50%, transparent 100%);
-        animation: load 1s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
-    }
-
-    @keyframes load {
-        from {
-            left: -150px;
-        }
-
-        to {
-            left: 100%;
-        }
-    }
-</style>
-{% endblock %}
 
 {% block body %}
 <div class="w-full justify-center mx-auto px-44">
@@ -45,22 +10,35 @@
         <h1 id="heading" class="text-lg mt-1 mb-5 font-bold">
             Your top recommended links
         </h1>
+        <hr class="mt-10">
     </div>
-    <div class="infinite-container mx-auto px-60">
+    <div class="infinite-container mx-auto pt-10 px-60">
         {% for post in page_obj|dictsortreversed:"score" %}
         <div class="grid-item my-5 infinite-item">
-            <a title="{{ post.title }}" href="{% url 'posts:get-bulletin' bulletin_id=post.object_id %}">
-                {% if post.image %}
-                <img class="post-image" src="{{ post.image.url }}" alt="Post cover image" />
-                {% elif post.cover_art %}
-                <img class="post-image" src="{{ post.cover_art.url }}" alt="Post cover image" />
-                {% endif %}
-            </a>
+            <div class="flex  mb-3">
+                <div class="py-2 px-4">
+                    <a class="font-bold text-xl" href="{% url 'posts:get-post' post_id=post.object_id %}">
+                        {{post.title|truncatechars:110}}
+                    </a>
+                    <p class="mt-2 font-bold text-gray-700">
+                        {{post.publisher|truncatechars:140}}
+                    </p>
+                    <p class="mt-3">
+                        {{post.description|truncatechars:140}}
+                    </p>
+                </div>
+                <div class="flex flex-col">
+                    <div class="mt-2">
+                        <a href="{% url 'posts:get-post' post_id=post.object_id %}">
+                            <div class="w-full mb-3">
+                                <img src="{{post.image}}" class="h-48  object-cover mb-3" alt="recipe cover image" />
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
-        <div class="placeholder-item"></div>
-        <div class="placeholder-item"></div>
-        <div class="placeholder-item"></div>
     </div>
     {% include 'components/infinite_scroll_fetch.html' %}
     {% include 'components/footer.html' %}

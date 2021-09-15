@@ -1,7 +1,10 @@
 import random
-import re
+
 import requests
+from requests.exceptions import ConnectionError
+
 import string
+
 
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -41,7 +44,12 @@ def extract_page_data(url, request=None):
     Extracts page information using Open Graph protocol
     """
     # try:
-    src = requests.get(url)
+    try:
+        src = requests.get(url)
+    except ConnectionError:
+        messages.error(request, "Couldn't connect to website")
+        return redirect("posts:create-post")
+
     soup = BeautifulSoup(src.text, "lxml")
 
     og_title = soup.find("meta", property="og:title")

@@ -28,3 +28,16 @@ class Privacy(models.Model):
     body = models.TextField(null=False, blank=False)
     datetime_created = models.DateTimeField(auto_now_add=True)
     date_created = models.DateField(auto_now_add=True)
+
+
+class AdultWebsites(models.Model):
+    protocol = models.CharField(max_length=20000, null=True, blank=True)
+    domain = models.CharField(max_length=200000, null=True, blank=True)
+    path = models.CharField(max_length=20000, null=True, blank=True)
+    subdomain = models.CharField(max_length=20000, null=True, blank=True)
+    host = models.CharField(max_length=20000, null=True, blank=True)
+    tld = models.CharField(max_length=20000, null=True, blank=True)
+    parent_domain = models.CharField(max_length=20000, null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.parent_domain
