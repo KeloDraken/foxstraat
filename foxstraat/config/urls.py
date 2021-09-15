@@ -26,10 +26,19 @@ from foxstraat.core.accounts.views import (
     get_user_profile,
 )
 
-from foxstraat.core.views import about, dump_sites, news, privacy, rules, terms
+from foxstraat.core.views import (
+    about,
+    dump_sites,
+    index,
+    news,
+    privacy,
+    rules,
+    terms,
+)
 
 urlpatterns = (
     [
+        path("", index, name="index"),
         path("u/admin/", admin.site.urls, name="admin"),
         path("about/", about, name="about"),
         path("news/", news, name="news"),

@@ -30,6 +30,10 @@ def dump_sites(request):
     return fetch_porn_sites_json()
 
 
+def index(request):
+    return render(request, "public/index.html")
+
+
 def news(request):
     news_ = News.objects.all().order_by("-datetime_created")
     context = {"heading": "Foxstraat News", "news": news_}
