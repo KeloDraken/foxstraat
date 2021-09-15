@@ -12,6 +12,7 @@ class Post(models.Model):
     image = models.CharField(max_length=100000, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     publisher = models.CharField(max_length=400, null=False, blank=False)
+    is_nsfw = models.BooleanField(default=False)
 
     score = models.IntegerField(default=0)
     upvotes = models.PositiveIntegerField(default=0)
