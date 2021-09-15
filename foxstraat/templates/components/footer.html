@@ -12,3 +12,10 @@
         GitHub
     </a>
 </div>
+{% if request.user.is_authenticated %}
+<div class="flex justify-center my-16">
+    <a title="Sign out" class="mx-3 underline text-gray-500" href="{% url 'accounts:user-logout' %}">
+        Sign out <span class="text-xs text-black">({{request.user.email}})</span>
+    </a>
+</div>
+{% endif %}
