@@ -9,11 +9,16 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 
 from django.forms import URLField
-from django.http.response import Http404, HttpResponseForbidden, JsonResponse
+from django.http.response import (
+    Http404,
+    HttpResponse,
+    HttpResponseForbidden,
+    JsonResponse,
+)
 from django.shortcuts import get_object_or_404, redirect, render
 
 from foxstraat.utils.db import cast_vote, check_has_user_voted
-from foxstraat.utils.helpers import extract_page_data, object_id_generator
+from foxstraat.utils.helpers import extract_page_data, is_forbidden, object_id_generator
 
 from foxstraat.core.forms import FormWithCaptcha
 
@@ -88,7 +93,15 @@ def create_post(request):
             is_url_valid = validate_url(url)
 
             if is_url_valid:
-                return extract_page_data(url=url, request=request)
+                is_forbidden_url = is_forbidden(url=url)
+                if is_forbidden_url == False:
+                    return extract_page_data(url=url, request=request)
+                else:
+                    messages.error(
+                        request,
+                        "Link wasn't added because the host is banned from Foxstraat",
+                    )
+                    return redirect("posts:create-post")
             else:
                 messages.error(request, "Invalid url")
                 return redirect("posts:create-post")

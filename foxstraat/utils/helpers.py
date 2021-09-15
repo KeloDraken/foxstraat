@@ -7,7 +7,10 @@ import string
 
 
 from django.contrib import messages
+
 from django.db import IntegrityError
+from django.db.models import Q
+
 from django.http import HttpResponse
 from django.shortcuts import redirect
 
@@ -26,16 +29,19 @@ def object_id_generator(size, model, chars=string.ascii_letters + string.digits)
 
 
 def is_forbidden(url):
-    forbidden_sites = ForbiddenWebsites.objects.all()
+    url_attrs = url.split("/")
 
-    if not url == None and len(url) > 0:
-        for i in forbidden_sites:
-            if url in i.domain:
-                return True
-            else:
-                return False
-    else:
+    for i in url_attrs:
+        site = ForbiddenWebsites.objects.filter(
+            Q(host__icontains=i)
+            | Q(parent_domain__icontains=i)
+            | Q(domain__icontains=i)
+        ).count()
+
+    if site > 0:
         return True
+    else:
+        return False
 
 
 def add_post_to_db(url, publisher, title, description, image, request=None):
@@ -44,25 +50,15 @@ def add_post_to_db(url, publisher, title, description, image, request=None):
     """
     object_id = object_id_generator(size=11, model=Post)
     try:
-        is_forbidden_site = is_forbidden(url)
-
-        if not is_forbidden_site:
-            messages.error(
-                request,
-                "Link wasn't added because the host has been banned from Foxstraat",
-            )
-            return redirect("posts:create-post")
-
-        else:
-            post = Post.objects.create(
-                object_id=object_id,
-                user=request.user,
-                url=url,
-                publisher=publisher,
-                title=title,
-                description=description,
-                image=image,
-            )
+        post = Post.objects.create(
+            object_id=object_id,
+            user=request.user,
+            url=url,
+            publisher=publisher,
+            title=title,
+            description=description,
+            image=image,
+        )
     except IntegrityError:
         messages.error(
             request,
