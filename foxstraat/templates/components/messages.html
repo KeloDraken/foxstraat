@@ -2,7 +2,10 @@
 <div class="container my-5">
     {% for message in messages %}
     {% if message.tags == 'error' %}
-    <div class="bg-red-400 rounded px-2 py-1 font-bold text-white">{{ message }}</div>
+    <div class="mb-5">
+        <span class="text-red-600">{{message}}
+        </span>
+    </div>
     {% elif message.tags == 'success' %}
     <div class="bg-green-400 rounded px-2 py-1 font-bold text-black">
         {{ message }}

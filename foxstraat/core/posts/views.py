@@ -4,14 +4,16 @@ from datetime import date
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
+from django.forms import URLField
+
 
 from django.http.response import Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from foxstraat.utils.db import cast_vote, check_has_user_voted
-from foxstraat.utils.helpers import object_id_generator
+from foxstraat.utils.helpers import extract_page_data, object_id_generator
 
 from foxstraat.core.forms import FormWithCaptcha
 
@@ -61,51 +63,40 @@ def increment_user_num_posts(request):
     request.user.save()
 
 
-def handle_post_save(request, post_form):
-    post_form = post_form.save(commit=False)
-    post_form.user = request.user
-
-    if request.FILES.get("image"):
-        post_form.image = request.FILES.get("image")
-    else:
-        messages.error(request, "Post wasn't created. No image was found")
-        return redirect("posts:create-post")
-
-    object_id = object_id_generator(11, Post)
-    post_form.object_id = object_id
-
-    increment_user_num_posts(request)
-
-    post_form.save()
-
-    return redirect("posts:get-post", post_id=object_id)
+def validate_url(url):
+    url_form_field = URLField()
+    try:
+        url = url_form_field.clean(url)
+    except ValidationError:
+        return False
+    return True
 
 
 @login_required
 def create_post(request):
-    captcha = FormWithCaptcha()
-
-    if request.method == "POST":
-        post_form = CreatePostForm(request.POST)
-
-        has_valid_captcha = check_captcha(request)
-
-        if has_valid_captcha:
-            if post_form.is_valid():
-                return handle_post_save(request=request, post_form=post_form)
-
-            else:
-                messages.error(request, "Post creation failed")
-        else:
-            messages.error(request, "Please confirm that you're not a robot")
+    if not request.method == "POST":
+        context = {
+            "captcha": FormWithCaptcha,
+            "is_auth_page": True,
+        }
+        return render(request, "private/submit_link.html", context)
     else:
-        post_form = CreatePostForm()
+        url = request.POST.get("page_link")
+        # captcha_data = request.POST.get("g-recaptcha-response")
 
-    context = {
-        "post_form": post_form,
-        "captcha": captcha,
-    }
-    return render(request, "private/posts/create_post.html", context)
+        if not url == None and not url == "":
+            is_url_valid = validate_url(url)
+
+            if is_url_valid:
+                # response = extract_page_data(url=url, request=request)
+                messages.success(request, "Valid url")
+                return redirect("posts:create-post")
+            else:
+                messages.error(request, "Invalid url")
+                return redirect("posts:create-post")
+        else:
+            messages.error(request, "No link found")
+            return redirect("posts:create-post")
 
 
 def get_post(request, post_id):
