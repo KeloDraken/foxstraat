@@ -15,7 +15,7 @@
     <div class="infinite-container mx-auto pt-10 px-60">
         {% for post in page_obj|dictsortreversed:"score" %}
         <div class="grid-item my-5 infinite-item">
-            <div class="flex  mb-3">
+            <div class="flex px-4 mb-3">
                 <div class="py-2 px-4">
                     <a class="font-bold text-xl" href="{% url 'posts:get-post' post_id=post.object_id %}">
                         {{post.title|truncatechars:110}}
