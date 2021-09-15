@@ -30,7 +30,7 @@ class Privacy(models.Model):
     date_created = models.DateField(auto_now_add=True)
 
 
-class AdultWebsites(models.Model):
+class ForbiddenWebsites(models.Model):
     protocol = models.CharField(max_length=20000, null=True, blank=True)
     domain = models.CharField(max_length=200000, null=True, blank=True)
     path = models.CharField(max_length=20000, null=True, blank=True)
