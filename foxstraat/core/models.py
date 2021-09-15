@@ -40,4 +40,4 @@ class ForbiddenWebsites(models.Model):
     parent_domain = models.CharField(max_length=20000, null=True, blank=True)
 
     def __str__(self) -> str:
-        return self.parent_domain
+        return self.domain
