@@ -88,9 +88,7 @@ def create_post(request):
             is_url_valid = validate_url(url)
 
             if is_url_valid:
-                # response = extract_page_data(url=url, request=request)
-                messages.success(request, "Valid url")
-                return redirect("posts:create-post")
+                return extract_page_data(url=url, request=request)
             else:
                 messages.error(request, "Invalid url")
                 return redirect("posts:create-post")

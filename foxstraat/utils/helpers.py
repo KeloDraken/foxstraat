@@ -23,17 +23,10 @@ def add_post_to_db(url, publisher, title, description, image, request=None):
     """
     Commits page data to db, creating new `Post` object
     """
-    if not request == None:
-        user = request.user
-        user.num_posts += 1
-        user.save()
-    else:
-        user = None
-
     object_id = object_id_generator(size=11, model=Post)
     post = Post.objects.create(
         object_id=object_id,
-        user=user,
+        user=request.user,
         url=url,
         publisher=publisher,
         title=title,
