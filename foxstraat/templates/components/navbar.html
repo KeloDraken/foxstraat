@@ -11,7 +11,7 @@
             Foxstraat.
         </a>
         <div class="flex flex-row justify-evenly">
-            <a title="Matstad Home" href="{% url 'posts:frontpage' %}"
+            <a title="Foxstraat Home" href="{% url 'posts:frontpage' %}"
                 class="nav-link text-2xl mx-5 font-bold border-white">Frontpage</a>
             <a href="#" class="nav-link text-2xl mx-5 font-bold border-white">Browse</a>
             <a href="#" class="nav-link text-2xl mx-5 font-bold border-white">Archive</a>
@@ -19,12 +19,12 @@
         </div>
         <div class="flex flex-row">
             {% if request.user.is_authenticated %}
-            <a title="Create a Matstad account" href="#"
+            <a title="Create a Foxstraat account" href="#"
                 class="bg-black text-white text-normal rounded font-bold px-4 pt-3 mr-1 -mt-2">
                 leave feedback
             </a>
             {% else %}
-            <a title="Create a Matstad account" href="{% url 'accounts:user-register' %}"
+            <a title="Create a Foxstraat account" href="{% url 'accounts:user-register' %}"
                 class="bg-black text-white text-sm rounded font-bold px-4 pt-3 mr-1 -mt-2">
                 Create account
             </a>
