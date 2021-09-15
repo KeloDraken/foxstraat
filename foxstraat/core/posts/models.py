@@ -1,8 +1,5 @@
 from django.db import models
 
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFit
-
 from foxstraat.core.accounts.models import User
 
 

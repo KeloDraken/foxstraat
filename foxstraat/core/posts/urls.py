@@ -14,7 +14,7 @@ app_name = "bulletin"
 
 urlpatterns = [
     path("", frontpage, name="frontpage"),
-    path("photo/<post_id>/", get_post, name="get-post"),
+    path("<post_id>/", get_post, name="get-post"),
     path("add/", create_post, name="create-post"),
     path("vote/<post_id>/", user_cast_vote, name="cast-vote"),
     path("manage/", manage_posts, name="manage-posts"),
